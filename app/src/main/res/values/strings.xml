@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BookBoxBook</string>
+    <string name="title_search">검색</string>
+    <string name="title_bookmark">즐겨찾기</string>
+    <string name="title_add">추가하기</string>
+    <string name="title_list">내 리스트</string>
+    <string name="title_mypage">내 정보</string>
+</resources>

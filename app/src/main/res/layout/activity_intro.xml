@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/prelogoimage"/>
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="북박스북"
+        android:textSize="25sp"/>
+
+</LinearLayout>
