@@ -9,6 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class AddFragment extends Fragment {
+
+    public AddFragment() {
+
+    }
+
+    public static AddFragment newInstance() {
+        AddFragment fragment = new AddFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

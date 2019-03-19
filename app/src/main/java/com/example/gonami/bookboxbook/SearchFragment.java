@@ -9,6 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class SearchFragment extends Fragment {
+
+    public SearchFragment() {
+
+    }
+
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

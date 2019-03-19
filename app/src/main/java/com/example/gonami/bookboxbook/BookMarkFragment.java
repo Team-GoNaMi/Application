@@ -9,6 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class BookMarkFragment extends Fragment {
+
+    public BookMarkFragment() {
+
+    }
+
+    public static BookMarkFragment newInstance() {
+        BookMarkFragment fragment = new BookMarkFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
