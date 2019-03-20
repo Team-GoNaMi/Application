@@ -9,20 +9,27 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.gonami.bookboxbook.AddBook.AddFragment;
+import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
+import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
+import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
+import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
+
 import static android.support.design.widget.BottomNavigationView.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    SearchFragment searchFragment;
-    BookMarkFragment bookMarkFragment;
-    AddFragment addFragment;
-    TransactionListFragment transactionListFragment;
-    MyPageFragment myPageFragment;
+    private SearchFragment searchFragment;
+    private BookMarkFragment bookMarkFragment;
+    private AddFragment addFragment;
+    private TransactionListFragment transactionListFragment;
+    private MyPageFragment myPageFragment;
 
-    BottomNavigationView bottomNavigationView;
-    Fragment activeFragment;
-    FragmentManager fragmentManager;
-    FrameLayout frameLayout;
+    private BottomNavigationView bottomNavigationView;
+    private Fragment activeFragment;
+    private FrameLayout frameLayout;
+
+    public FragmentManager fragmentManager;
 
     private OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
 

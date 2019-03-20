@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook;
+package com.example.gonami.bookboxbook.TransactionList;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BookMarkFragment extends Fragment {
+import com.example.gonami.bookboxbook.R;
 
-    public BookMarkFragment() {
+public class SellListFragment extends Fragment {
+
+    private View thisView = null;
+
+    public SellListFragment() {
 
     }
 
-    public static BookMarkFragment newInstance() {
-        BookMarkFragment fragment = new BookMarkFragment();
+    public static SellListFragment newInstance() {
+        SellListFragment fragment = new SellListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -24,6 +28,10 @@ public class BookMarkFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_bookmark, null);
+
+        if (thisView == null)
+            thisView = inflater.inflate(R.layout.fragment_list_sell, null);
+
+        return thisView;
     }
 }

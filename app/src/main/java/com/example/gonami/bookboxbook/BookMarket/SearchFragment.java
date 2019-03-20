@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook;
+package com.example.gonami.bookboxbook.BookMarket;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AddFragment extends Fragment {
+import com.example.gonami.bookboxbook.R;
 
-    public AddFragment() {
+public class SearchFragment extends Fragment {
+
+    private View thisView = null;
+
+    public SearchFragment() {
 
     }
 
-    public static AddFragment newInstance() {
-        AddFragment fragment = new AddFragment();
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -24,6 +28,9 @@ public class AddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add, null);
+        if (thisView == null)
+            thisView = inflater.inflate(R.layout.fragment_search, null);
+
+        return thisView;
     }
 }
