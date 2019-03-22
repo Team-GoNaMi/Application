@@ -14,6 +14,7 @@ import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
+import com.example.gonami.bookboxbook.R;
 
 import static android.support.design.widget.BottomNavigationView.*;
 
