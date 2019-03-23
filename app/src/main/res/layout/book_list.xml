@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="140dp"
     android:padding="5dp">
 
     <ImageView
@@ -13,46 +14,67 @@
         android:layout_gravity="center_vertical"/>
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:padding="10dp">
+        android:gravity="center"
+        android:padding="3dp"
+        android:layout_marginLeft="10dp">
 
         <TextView
             android:id="@+id/tv_book_name"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:text="책 이름"
-            android:textSize="15sp" />
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/tv_book_author"
-            android:layout_width="200dp"
+            android:id="@+id/tv_book_info"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:text="책 저자"
+            android:text="책 저자, 출판사"
             android:textColor="@android:color/black"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_book_schoolname"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:text="학교 이름"
-            android:textSize="12sp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_book_price"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="20000원"
-        android:textSize="15sp"
-        android:textColor="@android:color/black" />
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_original_price"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="원래 가격"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/tv_book_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="파는 가격"
+            android:textSize="15sp"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
 
 </LinearLayout>
