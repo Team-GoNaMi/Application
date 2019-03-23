@@ -61,7 +61,7 @@
             android:layout_height="40dp"
             android:gravity="center"
             android:background="?android:attr/windowBackground"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_bookmark_black_24dp"/>
 
         <TextView
             android:id="@+id/tv_original_price"

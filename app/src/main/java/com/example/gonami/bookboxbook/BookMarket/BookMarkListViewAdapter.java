@@ -16,20 +16,18 @@ import java.util.ArrayList;
 
 public class BookMarkListViewAdapter extends BaseAdapter {
 
-    private Context context;
     private ArrayList<String> bookList;
 
-    private ImageView ivBookImage;
-    private TextView tvBookName;
-    private TextView tvBookInfo;
-    private TextView tvSchoolNames;
-    private ImageButton ibBookMark;
-    private TextView tvBookPrice;
+//    private ImageView ivBookImage;
+//    private TextView tvBookName;
+//    private TextView tvBookInfo;
+//    private TextView tvSchoolNames;
+//    private ImageButton ibBookMark;
+//    private TextView tvBookPrice;
 
     private boolean checked = true;
 
-    public BookMarkListViewAdapter(Context context, ArrayList<String> bookList) {
-        this.context = context;
+    public BookMarkListViewAdapter(ArrayList<String> bookList) {
         this.bookList = bookList;
     }
 
@@ -57,15 +55,14 @@ public class BookMarkListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.book_list_mark, parent, false);
         }
 
-        ivBookImage = convertView.findViewById(R.id.img_book);
-        tvBookName = convertView.findViewById(R.id.tv_book_name);
-        tvBookInfo = convertView.findViewById(R.id.tv_book_info);
-        tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
-        ibBookMark = convertView.findViewById(R.id.ib_bookmark);
-        tvBookPrice = convertView.findViewById(R.id.tv_book_price);
+        ImageView ivBookImage = convertView.findViewById(R.id.img_book);
+        TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
+        TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
+        TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
+        final ImageButton ibBookMark = convertView.findViewById(R.id.ib_bookmark);
+        TextView tvBookPrice = convertView.findViewById(R.id.tv_book_price);
 
-
-        // TODO 왜야 맨 밑에 아이만 북마크 표시가 되는 거시야ㅠㅠㅠㅠ
+        // TODO 북마크 해제 하면 북마크 리스트에서 삭제 --> 전체 DataCenter 만들어야 하나...??
         ibBookMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -59,7 +59,7 @@ public class BookMarkFragment extends Fragment {
         bookmarkList.add("다 똑같이 눌러지나여....?ㅠㅠ");
 
         bookmarkListView = (ListView)thisView.findViewById(R.id.lv_bookmark);
-        bookmarkListAdapter = new BookMarkListViewAdapter(this.getContext(), bookmarkList);
+        bookmarkListAdapter = new BookMarkListViewAdapter(bookmarkList);
         bookmarkListView.setAdapter(bookmarkListAdapter);
     }
 }
