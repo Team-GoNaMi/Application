@@ -56,7 +56,7 @@ public class BookMarkFragment extends Fragment {
         //Test
         bookmarkList.add("안녕하세요");
         bookmarkList.add("북마크입니당");
-        bookmarkList.add("다 똑같이 눌러지나여....?ㅠㅠ");
+        bookmarkList.add("잘 됐으면 좋겠당");
 
         bookmarkListView = (ListView)thisView.findViewById(R.id.lv_bookmark);
         bookmarkListAdapter = new BookMarkListViewAdapter(bookmarkList);

@@ -57,7 +57,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/tv_original_price"
+            android:id="@+id/tv_book_original_price"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center"

@@ -18,13 +18,6 @@ public class BookMarkListViewAdapter extends BaseAdapter {
 
     private ArrayList<String> bookList;
 
-//    private ImageView ivBookImage;
-//    private TextView tvBookName;
-//    private TextView tvBookInfo;
-//    private TextView tvSchoolNames;
-//    private ImageButton ibBookMark;
-//    private TextView tvBookPrice;
-
     private boolean checked = true;
 
     public BookMarkListViewAdapter(ArrayList<String> bookList) {
@@ -60,6 +53,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
         TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
         final ImageButton ibBookMark = convertView.findViewById(R.id.ib_bookmark);
+        TextView tvOriginPrice = convertView.findViewById(R.id.tv_book_original_price);
         TextView tvBookPrice = convertView.findViewById(R.id.tv_book_price);
 
         // TODO 북마크 해제 하면 북마크 리스트에서 삭제 --> 전체 DataCenter 만들어야 하나...??
@@ -82,8 +76,9 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         // TODO DB에서 불러와서 해당 책 등록번호에 맞는 책 이미지, 책 이름, 책 정보 불러와서 띄우기
         ivBookImage.setImageAlpha(R.mipmap.ic_launcher);
         tvBookName.setText(bookRegisterNum);
-        tvBookInfo.setText("차은호 / 겨루");
+        tvBookInfo.setText("강단이 / 겨루");
         tvSchoolNames.setText("중앙대 서울캠, 홍대");
+        tvOriginPrice.setText("10원");
         tvBookPrice.setText("50000원");
 
 

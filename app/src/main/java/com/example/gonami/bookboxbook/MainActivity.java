@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     public FragmentManager fragmentManager;
+
+    private long backKeyPressedTime;    // 앱 종료 위한 백 버튼 누른 시간
 
     private OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
 
@@ -125,5 +128,17 @@ public class MainActivity extends AppCompatActivity {
         activeFragment = searchFragment;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            finish();
+            System.exit(0);
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
 }
