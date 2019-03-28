@@ -38,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btn_sign_up);
 
         cbAutoLogin = findViewById(R.id.cb_autologin);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signupIntent = new Intent(LoginActivity.this, SignUpActivity.class);
                 LoginActivity.this.startActivity(signupIntent);
+                finish();
             }
         });
     }

@@ -28,7 +28,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-             android:hint="아이디"/>
+            android:hint="아이디 (10자 이내)"/>
 
         <Button
             android:id="@+id/btn_dup_check"

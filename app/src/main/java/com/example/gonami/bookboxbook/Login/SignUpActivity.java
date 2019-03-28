@@ -1,11 +1,15 @@
 package com.example.gonami.bookboxbook.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -37,5 +41,19 @@ public class SignUpActivity extends AppCompatActivity {
 
         btnSignUp = findViewById(R.id.btn_sign_up);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signupIntent = new Intent(SignUpActivity.this, LoginActivity.class);
+                SignUpActivity.this.startActivity(signupIntent);
+                finish();
+            }
+        });
     }
 }
