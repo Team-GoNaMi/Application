@@ -4,20 +4,33 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.R;
 
+import java.util.ArrayList;
+
 public class SearchFragment extends Fragment {
 
+    private ArrayList<String> searchList;
+
     private View thisView = null;
-    private SearchView searchView;
+
     private ListView bookListView;
+
+//    private SearchView searchView;
+    private EditText etSearchBook;
+    private Button btnSearch;
 
     public SearchFragment() {
 
@@ -48,24 +61,52 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        searchView = thisView.findViewById(R.id.sv_book_search);
+        searchList = new ArrayList<String>();
+
+        //Test
+        TextView id = thisView.findViewById(R.id.tv_user_id);
+        TextView pw = thisView.findViewById(R.id.tv_user_password);
+
+        id.setText("");
+        pw.setText("");
+
         bookListView = thisView.findViewById(R.id.lv_book_market);
 
-        searchView.setQueryHint("책 이름 검색");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        etSearchBook = thisView.findViewById(R.id.et_search_book);
+        etSearchBook.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getContext(), query, Toast.LENGTH_LONG).show();
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getContext(), newText, Toast.LENGTH_LONG).show();
-                return false;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+
+
+
+//        searchView = thisView.findViewById(R.id.sv_book_search);
+//        searchView.setQueryHint("책 이름 검색");
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                Toast.makeText(getContext(), query, Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                Toast.makeText(getContext(), newText, Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//        });
 
     }
 }

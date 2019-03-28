@@ -131,12 +131,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if (fragmentManager.getBackStackEntryCount() == 0) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_search);
+        }
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
             Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
         }
         else {
-            finish();
+            this.finish();
             System.exit(0);
             android.os.Process.killProcess(android.os.Process.myPid());
         }
