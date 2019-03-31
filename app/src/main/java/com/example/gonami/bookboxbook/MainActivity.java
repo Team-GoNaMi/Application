@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
+import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private AddFragment addFragment;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
+
+    private BookSellFragment bookSellFragment;
 
     private BottomNavigationView bottomNavigationView;
     private Fragment activeFragment;
