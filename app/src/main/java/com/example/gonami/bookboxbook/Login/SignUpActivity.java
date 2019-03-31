@@ -52,8 +52,18 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signupIntent = new Intent(SignUpActivity.this, LoginActivity.class);
                 SignUpActivity.this.startActivity(signupIntent);
+                overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent signupIntent = new Intent(SignUpActivity.this, LoginActivity.class);
+        SignUpActivity.this.startActivity(signupIntent);
+        overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
+        finish();
     }
 }
