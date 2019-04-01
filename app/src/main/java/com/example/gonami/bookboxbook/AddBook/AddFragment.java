@@ -7,12 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.gonami.bookboxbook.R;
 
 public class AddFragment extends Fragment {
 
     private View thisView = null;
+
+    private Button btnBarcord;
+    private Button btnManual;
 
     public AddFragment() {
 
@@ -35,7 +39,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (thisView == null)
-            thisView = inflater.inflate(R.layout.fragment_add, null);
+            thisView = inflater.inflate(R.layout.activity_add, null);
 
         return thisView;
     }
