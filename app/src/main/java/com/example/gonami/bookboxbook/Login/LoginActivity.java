@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
@@ -51,8 +52,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signupIntent = new Intent(LoginActivity.this, SignUpActivity.class);
-                LoginActivity.this.startActivity(signupIntent);
+                signupIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                LoginActivity.this.startActivityForResult(signupIntent, 1000);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==1000 && requestCode == RESULT_OK) {
+            Toast.makeText(LoginActivity.this, "회원가입을 완료했습니다!", Toast.LENGTH_SHORT).show();
+            edUserID.setText(data.getStringExtra("id"));
+        }
     }
 }
