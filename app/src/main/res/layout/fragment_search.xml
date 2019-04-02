@@ -55,6 +55,12 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_test_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="책 상세 페이지"/>
+
     <ListView
         android:id="@+id/lv_book_market"
         android:layout_width="match_parent"

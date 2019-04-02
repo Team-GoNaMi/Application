@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
+import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private AddFragment addFragment;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
+
+    private BookSellFragment bookSellFragment;
 
     private BottomNavigationView bottomNavigationView;
     private Fragment activeFragment;
@@ -130,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (fragmentManager.getBackStackEntryCount() == 0) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_search);
         }
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+//            super.onBackPressed();
             backKeyPressedTime = System.currentTimeMillis();
             Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
         }

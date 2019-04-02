@@ -1,5 +1,6 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -61,34 +62,46 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        searchList = new ArrayList<String>();
+//        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
+//        testbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getFragmentManager().beginTransaction()
+//                                    .addToBackStack(null)
+//                                    .replace(R.)
+//                                    .commit();
+//            }
+//        });
 
-        //Test
-        TextView id = thisView.findViewById(R.id.tv_user_id);
-        TextView pw = thisView.findViewById(R.id.tv_user_password);
 
-        id.setText("");
-        pw.setText("");
-
-        bookListView = thisView.findViewById(R.id.lv_book_market);
-
-        etSearchBook = thisView.findViewById(R.id.et_search_book);
-        etSearchBook.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        searchList = new ArrayList<String>();
+//
+//        //Test
+//        TextView id = thisView.findViewById(R.id.tv_user_id);
+//        TextView pw = thisView.findViewById(R.id.tv_user_password);
+//
+//        id.setText("");
+//        pw.setText("");
+//
+//        bookListView = thisView.findViewById(R.id.lv_book_market);
+//
+//        etSearchBook = thisView.findViewById(R.id.et_search_book);
+//        etSearchBook.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
 

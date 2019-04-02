@@ -1,29 +1,26 @@
-package com.example.gonami.bookboxbook.AddBook;
+package com.example.gonami.bookboxbook.BookMarket;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.gonami.bookboxbook.R;
 
-public class AddFragment extends Fragment {
+public class BookSellFragment extends Fragment {
 
     private View thisView = null;
 
-    private Button btnBarcord;
-    private Button btnManual;
-
-    public AddFragment() {
+    public BookSellFragment() {
 
     }
 
-    public static AddFragment newInstance() {
-        AddFragment fragment = new AddFragment();
+    public static BookSellFragment newInstance() {
+        BookSellFragment fragment = new BookSellFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -37,10 +34,16 @@ public class AddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         if (thisView == null)
-            thisView = inflater.inflate(R.layout.activity_add, null);
+            thisView = inflater.inflate(R.layout.fragment_book_sell, null);
 
         return thisView;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
 }
