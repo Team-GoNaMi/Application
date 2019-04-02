@@ -11,19 +11,19 @@ import android.widget.Button;
 
 import com.example.gonami.bookboxbook.R;
 
-public class AddFragment extends Fragment {
+public class AddActivity extends Fragment {
 
     private View thisView = null;
 
     private Button btnBarcord;
     private Button btnManual;
 
-    public AddFragment() {
+    public AddActivity() {
 
     }
 
-    public static AddFragment newInstance() {
-        AddFragment fragment = new AddFragment();
+    public static AddActivity newInstance() {
+        AddActivity fragment = new AddActivity();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -10,13 +10,12 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.gonami.bookboxbook.AddBook.AddFragment;
+import com.example.gonami.bookboxbook.AddBook.AddActivity;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
-import com.example.gonami.bookboxbook.R;
 
 import static android.support.design.widget.BottomNavigationView.*;
 
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SearchFragment searchFragment;
     private BookMarkFragment bookMarkFragment;
-    private AddFragment addFragment;
+    private AddActivity addActivity;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             if ((menuItem.getItemId() == R.id.navigation_search && activeFragment == searchFragment) ||
                     (menuItem.getItemId() == R.id.navigation_bookmark && activeFragment == bookMarkFragment) ||
-                    (menuItem.getItemId() == R.id.navigation_add && activeFragment == addFragment) ||
+                    (menuItem.getItemId() == R.id.navigation_add && activeFragment == addActivity) ||
                     (menuItem.getItemId() == R.id.navigation_list && activeFragment == transactionListFragment) ||
                     (menuItem.getItemId() == R.id.navigation_mypage && activeFragment == myPageFragment)) {
                 return false;
@@ -68,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_add:
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.frame_layout, addFragment, "Add")
+                            .replace(R.id.frame_layout, addActivity, "Add")
                             .commit();
-                    activeFragment = addFragment;
+                    activeFragment = addActivity;
                     return true;
                 case R.id.navigation_list:
                     fragmentManager.beginTransaction()
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         searchFragment = SearchFragment.newInstance();
         bookMarkFragment = BookMarkFragment.newInstance();
-        addFragment = AddFragment.newInstance();
+        addActivity = AddActivity.newInstance();
         transactionListFragment = TransactionListFragment.newInstance();
         myPageFragment = MyPageFragment.newInstance();
 
