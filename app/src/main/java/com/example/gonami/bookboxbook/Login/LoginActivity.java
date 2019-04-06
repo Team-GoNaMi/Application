@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 LoginActivity.this.startActivityForResult(signupIntent, 1000);
 //                LoginActivity.this.startActivity(signupIntent);
-                finish();
             }
         });
     }
