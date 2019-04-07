@@ -36,5 +36,14 @@ public class AddActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btn_manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent manualIntent = new Intent(AddActivity.this, BookInfoActivity.class);
+                manualIntent.putExtra("isBarcord",false);
+                AddActivity.this.startActivity(manualIntent);
+                finish();
+            }
+        });
     }
 }
