@@ -5,26 +5,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="444dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="ISBN"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="41dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="책 정보"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_ISBN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ISBN"/>
+
+    <EditText
+        android:id="@+id/ed_ISBN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_BookName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="책 이름" />
+
+    <EditText
+        android:id="@+id/ed_BookName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_Author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저자" />
+
+    <EditText
+        android:id="@+id/ed_Author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_Publisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="출판사" />
+
+    <EditText
+        android:id="@+id/ed_Publisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_orignalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="정가" />
+
+    <EditText
+        android:id="@+id/ed_originalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음 단계로" />
 
 </LinearLayout>
