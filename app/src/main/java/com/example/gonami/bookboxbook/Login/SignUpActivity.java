@@ -159,6 +159,8 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("id", edUserID.getText().toString());
 
+                Log.i(TAG, "Added in db");
+
                 setResult(RESULT_OK, intent);
                 overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);
                 finish();

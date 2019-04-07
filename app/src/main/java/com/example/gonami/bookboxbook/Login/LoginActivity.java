@@ -20,6 +20,9 @@ import com.example.gonami.bookboxbook.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static String IP_ADDRESS = "bookboxbook.duckdns.org";
+    private static String TAG = "SignIn";
+
     private EditText edUserID;
     private EditText edUserPW;
 
@@ -49,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.i(TAG, "sign in btn clicked");
+
+
                 Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(signinIntent);
                 finish();
@@ -74,7 +81,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode==1000 && requestCode == RESULT_OK) {
-            Toast.makeText(LoginActivity.this, "회원가입을 완료했습니다!", Toast.LENGTH_SHORT).show();
+            Log.i("SignUp", "signup finished");
+
+            Toast.makeText(LoginActivity.this, "회원가입을 완료했습니다!", Toast.LENGTH_LONG).show();
             edUserID.setText(data.getStringExtra("id"));
         }
     }
