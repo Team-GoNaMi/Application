@@ -12,7 +12,7 @@
         android:text="sell"/>
 
     <ListView
-        android:id="@+id/lv_buy_list"
+        android:id="@+id/lv_sell_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
