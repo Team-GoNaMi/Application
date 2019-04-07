@@ -23,11 +23,12 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private ArrayList<String> searchList;
-
     private View thisView = null;
 
     private ListView bookListView;
+    private BookSearchListViewAdapter bookSearchListViewAdapter;
+    private ArrayList<String> searchList;
+
 
 //    private SearchView searchView;
     private EditText etSearchBook;
@@ -61,6 +62,15 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        searchList = new ArrayList<String>();
+
+        searchList.add("책 검색 페이지");
+        searchList.add("맞나용???");
+
+        bookListView = thisView.findViewById(R.id.lv_book_market);
+        bookSearchListViewAdapter = new BookSearchListViewAdapter(searchList);
+        bookListView.setAdapter(bookSearchListViewAdapter);
 
 //        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
 //        testbtn.setOnClickListener(new View.OnClickListener() {
