@@ -1,46 +1,40 @@
 package com.example.gonami.bookboxbook.AddBook;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.gonami.bookboxbook.R;
+import com.example.gonami.bookboxbook.RecognizeCode.ScannerActivity;
 
-public class AddActivity extends Fragment {
+public class AddActivity extends AppCompatActivity {
 
-    private View thisView = null;
-
-    private Button btnBarcord;
-    private Button btnManual;
-
-    public AddActivity() {
-
-    }
-
-    public static AddActivity newInstance() {
-        AddActivity fragment = new AddActivity();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Button btn_barcord;
+    private Button btn_manual;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add);
+
+        btn_barcord = findViewById(R.id.btn_barcord);
+        btn_manual = findViewById(R.id.btn_manual);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onResume() {
+        super.onResume();
 
-        if (thisView == null)
-            thisView = inflater.inflate(R.layout.activity_add, null);
-
-        return thisView;
+        btn_barcord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent barcordIntent = new Intent(AddActivity.this, ScannerActivity.class);
+                AddActivity.this.startActivity(barcordIntent);
+                finish();
+            }
+        });
     }
 }

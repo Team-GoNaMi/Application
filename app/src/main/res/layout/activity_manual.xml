@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_bookinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="책정보"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/ed_isbn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="ISBN"
+        android:inputType="textPersonName|textAutoComplete" />
+
+    <EditText
+        android:id="@+id/ed_bookname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="책이름"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/ed_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="작가"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/ed_publisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="출판사"
+        android:inputType="textAutoComplete" />
+
+    <EditText
+        android:id="@+id/ed_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="정가"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/ed_edition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="에디션"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_login2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="등록" />
+</LinearLayout>

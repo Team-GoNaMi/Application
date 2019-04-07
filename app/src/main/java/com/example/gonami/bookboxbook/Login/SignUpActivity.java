@@ -87,11 +87,25 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "btn clicked");
 
                 String id = edUserID.getText().toString();
                 String pw = edUserPW.getText().toString();
@@ -114,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (pwCheck.length() == 0) {
+                if (pwCheck.length() == 0 || !pw.equals(pwCheck)) {
                     Toast.makeText(SignUpActivity.this, "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
                     edUserPWCheck.requestFocus();
                     return;
@@ -126,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (phonenum.length() == 0) {
+                if (phonenum.length() == 0) {   // 11자리가 아니면이라고 고쳐야 함
                     Toast.makeText(SignUpActivity.this, "전화번호를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPN.requestFocus();
                     return;
@@ -139,44 +153,13 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 InsertMemberData task = new InsertMemberData();
+                task.execute("https://" + IP_ADDRESS + "/insert-user.php", id, pw, name, phonenum, school);
 
 
                 Intent intent = new Intent();
                 intent.putExtra("id", edUserID.getText().toString());
 
                 setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
-
-    }
-
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent signupIntent = new Intent(SignUpActivity.this, LoginActivity.class);
-//        SignUpActivity.this.startActivity(signupIntent);
-//        overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
-//        finish();
-//    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signupIntent = new Intent(SignUpActivity.this, LoginActivity.class);
-                SignUpActivity.this.startActivity(signupIntent);
                 overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);
                 finish();
             }
@@ -202,7 +185,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
             checkSignUp.setText(result);
-            Log.d(TAG, "POST response  - " + result);
+            Log.i(TAG, "POST response1  - " + result);
         }
 
         @Override
@@ -214,7 +197,7 @@ public class SignUpActivity extends AppCompatActivity {
             String school = (String)strings[5];
 
             String serverURL = (String)strings[0];
-            String postParameters = "id=" + id + "& pw=" + pw + "& name=" + name +"& ph=" + phonenum +"& school=" + school;
+            String postParameters = "id=" + id + "& password=" + pw + "& name=" + name +"& phonenum=" + phonenum +"&school=" + school;
 
 
             try {
@@ -236,14 +219,17 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
+                Log.i(TAG, "POST response code2 - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
                     inputStream = httpURLConnection.getInputStream();
+                    Log.i(TAG, "OKAY");
                 }
                 else{
                     inputStream = httpURLConnection.getErrorStream();
+                    Log.i(TAG, String.valueOf(responseStatusCode));
+
                 }
 
 
@@ -253,14 +239,15 @@ public class SignUpActivity extends AppCompatActivity {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while((line = bufferedReader.readLine()) != null) {
                     sb.append(line);
                 }
                 bufferedReader.close();
+                Log.i(TAG, "////"+sb.toString());
                 return sb.toString();
 
             } catch (Exception e) {
-                Log.d(TAG, "InsertData: Error ", e);
+                Log.i(TAG, "InsertData: Error ", e);
                 return new String("Error: " + e.getMessage());
             }
         }

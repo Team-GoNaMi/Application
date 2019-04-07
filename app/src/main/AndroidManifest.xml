@@ -21,6 +21,8 @@
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Login.SignUpActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".AddBook.AddActivity"/>
+        <activity android:name=".RecognizeCode.ScannerActivity"/>
     </application>
 
 </manifest>

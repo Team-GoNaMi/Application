@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("SignUp", "signupbtn clicked in login page");
                 Intent signupIntent = new Intent(LoginActivity.this, SignUpActivity.class);
 
                 signupIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
