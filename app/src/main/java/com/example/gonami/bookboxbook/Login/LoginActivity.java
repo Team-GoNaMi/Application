@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private String user_id;
 
-    private TextView testLogin;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
         cbAutoLogin = findViewById(R.id.cb_autologin);
 
-        testLogin = findViewById(R.id.tv_check_login);
     }
 
     @Override
@@ -161,11 +158,10 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             progressDialog.dismiss();
-            testLogin.setText(s);
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){
-                testLogin.setText(errorString);
+                Log.i(TAG, errorString);
                 Toast.makeText(LoginActivity.this, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -264,15 +260,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
-
-//if (checkLogin) {
-//        Log.i(TAG, "Login checked");
-//        Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);
-//        signinIntent.putExtra("id", user_id);
-//        LoginActivity.this.startActivity(signinIntent);
-//        finish();
-//        }
-//        else {
-//        Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-//        }

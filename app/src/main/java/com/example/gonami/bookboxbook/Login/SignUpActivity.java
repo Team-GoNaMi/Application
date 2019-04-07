@@ -37,8 +37,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edUserPN;
     private EditText edUserSchool;
 
-    private TextView checkSignUp;
-
     private Button btnIDDupCheck;
     private Button btnSignUp;
 
@@ -58,8 +56,6 @@ public class SignUpActivity extends AppCompatActivity {
         btnIDDupCheck = findViewById(R.id.btn_dup_check);
 
         btnSignUp = findViewById(R.id.btn_sign_up);
-
-        checkSignUp = findViewById(R.id.tv_check_signup);
 
 
         edUserPWCheck.addTextChangedListener(new TextWatcher() {
@@ -186,7 +182,6 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            checkSignUp.setText(result);
             Log.i(TAG, "POST response1  - " + result);
         }
 
