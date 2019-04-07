@@ -168,7 +168,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    class InsertMemberData extends AsyncTask<String, Void, String> {
+    private class InsertMemberData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
 

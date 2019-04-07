@@ -112,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent userInfoIntent = new Intent(this.getIntent());
+        String user_id = userInfoIntent.getStringExtra("id");
+
         searchFragment = SearchFragment.newInstance();
         bookMarkFragment = BookMarkFragment.newInstance();
         transactionListFragment = TransactionListFragment.newInstance();

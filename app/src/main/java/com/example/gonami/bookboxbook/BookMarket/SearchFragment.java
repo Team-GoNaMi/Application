@@ -42,6 +42,7 @@ public class SearchFragment extends Fragment {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+//        args.putString();
         return fragment;
     }
 

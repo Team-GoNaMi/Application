@@ -81,4 +81,11 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:text="회원가입"/>
+
+    <TextView
+        android:id="@+id/tv_check_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"/>
+
 </LinearLayout>
