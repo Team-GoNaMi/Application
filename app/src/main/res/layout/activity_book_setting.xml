@@ -12,9 +12,6 @@
         android:layout_marginBottom="56dp"
         android:orientation="vertical" >
 
-
-
-
         <TextView
             android:id="@+id/tv_sell"
             android:layout_width="match_parent"
@@ -91,7 +88,7 @@
             android:text="이름기입 없음" />
 
         <CheckBox
-            android:id="@+id/check_damage"
+            android:id="@+id/check_damage1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/colorPrimary"
@@ -115,28 +112,30 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btn_addphoto"
             android:layout_width="match_parent"
-            android:layout_height="123dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_add" />
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/image1"
-                android:layout_width="158dp"
-                android:layout_height="match_parent"
-                android:background="@android:drawable/ic_menu_gallery"
-                app:srcCompat="@android:color/transparent" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="158dp"
-                android:layout_height="match_parent"
-                android:background="@android:drawable/ic_menu_gallery"
-                app:srcCompat="@android:color/transparent" />
-        </LinearLayout>
-
+           <!---->
+        <!--</LinearLayout>-->
 
         <TextView
             android:id="@+id/tv_location"
@@ -146,6 +145,10 @@
             android:background="@color/colorPrimary"
             android:text="거래 장소"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tv_memo"
@@ -161,11 +164,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="추가설명을 자유롭게 적어주세요"
             android:inputType="textMultiLine"
             android:lines="3"
             android:maxLines="4"
-            android:scrollbars="vertical"
-            android:text="추가설명을 자유롭게 적어주세요" />
+            android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/btn_regist"

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.ScannerActivity;
@@ -33,6 +34,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private EditText ed_price;
 
     private Button btn_next;
+    private Boolean isBarcord;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +48,14 @@ public class BookInfoActivity extends AppCompatActivity {
 
         btn_next = findViewById(R.id.btn_next);
 
+
+        btn_next.setEnabled(false);
+
         Intent Intent = new Intent(this.getIntent());
-        Boolean isBarcord = Intent.getExtras().getBoolean("isBarcord");
+        isBarcord = Intent.getExtras().getBoolean("isBarcord");
         if(isBarcord==true){
+            btn_next.setEnabled(true);
+            btn_next.setBackgroundColor(0xFF8FD694);
             final String isbn = Intent.getExtras().getString("isbn");
             new Thread() {
                 public void run() {
@@ -63,11 +70,17 @@ public class BookInfoActivity extends AppCompatActivity {
                 }
             }.start();
 
-        }else{
+        }
+        else{
+
+
+            if (ed_isbn.length() != 0 && ed_name.length() != 0 && ed_author.length() != 0 && ed_publisher.length() != 0 && ed_price.length() != 0){
+                Log.i("//manual","//////////////che");
+                btn_next.setEnabled(true);
+                btn_next.setBackgroundColor(0xFF8FD694);
+            }
 
         }
-
-
     }
 
     @SuppressLint("HandlerLeak")
@@ -92,8 +105,8 @@ public class BookInfoActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent barcordIntent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
-                BookInfoActivity.this.startActivity(barcordIntent);
+                Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
+                BookInfoActivity.this.startActivity(Intent);
                 finish();
             }
         });
