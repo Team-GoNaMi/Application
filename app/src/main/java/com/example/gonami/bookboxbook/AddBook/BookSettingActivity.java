@@ -31,7 +31,6 @@ public class BookSettingActivity extends AppCompatActivity {
     private TextView tv_location;
 
     private TextView tv_memo;
-    private
 
     private Button btn_regist;
     @Override
