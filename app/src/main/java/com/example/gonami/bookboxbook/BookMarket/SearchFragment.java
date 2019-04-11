@@ -5,18 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
@@ -28,6 +24,8 @@ public class SearchFragment extends Fragment {
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
     private ArrayList<String> searchList;
+
+    private BookSellActivity bookSellFragment;
 
 
 //    private SearchView searchView;
@@ -73,64 +71,17 @@ public class SearchFragment extends Fragment {
         bookSearchListViewAdapter = new BookSearchListViewAdapter(searchList);
         bookListView.setAdapter(bookSearchListViewAdapter);
 
-//        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
-//        testbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getFragmentManager().beginTransaction()
-//                                    .addToBackStack(null)
-//                                    .replace(R.)
-//                                    .commit();
-//            }
-//        });
+        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
+        testbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BookSellActivity.class);
 
-
-//        searchList = new ArrayList<String>();
-//
-//        //Test
-//        TextView id = thisView.findViewById(R.id.tv_user_id);
-//        TextView pw = thisView.findViewById(R.id.tv_user_password);
-//
-//        id.setText("");
-//        pw.setText("");
-//
-//        bookListView = thisView.findViewById(R.id.lv_book_market);
-//
-//        etSearchBook = thisView.findViewById(R.id.et_search_book);
-//        etSearchBook.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-
-
-
-//        searchView = thisView.findViewById(R.id.sv_book_search);
-//        searchView.setQueryHint("책 이름 검색");
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Toast.makeText(getContext(), query, Toast.LENGTH_LONG).show();
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                Toast.makeText(getContext(), newText, Toast.LENGTH_LONG).show();
-//                return false;
-//            }
-//        });
+                startActivity(intent);
+            }
+        });
 
     }
+
+
 }

@@ -33,8 +33,12 @@ public class BookSettingActivity extends AppCompatActivity{
     private LinearLayout layout;
     private ImageButton btn_addphoto;
 
+<<<<<<< HEAD
 ////////////////커리어넷 api
     private EditText ed_memo;
+=======
+    private TextView tv_memo;
+>>>>>>> bba40bf60521d8d48b9450914e80f5f6d74fb32d
 
     private Button btn_regist;
 
