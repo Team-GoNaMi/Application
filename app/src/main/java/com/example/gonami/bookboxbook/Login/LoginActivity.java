@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private String userJsonString;
 
     private String user_id;
+    private String user_pw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -245,6 +247,7 @@ public class LoginActivity extends AppCompatActivity {
         private void showResult() {
             String TAG_SUCCESS="success";
             String TAG_ID="id";
+            String TAG_PW="pw";
 
             boolean success;
 
@@ -255,10 +258,15 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "success : " + success);
                 if(success) {
                     user_id = jsonObject.getString(TAG_ID);
+                    user_pw = jsonObject.getString(TAG_PW);
                     Log.i(TAG, "trueeeeeeeeee");
                     Log.i(TAG, "Login checked");
+
+                    if (cbAutoLogin.isChecked()) {
+                        SaveSharedPreference.setUserID(LoginActivity.this, user_id, user_pw);
+                    }
+
                     Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    signinIntent.putExtra("id", user_id);
                     LoginActivity.this.startActivity(signinIntent);
                     finish();
                 }
