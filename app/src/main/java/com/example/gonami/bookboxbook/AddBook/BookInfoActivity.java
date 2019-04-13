@@ -11,10 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.DataCenter.BookInformation;
 import com.example.gonami.bookboxbook.R;
-import com.example.gonami.bookboxbook.RecognizeCode.ScannerActivity;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -32,9 +31,12 @@ public class BookInfoActivity extends AppCompatActivity {
     private EditText ed_author;
     private EditText ed_publisher;
     private EditText ed_price;
+    private EditText ed_edition;
 
     private Button btn_next;
     private Boolean isBarcord;
+
+    private BookInformation registBook;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +47,8 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_author = findViewById(R.id.ed_Author);
         ed_publisher = findViewById(R.id.ed_Publisher);
         ed_price = findViewById(R.id.ed_originalPrice);
-
+//        ed_edition = findViewById(R.id.ed_edition);
         btn_next = findViewById(R.id.btn_next);
-
-
         btn_next.setEnabled(false);
 
         Intent Intent = new Intent(this.getIntent());
@@ -72,10 +72,10 @@ public class BookInfoActivity extends AppCompatActivity {
 
         }
         else{
-
-
-            if (ed_isbn.length() != 0 && ed_name.length() != 0 && ed_author.length() != 0 && ed_publisher.length() != 0 && ed_price.length() != 0){
-                Log.i("//manual","//////////////che");
+            Log.i("//manual","//////////////c");
+            if (ed_isbn.getText().length() != 0 && ed_name.getText().length() != 0 && ed_author.getText().length() != 0
+                    && ed_publisher.getText().length() != 0 && ed_price.getText().length() != 0 && ed_edition.getText().length()){
+                    Log.i("//manual","//////////////che");
                 btn_next.setEnabled(true);
                 btn_next.setBackgroundColor(0xFF8FD694);
             }
@@ -107,6 +107,10 @@ public class BookInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 BookInfoActivity.this.startActivity(Intent);
+
+                registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
+                        ed_author.getText().toString(), ed_publisher.getText().toString(),
+                        Integer.parseInt(ed_price.getText().toString()), Integer.parseInt(ed_edition.getText().toString()));
                 finish();
             }
         });

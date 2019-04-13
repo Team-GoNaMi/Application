@@ -24,17 +24,19 @@ public class BookInformation {
     private String memo;
 
     //  책 상태
-    private boolean sell_avail;
+    private int sell_avail;
 
-    public BookInformation(String isbn, String bookName, String author, String publisher, int origin_price, int edition,
-                           String register_id, String seller_id, ArrayList<String> school, int selling_price, ArrayList<String> book_image,
-                           int underline, int writing, int cover, int damage_page, String memo) {
+    public BookInformation(String isbn, String bookName, String author, String publisher, int origin_price, int edition) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.original_price = origin_price;
         this.edition = edition;
+    }
+
+    public void setBookInformation(String register_id, String seller_id, ArrayList<String> school, int selling_price, ArrayList<String> book_image,
+                           int underline, int writing, int cover, int damage_page, String memo) {
 
         this.register_id = register_id;
         this.seller_id = seller_id;
@@ -46,8 +48,7 @@ public class BookInformation {
         this.cover = cover;
         this.damage_page = damage_page;
         this.memo = memo;
-
-        this.sell_avail = true;
+        this.sell_avail = 1;
     }
 
     public String getISBN() {

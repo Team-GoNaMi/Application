@@ -7,177 +7,283 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_sell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="판매"
+            android:text="판매하기"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="24sp"
             android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/tv_writing"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="필기흔적"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <CheckBox
-            android:id="@+id/check_underline1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="밑줄(연필/샤프)"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
-
-        <CheckBox
-            android:id="@+id/check_underline2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="밑줄(볼펜/형광펜)" />
-
-        <CheckBox
-            android:id="@+id/check_writing1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="필기(연필/샤프)" />
-
-        <CheckBox
-            android:id="@+id/check_writing2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:clickable="true"
-            android:duplicateParentState="true"
-            android:text="필기(볼펜/형광펜)" />
+            android:background="@drawable/book_res_border"
+            android:layout_marginHorizontal="7dp"
+            android:orientation="horizontal"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
 
 
-        <TextView
-            android:id="@+id/tv_cover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:text="책표지"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <CheckBox
-            android:id="@+id/check_clean"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="깨끗함"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
-
-        <CheckBox
-            android:id="@+id/check_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="이름기입 없음" />
-
-        <CheckBox
-            android:id="@+id/check_damage1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="페이지변색"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
-
-        <CheckBox
-            android:id="@+id/check_damage2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/colorPrimary"
-            android:text="페이지훼손" />
-
-        <TextView
-            android:id="@+id/tv_photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:text="책사진"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
-        <ImageButton
-            android:id="@+id/btn_addphoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_writing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="필기흔적"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/check_underline1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="밑줄(연필/샤프)"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <CheckBox
+                    android:id="@+id/check_underline2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="밑줄(볼펜/형광펜)" />
+
+                <CheckBox
+                    android:id="@+id/check_writing1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="필기(연필/샤프)" />
+
+                <CheckBox
+                    android:id="@+id/check_writing2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimary"
+                    android:clickable="true"
+                    android:duplicateParentState="true"
+                    android:text="필기(볼펜/형광펜)" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/book_res_border"
+            android:orientation="horizontal"
+            android:paddingVertical="15dp"
+            android:layout_marginHorizontal="7dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_cover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="책 표지"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33dp"
+                android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/check_clean"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="깨끗함"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+            <CheckBox
+                android:id="@+id/check_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="이름기입 없음" />
+
+            <CheckBox
+                android:id="@+id/check_damage1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="페이지변색"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+            <CheckBox
+                android:id="@+id/check_damage2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                android:text="페이지훼손" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/book_res_border"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="7dp"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="책 사진"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <ImageButton
+                android:id="@+id/btn_addphoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/zxing_transparent"
+                android:src="@drawable/ic_add" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+        </LinearLayout>
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal">-->
 
-           <!---->
+        <!---->
         <!--</LinearLayout>-->
 
-        <TextView
-            android:id="@+id/tv_location"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:text="거래 장소"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:background="@drawable/book_res_border"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="7dp"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="거래장소"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/tv_memo"
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:text="메모"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:background="@drawable/book_res_border"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="7dp"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
 
-        <EditText
-            android:id="@+id/ed_memo"
-            android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/tv_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="메모"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/ed_memo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="추가설명을 자유롭게 적어주세요"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxLines="4"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="추가설명을 자유롭게 적어주세요"
-            android:inputType="textMultiLine"
-            android:lines="3"
-            android:maxLines="4"
-            android:scrollbars="vertical" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/book_res_border"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="7dp"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="얼마에 팔고 싶으세요?"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/ed_price"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="(단위: 원)"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxLines="4"
+                android:scrollbars="vertical" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_regist"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="201dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/colorPrimary"
-            android:layout_gravity="center"
 
             android:text="등록" />
 
