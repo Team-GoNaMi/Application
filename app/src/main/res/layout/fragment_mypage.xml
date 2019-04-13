@@ -37,9 +37,8 @@
         android:paddingVertical="5dp">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="100dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/zxing_transparent"
             android:src="@drawable/ic_face"/>
 
@@ -52,7 +51,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,7 +66,7 @@
                         android:text="이름" />
 
                     <TextView
-                        android:id="@+id/username"
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
@@ -77,6 +76,48 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/what_is_ur_id"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="ID" />
+
+                    <TextView
+                        android:id="@+id/user_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:text="내 이름이당" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_state_writings"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="내 별점" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_star_black_24dp" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
