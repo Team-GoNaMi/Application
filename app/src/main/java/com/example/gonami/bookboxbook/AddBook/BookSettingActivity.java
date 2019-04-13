@@ -13,10 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
+
+import java.util.ArrayList;
 
 public class BookSettingActivity extends AppCompatActivity{
 
@@ -33,19 +36,25 @@ public class BookSettingActivity extends AppCompatActivity{
     private LinearLayout layout;
     private ImageButton btn_addphoto;
 
-<<<<<<< HEAD
 ////////////////커리어넷 api
     private EditText ed_memo;
-=======
-    private TextView tv_memo;
->>>>>>> bba40bf60521d8d48b9450914e80f5f6d74fb32d
+    private EditText ed_price;
 
     private Button btn_regist;
 
+    //DB에 넣을 값들
     private int underline = 0;
     private int writing = 0;
     private int cover = 0;
     private int damage_page = 0;
+    private String memo = "";
+    private ArrayList<String> bookImage;
+    private String regist_num;
+    private int buy_avail = 1;
+
+    private int price = 0;
+    private String isbn;
+    private String seller_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,11 +71,54 @@ public class BookSettingActivity extends AppCompatActivity{
         check_damage2 = findViewById(R.id.check_damage2);
 
         ed_memo = findViewById(R.id.ed_memo);
+        //ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
 
         btn_regist = findViewById(R.id.btn_regist);
 
         layout = findViewById(R.id.linearLayout);
+
+        bookImage = new ArrayList<String>();
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+
+        btn_regist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {///////////////////판매리스트화면으로나 마이페이지로
+                Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
+                BookSettingActivity.this.startActivity(intent);
+
+                //값에 넣어줌
+                check_box_value();
+                memo = ed_memo.getText().toString();
+                buy_avail = 1;
+        //        price = ec_price.getText().toString();
+
+                finish();
+            }
+        });
+
+        btn_addphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ImageView imagebook = new ImageView(this);
+        imagebook.setImageURI(data.getData());
+        bookImage.add(data.getData().toString());
+        //Uri.parse() 데이터베이스에서 이미지 불러올때
+        layout.addView(imagebook);
     }
 
     private void check_box_value(){
@@ -140,39 +192,6 @@ public class BookSettingActivity extends AppCompatActivity{
                 damage_page = 2;
             }
         }
-    }
-    protected void onResume() {
-        super.onResume();
-
-        btn_regist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {///////////////////판매리스트화면으로나 마이페이지로
-                Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
-                BookSettingActivity.this.startActivity(intent);
-
-                //값에 넣어줌
-                check_box_value();
-
-                finish();
-            }
-        });
-
-        btn_addphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
-            }
-        });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ImageView imagebook = new ImageView(this);
-        imagebook.setImageURI(data.getData());
-        layout.addView(imagebook);
     }
 }
 
