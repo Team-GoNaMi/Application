@@ -1,21 +1,22 @@
 package com.example.gonami.bookboxbook.DataCenter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BookInformation {
+public class BookInformation implements Serializable {
     // 책 자체의 정보 - 이걸 디비가 갖고 있어야 하나..??
     private String isbn;
     private String bookName;
     private String author;
     private String publisher;
-    private int original_price;
-    private int edition;
+    private String original_price;
+    private String edition;
 
     // Seller가 등록한 정보
     private String register_id;     // 얘로 모든 것을 찾을 수 있게
     private String seller_id;
     private ArrayList<String> school;
-    private int selling_price;
+    private String selling_price;
     private ArrayList<String> book_image;  //사진은 무슨 형으로 저장해?
     private int underline;
     private int writing;
@@ -26,7 +27,7 @@ public class BookInformation {
     //  책 상태
     private int sell_avail;
 
-    public BookInformation(String isbn, String bookName, String author, String publisher, int origin_price, int edition) {
+    public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String edition) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
@@ -35,7 +36,7 @@ public class BookInformation {
         this.edition = edition;
     }
 
-    public void setBookInformation(String register_id, String seller_id, ArrayList<String> school, int selling_price, ArrayList<String> book_image,
+    public void setBookInformation(String register_id, String seller_id, ArrayList<String> school, String selling_price, ArrayList<String> book_image,
                            int underline, int writing, int cover, int damage_page, String memo) {
 
         this.register_id = register_id;
@@ -67,11 +68,11 @@ public class BookInformation {
         return publisher;
     }
 
-    public int getOriginal_price() {
+    public String getOriginal_price() {
         return original_price;
     }
 
-    public int getEdition() {
+    public String getEdition() {
         return edition;
     }
 
@@ -87,7 +88,7 @@ public class BookInformation {
         return school;
     }
 
-    public int getSelling_price() {
+    public String getSelling_price() {
         return selling_price;
     }
 
@@ -115,11 +116,11 @@ public class BookInformation {
         return memo;
     }
 
-    public boolean isSell_avail() {
+    public int isSell_avail() {
         return sell_avail;
     }
 
-    public void setSell_avail(boolean avail) {
+    public void setSell_avail(int avail) {
         this.sell_avail = avail;
     }
 }

@@ -1,9 +1,11 @@
 package com.example.gonami.bookboxbook.AddBook;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gonami.bookboxbook.DataCenter.BookInformation;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BookSettingActivity extends AppCompatActivity{
 
@@ -50,12 +55,13 @@ public class BookSettingActivity extends AppCompatActivity{
     private int damage_page = 0;
     private String memo = "";
     private ArrayList<String> bookImage;
-    private String regist_num;
-    private int buy_avail = 1;
+    private ArrayList<String> school;
+    private String register_id;
 
-    private int price = 0;
-    private String isbn;
-    private String seller_id;
+    private String price;
+    private String seller_id = "";
+
+    private BookInformation registBook;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +86,9 @@ public class BookSettingActivity extends AppCompatActivity{
         layout = findViewById(R.id.linearLayout);
 
         bookImage = new ArrayList<String>();
+        school = new ArrayList<String>();
+
+        registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
     }
 
 
@@ -87,17 +96,20 @@ public class BookSettingActivity extends AppCompatActivity{
         super.onResume();
 
         btn_regist.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onClick(View v) {///////////////////판매리스트화면으로나 마이페이지로
+            public void onClick(View v) {
                 Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
                 BookSettingActivity.this.startActivity(intent);
 
                 //값에 넣어줌
                 check_box_value();
-                memo = ed_memo.getText().toString();
-                buy_avail = 1;
-        //        price = ec_price.getText().toString();
+              //  memo = ed_memo.getText().toString();
+              //  price = ed_price.getText().toString();
+                register_id = LocalDateTime.now().toString() + seller_id;
 
+                registBook.setBookInformation(register_id, seller_id, school, price, bookImage,
+                underline, writing, cover, damage_page, memo);
                 finish();
             }
         });
@@ -117,9 +129,11 @@ public class BookSettingActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         ImageView imagebook = new ImageView(this);
         imagebook.setImageURI(data.getData());
-        bookImage.add(data.getData().toString());
-        //Uri.parse() 데이터베이스에서 이미지 불러올때
         layout.addView(imagebook);
+        bookImage.add(String.valueOf(data.getData()));
+
+        //Uri.parse() 데이터베이스에서 이미지 불러올때
+
     }
 
     private void check_box_value(){

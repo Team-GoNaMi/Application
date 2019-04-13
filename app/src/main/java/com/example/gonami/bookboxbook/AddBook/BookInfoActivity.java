@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.example.gonami.bookboxbook.DataCenter.BookInformation;
 import com.example.gonami.bookboxbook.R;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -47,13 +48,13 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_author = findViewById(R.id.ed_Author);
         ed_publisher = findViewById(R.id.ed_Publisher);
         ed_price = findViewById(R.id.ed_originalPrice);
-//        ed_edition = findViewById(R.id.ed_edition);
+        ed_edition = findViewById(R.id.ed_edition);
         btn_next = findViewById(R.id.btn_next);
         btn_next.setEnabled(false);
 
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
-        if(isBarcord==true){
+        if (isBarcord == true) {
             btn_next.setEnabled(true);
             btn_next.setBackgroundColor(0xFF8FD694);
             final String isbn = Intent.getExtras().getString("isbn");
@@ -70,14 +71,14 @@ public class BookInfoActivity extends AppCompatActivity {
                 }
             }.start();
 
-        }
-        else{
-            Log.i("//manual","//////////////c");
-            if (ed_isbn.getText().length() != 0 && ed_name.getText().length() != 0 && ed_author.getText().length() != 0
-                    && ed_publisher.getText().length() != 0 && ed_price.getText().length() != 0 && ed_edition.getText().length()){
-                    Log.i("//manual","//////////////che");
+        } else {
+            Log.i("//manual", "//////////////c");
+            if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
+                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
+                Log.i("//manual", "//////////////che");
                 btn_next.setEnabled(true);
-                btn_next.setBackgroundColor(0xFF8FD694);
+
+                btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             }
 
         }
@@ -90,12 +91,16 @@ public class BookInfoActivity extends AppCompatActivity {
             String naverResult = bun.getString("DATA");
 
             String[] splitResult = naverResult.split("\\n");
+            Log.i("result",splitResult.toString());
             //set text
+
+            //splitResult[2] = image
               ed_name.setText(splitResult[1]);
-              ed_isbn.setText(splitResult[6]);
+              ed_isbn.setText(splitResult[7]);
               ed_author.setText(splitResult[3]);
               ed_publisher.setText(splitResult[5]);
               ed_price.setText(splitResult[4]);
+              ed_edition.setText(splitResult[6]);
         }
     };
     @Override
@@ -105,12 +110,16 @@ public class BookInfoActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
-                BookInfoActivity.this.startActivity(Intent);
 
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
-                        Integer.parseInt(ed_price.getText().toString()), Integer.parseInt(ed_edition.getText().toString()));
+                        ed_price.getText().toString(), ed_edition.getText().toString());
+
+                Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
+                Intent.putExtra("registBook", registBook);
+                BookInfoActivity.this.startActivity(Intent);
+
+
                 finish();
             }
         });
@@ -169,6 +178,10 @@ public class BookInfoActivity extends AppCompatActivity {
                             sb.append(xpp.getText().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", ""));
                             sb.append("\n");
                         } else if (tag.equals("image")) {
+                            xpp.next();
+                            sb.append(xpp.getText().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", ""));
+                            sb.append("\n");
+                        }else if (tag.equals("pubdate")) {
                             xpp.next();
                             sb.append(xpp.getText().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", ""));
                             sb.append("\n");
