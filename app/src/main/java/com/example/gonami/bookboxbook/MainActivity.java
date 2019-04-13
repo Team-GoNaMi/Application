@@ -7,20 +7,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddActivity;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
-import com.example.gonami.bookboxbook.BookMarket.BookSellActivity;
+import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
 
 import static android.support.design.widget.BottomNavigationView.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private SearchFragment searchFragment;
     private BookMarkFragment bookMarkFragment;
@@ -28,11 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
 
-//    private BookSellActivity bookSellFragment;
-
     private BottomNavigationView bottomNavigationView;
-    private Fragment activeFragment;
-    private FrameLayout frameLayout;
+    public static Fragment activeFragment;
 
     public FragmentManager fragmentManager;
 
@@ -94,16 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-//    private boolean loadFragment(Fragment fragment) {
-//        if (fragment != null) {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.frame_layout, fragment)
-//                    .commit();
-//        }
-//        return false;
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,21 +123,57 @@ public class MainActivity extends AppCompatActivity {
         activeFragment = searchFragment;
     }
 
+    public interface OnBackPressedListener {
+        public void onBack();
+    }
+
+    private OnBackPressedListener mBackListner;
+
+    public void setonBackPressedListener(OnBackPressedListener listener) {
+        mBackListner = listener;
+    }
+
+
     @Override
     public void onBackPressed() {
-        if (fragmentManager.getBackStackEntryCount() == 0) {
-            bottomNavigationView.setSelectedItemId(R.id.navigation_search);
-        }
-        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-//            super.onBackPressed();
-            backKeyPressedTime = System.currentTimeMillis();
-            Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+
+//        if (activeFragment == bookMarkFragment) {
+//            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+////            super.onBackPressed();
+//                backKeyPressedTime = System.currentTimeMillis();
+//                Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                this.finish();
+//                System.exit(0);
+//                android.os.Process.killProcess(android.os.Process.myPid());
+//            }
+//
+//        }
+//        else {
+//        Toast.makeText(this, "너는 뒤로 가면 안돼", Toast.LENGTH_SHORT).show();
+//        super.onBackPressed();
+//        }
+
+        if (mBackListner != null) {
+            Log.d("Back", "Listener is not null");
+            mBackListner.onBack();
         }
         else {
-            this.finish();
-            System.exit(0);
-            android.os.Process.killProcess(android.os.Process.myPid());
+            Log.d("Back", "Listener is null");
+            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+//            super.onBackPressed();
+                backKeyPressedTime = System.currentTimeMillis();
+                Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                this.finish();
+                System.exit(0);
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+
         }
     }
+
+
+
 
 }

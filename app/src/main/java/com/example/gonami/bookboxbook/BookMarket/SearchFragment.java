@@ -1,10 +1,12 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,10 @@ public class SearchFragment extends Fragment {
     private BookSearchListViewAdapter bookSearchListViewAdapter;
     private ArrayList<String> searchList;
 
-    private BookSellActivity bookSellFragment;
+    private BookSellActivity bookSellActivity;
+    private BookSellFragment bookSellFragment;
+//    private OnFragmentInteractionListener mListener;
+//    private int detail_request = 515;
 
 
 //    private SearchView searchView;
@@ -75,9 +80,22 @@ public class SearchFragment extends Fragment {
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BookSellActivity.class);
+//                Intent intent = new Intent(getContext(), BookSellActivity.class);
+//                startActivity(intent);
 
-                startActivity(intent);
+                String book_register_id = searchList.get(0);
+                Bundle bundle = new Bundle();
+                bundle.putString("BookRegisterID", book_register_id);
+                bookSellFragment = BookSellFragment.newInstance(bundle);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                               .replace(R.id.frame_layout, bookSellFragment)
+                               .commit();
+
+                MainActivity.activeFragment = bookSellFragment;
+
             }
         });
 
