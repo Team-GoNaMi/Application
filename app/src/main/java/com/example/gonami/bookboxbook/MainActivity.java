@@ -9,12 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddActivity;
+import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
-import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
@@ -25,7 +24,8 @@ public class MainActivity extends AppCompatActivity  {
 
     private SearchFragment searchFragment;
     private BookMarkFragment bookMarkFragment;
-    private AddActivity addActivity;
+    private AddFragment addFragment;
+//    private AddActivity addActivity;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity  {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             if ((menuItem.getItemId() == R.id.navigation_search && activeFragment == searchFragment) ||
                     (menuItem.getItemId() == R.id.navigation_bookmark && activeFragment == bookMarkFragment) ||
-//                    (menuItem.getItemId() == R.id.navigation_add && activeFragment == addFragment) ||
+                    (menuItem.getItemId() == R.id.navigation_add && activeFragment == addFragment) ||
                     (menuItem.getItemId() == R.id.navigation_list && activeFragment == transactionListFragment) ||
                     (menuItem.getItemId() == R.id.navigation_mypage && activeFragment == myPageFragment)) {
                 return false;
@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity  {
                     activeFragment = bookMarkFragment;
                     return true;
                 case R.id.navigation_add:
-//                    fragmentManager.beginTransaction()
-//                            .addToBackStack(null)
-//                            .replace(R.id.frame_layout, addFragment, "Add")
-//                            .commit();
-//                    activeFragment = addFragment;
-                    Intent intent=new Intent(MainActivity.this, AddActivity.class);
-                    startActivity(intent);
+                    fragmentManager.beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.frame_layout, addFragment, "Add")
+                            .commit();
+                    activeFragment = addFragment;
+//                    Intent intent=new Intent(MainActivity.this, AddActivity.class);
+//                    startActivity(intent);
                     return true;
                 case R.id.navigation_list:
                     fragmentManager.beginTransaction()
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity  {
 
         searchFragment = SearchFragment.newInstance();
         bookMarkFragment = BookMarkFragment.newInstance();
+        addFragment = AddFragment.newInstance();
         transactionListFragment = TransactionListFragment.newInstance();
         myPageFragment = MyPageFragment.newInstance();
 
@@ -137,23 +138,6 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
-//        if (activeFragment == bookMarkFragment) {
-//            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-////            super.onBackPressed();
-//                backKeyPressedTime = System.currentTimeMillis();
-//                Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
-//            } else {
-//                this.finish();
-//                System.exit(0);
-//                android.os.Process.killProcess(android.os.Process.myPid());
-//            }
-//
-//        }
-//        else {
-//        Toast.makeText(this, "너는 뒤로 가면 안돼", Toast.LENGTH_SHORT).show();
-//        super.onBackPressed();
-//        }
-
         if (mBackListner != null) {
             Log.d("Back", "Listener is not null");
             mBackListner.onBack();
@@ -172,8 +156,6 @@ public class MainActivity extends AppCompatActivity  {
 
         }
     }
-
-
 
 
 }

@@ -73,12 +73,12 @@ public class BookInfoActivity extends AppCompatActivity {
         }
         else{
             Log.i("//manual","//////////////c");
-            if (ed_isbn.getText().length() != 0 && ed_name.getText().length() != 0 && ed_author.getText().length() != 0
-                    && ed_publisher.getText().length() != 0 && ed_price.getText().length() != 0 && ed_edition.getText().length()){
+//            if (ed_isbn.getText().length() != 0 && ed_name.getText().length() != 0 && ed_author.getText().length() != 0
+//                    && ed_publisher.getText().length() != 0 && ed_price.getText().length() != 0 && ed_edition.getText().length()){
                     Log.i("//manual","//////////////che");
                 btn_next.setEnabled(true);
                 btn_next.setBackgroundColor(0xFF8FD694);
-            }
+//            }
 
         }
     }

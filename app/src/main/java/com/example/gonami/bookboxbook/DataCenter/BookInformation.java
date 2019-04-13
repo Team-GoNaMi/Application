@@ -115,11 +115,11 @@ public class BookInformation {
         return memo;
     }
 
-    public boolean isSell_avail() {
+    public int isSell_avail() {
         return sell_avail;
     }
 
-    public void setSell_avail(boolean avail) {
+    public void setSell_avail(int avail) {
         this.sell_avail = avail;
     }
 }
