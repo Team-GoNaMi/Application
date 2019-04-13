@@ -49,7 +49,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         }
 
         ImageView ivBookImage = convertView.findViewById(R.id.img_book);
-        TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
+        final TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
         TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
         TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
         final ImageButton ibBookMark = convertView.findViewById(R.id.ib_bookmark);
@@ -60,13 +60,16 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         ibBookMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checked) {
+                if (checked) {      // 북마크 해제
                     ibBookMark.setImageResource(R.drawable.ic_bookmark);
                     checked = false;
+                    bookList.remove(position);
                 }
-                else {
+                else {              // 북마크 등록
                     ibBookMark.setImageResource(R.drawable.ic_bookmark_black_24dp);
                     checked = true;
+                    String bookInfo = tvBookName.getText().toString();
+                    bookList.add(position, bookInfo);
                 }
             }
         });
