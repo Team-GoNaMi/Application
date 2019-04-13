@@ -25,35 +25,33 @@
         android:textColor="@android:color/black"
         android:gravity="center" />
 
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:calendarTextColor="@color/colorPrimary"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:layout_marginLeft="20dp"
+            android:foregroundTint="@color/colorPrimary"></DatePicker>
 
         <Button
             android:id="@+id/btn_chooseDate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/colorPrimary"
-            android:text="날짜선택" />
+            android:text="달력보기" />
     </LinearLayout>
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:calendarTextColor="@color/colorPrimary"
-        android:datePickerMode="spinner"></DatePicker>
 
     <Button
         android:id="@+id/btn_book"

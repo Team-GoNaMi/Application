@@ -6,19 +6,21 @@
     android:orientation="vertical"
     android:layout_marginBottom="56dp">
 
-<<<<<<< HEAD
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="테스트" />
+        android:text="북박스예약" />
 
-    <TextView
-        android:layout_width="wrap_content"
-=======
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="큐알코드" />
+
     <LinearLayout
         android:layout_width="match_parent"
->>>>>>> b77a11ef9b9d6b318a4820b578243228a9190d84
         android:layout_height="wrap_content"
         android:background="@drawable/list_border"
         android:layout_marginVertical="10dp">

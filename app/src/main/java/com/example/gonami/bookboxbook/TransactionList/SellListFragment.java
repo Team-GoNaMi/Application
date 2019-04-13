@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+import com.example.gonami.bookboxbook.RecognizeCode.MakeQRcode;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,8 @@ public class SellListFragment extends Fragment {
     private ArrayList<String> sellList;
 
     private Button testBtn;
+    private Button testBtn2;
+
     public SellListFragment() {
 
     }
@@ -53,6 +56,8 @@ public class SellListFragment extends Fragment {
         sellList = new ArrayList<String>();
 
         testBtn = thisView.findViewById(R.id.button);
+        testBtn2 = thisView.findViewById(R.id.button2);
+
         // Test
         sellList.add("여기는!!!!");
         sellList.add("내가 판 책");
@@ -66,6 +71,13 @@ public class SellListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), BookBoxBookActivity.class);
+                getActivity().startActivity(Intent);
+            }
+        });
+        testBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getActivity(), MakeQRcode.class);
                 getActivity().startActivity(Intent);
             }
         });

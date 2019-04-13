@@ -74,7 +74,7 @@ public class SearchFragment extends Fragment {
         bookSearchListViewAdapter = new BookSearchListViewAdapter(searchList);
         bookListView.setAdapter(bookSearchListViewAdapter);
 
-        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
+//        Button testbtn = thisView.findViewById(R.id.btn_test_sell);
 //        etSearchBook.setOnKeyListener(new View.OnKeyListener() {
 //            @Override
 //            public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -87,27 +87,27 @@ public class SearchFragment extends Fragment {
 //            }
 //        });
 
-        testbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), BookSellActivity.class);
-//                startActivity(intent);
-
-                String book_register_id = searchList.get(0);
-                Bundle bundle = new Bundle();
-                bundle.putString("BookRegisterID", book_register_id);
-                bookSellFragment = BookSellFragment.newInstance(bundle);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                               .replace(R.id.frame_layout, bookSellFragment)
-                               .commit();
-
-                MainActivity.activeFragment = bookSellFragment;
-
-            }
-        });
+//        testbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(getContext(), BookSellActivity.class);
+////                startActivity(intent);
+//
+//                String book_register_id = searchList.get(0);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("BookRegisterID", book_register_id);
+//                bookSellFragment = BookSellFragment.newInstance(bundle);
+//
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//
+//                fragmentManager.beginTransaction()
+//                               .replace(R.id.frame_layout, bookSellFragment)
+//                               .commit();
+//
+//                MainActivity.activeFragment = bookSellFragment;
+//
+//            }
+//        });
 
     }
 

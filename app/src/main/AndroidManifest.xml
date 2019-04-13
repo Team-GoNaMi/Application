@@ -27,6 +27,7 @@
         <activity android:name=".AddBook.BookInfoActivity"/>
         <activity android:name=".AddBook.BookSettingActivity"/>
         <activity android:name=".TransactionList.BookBoxBookActivity"/>
+        <activity android:name=".RecognizeCode.MakeQRcode"/>
 
     </application>
 
