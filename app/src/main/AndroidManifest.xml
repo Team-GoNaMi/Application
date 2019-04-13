@@ -27,7 +27,6 @@
         <activity android:name=".RecognizeCode.ScannerActivity"/>
         <activity android:name=".AddBook.BookInfoActivity"/>
         <activity android:name=".AddBook.BookSettingActivity"/>
-        <activity android:name=".BookMarket.BookSellActivity"/>
 
     </application>
 
