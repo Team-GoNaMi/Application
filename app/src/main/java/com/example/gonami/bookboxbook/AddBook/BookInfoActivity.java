@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,7 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_price = findViewById(R.id.ed_originalPrice);
         ed_edition = findViewById(R.id.ed_edition);
         btn_next = findViewById(R.id.btn_next);
-        btn_next.setEnabled(false);
+//        btn_next.setEnabled(false);
 
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
@@ -70,20 +71,20 @@ public class BookInfoActivity extends AppCompatActivity {
                     handler.sendMessage(msg);
                 }
             }.start();
-            
-        } else {
-            Log.i("//manual", "//////////////c");
-            if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
-                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
-                Log.i("//manual", "//////////////che");
-                btn_next.setEnabled(true);
 
-                btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            }
+        }
+//        else {
+//            Log.i("//manual", "//////////////c");
+//            if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
+//                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
+//                Log.i("//manual", "//////////////che");
+//                btn_next.setEnabled(true);
+//
+//                btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//            }
 
 
         }
-    }
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -92,9 +93,6 @@ public class BookInfoActivity extends AppCompatActivity {
             String naverResult = bun.getString("DATA");
 
             String[] splitResult = naverResult.split("\\n");
-            Log.i("result",splitResult.toString());
-            //set text
-
             //splitResult[2] = image
               ed_name.setText(splitResult[1]);
               ed_isbn.setText(splitResult[7]);
@@ -108,6 +106,17 @@ public class BookInfoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        ed_price.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //Enter key Action
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    btn_next.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,8 +128,6 @@ public class BookInfoActivity extends AppCompatActivity {
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);
                 BookInfoActivity.this.startActivity(Intent);
-
-
                 finish();
             }
         });
