@@ -1,6 +1,7 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,6 @@ public class SellLisViewAdapter extends BaseAdapter {
         tvOriginPrice.setText("5000원");
         tvBookPrice.setText("5000원");
         btnBookState.setText("책을 가져가주세욤!");
-
         return convertView;
     }
 }

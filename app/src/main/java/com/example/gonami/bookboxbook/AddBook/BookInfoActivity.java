@@ -51,7 +51,7 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_price = findViewById(R.id.ed_originalPrice);
         ed_edition = findViewById(R.id.ed_edition);
         btn_next = findViewById(R.id.btn_next);
-//        btn_next.setEnabled(false);
+
 
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
@@ -73,15 +73,9 @@ public class BookInfoActivity extends AppCompatActivity {
             }.start();
 
         }
-//        else {
-//            Log.i("//manual", "//////////////c");
-//            if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
-//                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
-//                Log.i("//manual", "//////////////che");
-//                btn_next.setEnabled(true);
-//
-//                btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//            }
+        else {
+            btn_next.setEnabled(false);
+        }
 
 
         }
@@ -124,6 +118,10 @@ public class BookInfoActivity extends AppCompatActivity {
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
                         ed_price.getText().toString(), ed_edition.getText().toString());
+                if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
+                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
+                     btn_next.setEnabled(true);
+                 }
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);

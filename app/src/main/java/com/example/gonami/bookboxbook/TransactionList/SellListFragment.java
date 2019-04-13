@@ -1,14 +1,18 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ public class SellListFragment extends Fragment {
     private SellLisViewAdapter sellLisViewAdapter;
     private ArrayList<String> sellList;
 
+    private Button testBtn;
     public SellListFragment() {
 
     }
@@ -35,6 +40,7 @@ public class SellListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -46,6 +52,7 @@ public class SellListFragment extends Fragment {
 
         sellList = new ArrayList<String>();
 
+        testBtn = thisView.findViewById(R.id.button);
         // Test
         sellList.add("여기는!!!!");
         sellList.add("내가 판 책");
@@ -55,6 +62,14 @@ public class SellListFragment extends Fragment {
         sellLisViewAdapter = new SellLisViewAdapter(sellList);
         sellListView.setAdapter(sellLisViewAdapter);
 
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getActivity(), BookBoxBookActivity.class);
+                getActivity().startActivity(Intent);
+            }
+        });
         return thisView;
     }
+
 }

@@ -33,7 +33,8 @@
             android:id="@+id/et_search_book"
             android:layout_width="270dp"
             android:layout_height="match_parent"
-            android:hint="책 이름" />
+            android:hint="책 이름"
+            android:inputType="text"/>
 
         <ImageButton
             android:layout_width="40dp"

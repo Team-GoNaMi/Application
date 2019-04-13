@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,18 @@ public class SearchFragment extends Fragment {
         bookListView.setAdapter(bookSearchListViewAdapter);
 
         Button testbtn = thisView.findViewById(R.id.btn_test_sell);
+//        etSearchBook.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                //Enter key Action
+//                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    btnSearch.performClick();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
