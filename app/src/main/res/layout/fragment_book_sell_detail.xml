@@ -13,36 +13,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-
-            <ImageView
-                android:id="@+id/iv_book_img"
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"/>
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="10dp">
 
                 <TextView
                     android:id="@+id/tv_book_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginVertical="15dp"
                     android:text="책 이름 입니당."
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_author"
@@ -55,15 +51,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="책 저자 입니당."
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_publisher"
@@ -76,15 +72,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="책 출판서 입니당."
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_edition"
@@ -97,77 +93,84 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="책 Edition 입니당."
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="10dp">
-
-                <TextView
-                    android:id="@+id/tv_book_original_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="원래 가격!!"/>
-
-                <TextView
-                    android:id="@+id/tv_book_price"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이 가격에 팔꺼야!!"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="20sp"/>
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
 
-            <!--<android.support.v7.widget.RecyclerView-->
+                    <TextView
+                        android:id="@+id/tv_book_original_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="원래 가격!!" />
+
+                    <TextView
+                        android:id="@+id/tv_book_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="이 가격에 팔꺼야!!"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+                <!--<android.support.v7.widget.RecyclerView-->
                 <!--android:id="@+id/rv_school_list"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:orientation="horizontal">-->
 
-            <!--</android.support.v7.widget.RecyclerView>-->
+                <!--</android.support.v7.widget.RecyclerView>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="right"
-                android:layout_marginBottom="20dp">
-
-                <ImageButton
-                    android:id="@+id/ib_bookmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:background="?android:attr/windowBackground"
-                    android:src="@drawable/ic_bookmark"/>
-
-                <Button
-                    android:id="@+id/btn_buy"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="구매하기"/>
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/ib_bookmark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="?android:attr/windowBackground"
+                        android:gravity="center"
+                        android:src="@drawable/ic_bookmark" />
+
+                    <Button
+                        android:id="@+id/btn_buy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/colorPrimary"
+                        android:text="구매하기" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@drawable/border"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:paddingLeft="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_state_highlight"
@@ -179,21 +182,21 @@
                         android:id="@+id/tv_book_state_highlighto"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="있음"/>
+                        android:text="있음" />
 
                     <TextView
                         android:id="@+id/tv_book_state_highlightx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="없음"/>
+                        android:text="없음" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_state_writings"
@@ -205,21 +208,21 @@
                         android:id="@+id/tv_book_state_writingso"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="있음"/>
+                        android:text="있음" />
 
                     <TextView
                         android:id="@+id/tv_book_state_writingsx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="없음"/>
+                        android:text="없음" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_state_damaged"
@@ -231,21 +234,21 @@
                         android:id="@+id/tv_book_state_damagedo"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="있음"/>
+                        android:text="있음" />
 
                     <TextView
                         android:id="@+id/tv_book_state_damagedx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="없음"/>
+                        android:text="없음" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginVertical="5dp">
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/book_state_cover"
@@ -257,60 +260,85 @@
                         android:id="@+id/tv_book_state_covero"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="있음"/>
+                        android:text="있음" />
 
                     <TextView
                         android:id="@+id/tv_book_state_coverx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="없음"/>
+                        android:text="없음" />
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        android:id="@+id/book_state_memo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
-                        android:text="메모" />
-
-                    <TextView
-                        android:id="@+id/tv_book_state_memo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="메모에는 구매자가 책에 대한 추가적인 정보를 작성하는 곳입니다."
-                        android:textColor="@android:color/black"/>
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/border"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_book_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:paddingVertical="5dp"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:id="@+id/book_state_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:text="메모" />
+
+                <TextView
+                    android:id="@+id/tv_book_state_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="메모에는 구매자가 책에 대한 추가적인 정보를 작성하는 곳입니다."
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="판매자 정보"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="판매자 정보" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_star_black_24dp"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_star_black_24dp" />
 
                 <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                    <!---->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!---->
                 <!--</android.support.v7.widget.RecyclerView>-->
 
 

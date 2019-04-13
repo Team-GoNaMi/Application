@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="( 자세히 적어주세요! )"
+        android:text="( 정확히 적어주세요! )"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         android:layout_marginBottom="30dp"/>
@@ -41,7 +41,8 @@
         android:id="@+id/ed_ISBN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:inputType="text"/>
 
 
 
@@ -49,25 +50,14 @@
         android:id="@+id/tv_BookName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="책 이름" />
+        android:text="책 이름"/>
 
     <EditText
         android:id="@+id/ed_BookName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
-
-    <TextView
-        android:id="@+id/tv_edition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edition" />
-
-    <EditText
-        android:id="@+id/ed_edition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/tv_Author"
@@ -79,7 +69,8 @@
         android:id="@+id/ed_Author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/tv_Publisher"
@@ -91,7 +82,8 @@
         android:id="@+id/ed_Publisher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/tv_orignalPrice"
@@ -103,8 +95,21 @@
         android:id="@+id/ed_originalPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:inputType="number"/>
+    
+    <TextView
+        android:id="@+id/tv_edition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="출간연도"/>
 
+    <EditText
+        android:id="@+id/ed_edition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:inputType="date"/>
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"

@@ -165,7 +165,7 @@
 
             <ImageButton
                 android:id="@+id/btn_addphoto"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:layout_marginBottom="0dp"
@@ -211,7 +211,34 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/book_res_border"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="7dp"
+            android:paddingVertical="15dp"
+            android:paddingLeft="10dp">
 
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="얼마에 팔고 싶으세요?"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/ed_price"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="(단위: 원)"
+
+                android:inputType="number" />
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -237,40 +264,12 @@
                 android:ems="10"
                 android:hint="추가설명을 자유롭게 적어주세요"
                 android:inputType="textMultiLine"
-                android:lines="3"
-                android:maxLines="4"
+                android:lines="1"
+                android:maxLines="3"
                 android:scrollbars="vertical" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/book_res_border"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="7dp"
-            android:paddingVertical="15dp"
-            android:paddingLeft="10dp">
 
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="얼마에 팔고 싶으세요?"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <EditText
-                android:id="@+id/ed_price"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="(단위: 원)"
-                android:inputType="textMultiLine"
-                android:lines="3"
-                android:maxLines="4"
-                android:scrollbars="vertical" />
-        </LinearLayout>
 
         <Button
             android:id="@+id/btn_regist"

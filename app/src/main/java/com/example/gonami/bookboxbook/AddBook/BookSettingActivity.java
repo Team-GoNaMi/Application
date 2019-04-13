@@ -58,7 +58,7 @@ public class BookSettingActivity extends AppCompatActivity{
     private ArrayList<String> school;
     private String register_id;
 
-    private String price;
+    private String price = "";
     private String seller_id = "";
 
     private BookInformation registBook;
@@ -104,8 +104,13 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 //값에 넣어줌
                 check_box_value();
-              //  memo = ed_memo.getText().toString();
-              //  price = ed_price.getText().toString();
+
+                String tempmemo = ed_memo.getText().toString();
+                String tempprice = ed_price.getText().toString();
+                if(tempmemo != "" && tempprice != ""){
+                    memo = ed_memo.getText().toString();
+                    price = ed_price.getText().toString();
+                }
                 register_id = LocalDateTime.now().toString() + seller_id;
 
                 registBook.setBookInformation(register_id, seller_id, school, price, bookImage,
@@ -121,6 +126,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 startActivityForResult(intent, 0);
             }
         });
+
 
     }
 
