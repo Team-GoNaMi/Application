@@ -9,13 +9,19 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
 
 public class IntroActivity extends AppCompatActivity {
+
+    private Intent intent;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+
     }
 
     @Override
@@ -29,8 +35,16 @@ public class IntroActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
-                finish();
+                if (SaveSharedPreference.getUserID(IntroActivity.this).length() == 0) {     // 저장된 id가 없다면
+                    intent = new Intent(IntroActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {      // 자동 로그인 실행
+                    intent = new Intent(IntroActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },2000);
     }

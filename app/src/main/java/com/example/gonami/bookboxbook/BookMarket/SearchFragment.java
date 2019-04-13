@@ -29,8 +29,6 @@ public class SearchFragment extends Fragment {
     private ArrayList<String> searchList;
 
     private BookSellFragment bookSellFragment;
-//    private OnFragmentInteractionListener mListener;
-//    private int detail_request = 515;
 
 
 //    private SearchView searchView;

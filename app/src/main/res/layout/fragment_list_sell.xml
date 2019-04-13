@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_marginBottom="56dp">
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
@@ -14,8 +15,24 @@
 
     <TextView
         android:layout_width="wrap_content"
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+>>>>>>> b77a11ef9b9d6b318a4820b578243228a9190d84
         android:layout_height="wrap_content"
-        android:text="sell"/>
+        android:background="@drawable/list_border"
+        android:layout_marginVertical="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="내가 판 책들"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+
 
     <ListView
         android:id="@+id/lv_sell_list"
