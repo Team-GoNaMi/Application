@@ -15,7 +15,9 @@
         android:inputType="textPersonName"
         android:gravity="center"
         android:background="@null"
-        android:text="책 등록" />
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:text="어떤 책을 판매하실 건가요?" />
 
     <Button
         android:id="@+id/btn_barcord"
@@ -23,8 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
-        android:text="바코드인식"
-        android:layout_marginTop="15dp"
+        android:text="바코드 인식"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         />
 
     <Button
