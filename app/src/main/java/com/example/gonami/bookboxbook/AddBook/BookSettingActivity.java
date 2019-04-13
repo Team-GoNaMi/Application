@@ -40,6 +40,7 @@ public class BookSettingActivity extends AppCompatActivity{
     private EditText ed_memo;
     private EditText ed_price;
 
+
     private Button btn_regist;
 
     //DB에 넣을 값들
