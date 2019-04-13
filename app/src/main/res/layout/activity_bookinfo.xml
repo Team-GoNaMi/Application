@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="( 자세히 적어주세요! )"
+        android:text="( 정확히 적어주세요! )"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         android:layout_marginBottom="30dp"/>
@@ -61,7 +61,7 @@
         android:id="@+id/tv_edition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edition" />
+        android:text="출간연도" />
 
     <EditText
         android:id="@+id/ed_edition"
