@@ -23,7 +23,6 @@
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Login.SignUpActivity"/>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".AddBook.AddActivity"/>
         <activity android:name=".RecognizeCode.ScannerActivity"/>
         <activity android:name=".AddBook.BookInfoActivity"/>
         <activity android:name=".AddBook.BookSettingActivity"/>
