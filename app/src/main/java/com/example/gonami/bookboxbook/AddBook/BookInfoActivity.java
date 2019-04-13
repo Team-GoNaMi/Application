@@ -72,10 +72,9 @@ public class BookInfoActivity extends AppCompatActivity {
 
         }
         else{
-
-
+            Log.i("//manual","//////////////c");
             if (ed_isbn.length() != 0 && ed_name.length() != 0 && ed_author.length() != 0 && ed_publisher.length() != 0 && ed_price.length() != 0){
-                Log.i("//manual","//////////////che");
+                    Log.i("//manual","//////////////che");
                 btn_next.setEnabled(true);
                 btn_next.setBackgroundColor(0xFF8FD694);
             }
