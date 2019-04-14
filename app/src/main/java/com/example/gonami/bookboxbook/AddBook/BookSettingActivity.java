@@ -2,11 +2,8 @@ package com.example.gonami.bookboxbook.AddBook;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.pm.PackageManager;
-=======
 import android.os.AsyncTask;
->>>>>>> c8d10ada3e8f923db00089de474634bf6a5d8666
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -57,7 +54,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
     private LinearLayout layout;
     private ImageButton btn_addphoto;
-    final String TAG = getClass().getSimpleName();
 
 
     ////////////////커리어넷 api

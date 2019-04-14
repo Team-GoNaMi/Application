@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.IntroActivity;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
 import com.example.gonami.bookboxbook.R;

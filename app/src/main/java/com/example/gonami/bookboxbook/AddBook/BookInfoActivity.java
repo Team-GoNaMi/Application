@@ -56,11 +56,6 @@ public class BookInfoActivity extends AppCompatActivity {
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
         if (isBarcord == true) {
-<<<<<<< HEAD
-=======
-            btn_next.setEnabled(true);
-            btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
->>>>>>> c8d10ada3e8f923db00089de474634bf6a5d8666
             final String isbn = Intent.getExtras().getString("isbn");
             new Thread() {
                 public void run() {
@@ -102,7 +97,7 @@ public class BookInfoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ed_price.setOnKeyListener(new View.OnKeyListener() {
+        ed_publish_date.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //Enter key Action
@@ -126,9 +121,7 @@ public class BookInfoActivity extends AppCompatActivity {
 
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
-<<<<<<< HEAD
-                        ed_price.getText().toString(), ed_edition.getText().toString());
-
+                        ed_price.getText().toString(), ed_publish_date.getText().toString());
                 if (ed_isbn.getText().length() == 0) {
                     Toast.makeText(BookInfoActivity.this, "ISBN을 입력하세요!", Toast.LENGTH_SHORT).show();
                     ed_isbn.requestFocus();
@@ -158,18 +151,11 @@ public class BookInfoActivity extends AppCompatActivity {
                     ed_price.requestFocus();
                     return;
                 }
-                if (ed_edition.getText().length() == 0) {
-                    Toast.makeText(BookInfoActivity.this, "출판년도를 입력하세요!", Toast.LENGTH_SHORT).show();
-                    ed_edition.requestFocus();
+                if (ed_publish_date.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "출간연도를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_publish_date.requestFocus();
                     return;
                 }
-=======
-                        origin_price, ed_publish_date.getText().toString());
-                if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
-                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_publish_date.getText().length() != 0)) {
-                     btn_next.setEnabled(true);
-                 }
->>>>>>> c8d10ada3e8f923db00089de474634bf6a5d8666
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);
