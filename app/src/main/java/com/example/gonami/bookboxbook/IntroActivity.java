@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
 
 public class IntroActivity extends AppCompatActivity {

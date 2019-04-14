@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook.DataCenter;
+package com.example.gonami.bookboxbook.DataModel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
