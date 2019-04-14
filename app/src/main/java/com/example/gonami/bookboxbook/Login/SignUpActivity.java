@@ -72,6 +72,13 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        btnIDDupCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         edUserSchool.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -100,6 +107,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (id.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "ID를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserID.requestFocus();
+                    return;
+                }
+
+                if (id.length() > 10) {
+                    Toast.makeText(SignUpActivity.this, "ID를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserID.requestFocus();
                     return;
                 }
@@ -134,6 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                // 디비에 넣기
                 InsertMemberData task = new InsertMemberData();
                 task.execute("https://" + IP_ADDRESS + "/insert-user.php", id, pw, name, phonenum, school);
 
@@ -141,7 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("id", edUserID.getText().toString());
 
-                Log.i(TAG, "Added in db");
+                Log.i(TAG, "Added member in db");
 
                 setResult(RESULT_OK, intent);
                 overridePendingTransition(R.anim.anim_slide_in_top, R.anim.anim_slide_out_bottom);

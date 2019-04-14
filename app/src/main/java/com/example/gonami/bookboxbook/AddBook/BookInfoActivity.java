@@ -15,7 +15,6 @@ import android.widget.EditText;
 
 import com.example.gonami.bookboxbook.DataCenter.BookInformation;
 import com.example.gonami.bookboxbook.R;
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -33,7 +32,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private EditText ed_author;
     private EditText ed_publisher;
     private EditText ed_price;
-    private EditText ed_edition;
+    private EditText ed_publish_date;
 
     private Button btn_next;
     private Boolean isBarcord;
@@ -49,7 +48,7 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_author = findViewById(R.id.ed_Author);
         ed_publisher = findViewById(R.id.ed_Publisher);
         ed_price = findViewById(R.id.ed_originalPrice);
-        ed_edition = findViewById(R.id.ed_edition);
+        ed_publish_date = findViewById(R.id.ed_edition);
         btn_next = findViewById(R.id.btn_next);
 
 
@@ -93,7 +92,7 @@ public class BookInfoActivity extends AppCompatActivity {
               ed_author.setText(splitResult[3]);
               ed_publisher.setText(splitResult[5]);
               ed_price.setText(splitResult[4]);
-              ed_edition.setText(splitResult[6]);
+              ed_publish_date.setText(splitResult[6]);
         }
     };
     @Override
@@ -115,11 +114,18 @@ public class BookInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String origin_price = ed_price.getText().toString();
+
+                if (origin_price.contains(".")) {
+                    String[] temp = origin_price.split("\\.");
+                    origin_price = temp[0];
+                }
+
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
-                        ed_price.getText().toString(), ed_edition.getText().toString());
+                        origin_price, ed_publish_date.getText().toString());
                 if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
-                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_edition.getText().length() != 0)) {
+                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_publish_date.getText().length() != 0)) {
                      btn_next.setEnabled(true);
                  }
 
