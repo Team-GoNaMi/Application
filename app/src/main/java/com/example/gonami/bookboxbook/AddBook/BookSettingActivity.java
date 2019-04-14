@@ -7,7 +7,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,16 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.gonami.bookboxbook.DataCenter.BookInformation;
+import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
-import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BookSettingActivity extends AppCompatActivity{
 
@@ -58,7 +55,7 @@ public class BookSettingActivity extends AppCompatActivity{
     private ArrayList<String> school;
     private String register_id;
 
-    private String price = "";
+    private String selling_price = "";
     private String seller_id = "";
 
     private BookInformation registBook;
@@ -109,11 +106,12 @@ public class BookSettingActivity extends AppCompatActivity{
                 String tempprice = ed_price.getText().toString();
                 if(tempmemo != "" && tempprice != ""){
                     memo = ed_memo.getText().toString();
-                    price = ed_price.getText().toString();
+                    selling_price = ed_price.getText().toString();
                 }
+                seller_id = SaveSharedPreference.getUserID(BookSettingActivity.this);
                 register_id = LocalDateTime.now().toString() + seller_id;
 
-                registBook.setBookInformation(register_id, seller_id, school, price, bookImage,
+                registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                 underline, writing, cover, damage_page, memo);
                 finish();
             }
