@@ -1,12 +1,15 @@
 package com.example.gonami.bookboxbook.AddBook;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,8 +40,10 @@ public class BookSettingActivity extends AppCompatActivity{
 
     private LinearLayout layout;
     private ImageButton btn_addphoto;
+    final String TAG = getClass().getSimpleName();
 
-////////////////커리어넷 api
+
+    ////////////////커리어넷 api
     private EditText ed_memo;
     private EditText ed_price;
 
@@ -96,7 +101,9 @@ public class BookSettingActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 
@@ -136,13 +143,24 @@ public class BookSettingActivity extends AppCompatActivity{
 
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "onRequestPermissionsResult");
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+            Log.d(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ImageView imagebook = new ImageView(this);
-        imagebook.setImageURI(data.getData());
-        layout.addView(imagebook);
+        if(resultCode == RESULT_OK){
+            ImageView imagebook = new ImageView(this);
+            imagebook.setImageURI(data.getData());
+            layout.addView(imagebook);
+        }
+
         bookImage.add(String.valueOf(data.getData()));
 
         //Uri.parse() 데이터베이스에서 이미지 불러올때

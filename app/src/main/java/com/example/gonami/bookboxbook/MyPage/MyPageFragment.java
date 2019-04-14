@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
+import com.example.gonami.bookboxbook.Login.LoginActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
@@ -56,10 +59,13 @@ public class MyPageFragment extends Fragment {
         menu.add("내가 산 책");
         menu.add("북마크");
         menu.add("앱 설정");
+        menu.add("로그아웃");
 
         menuListView = (ListView)thisView.findViewById(R.id.lv_mypage);
         menuListViewAdapter = new MyPageListViewAdapter(menu);
         menuListView.setAdapter(menuListViewAdapter);
+
+
 
     }
 }
