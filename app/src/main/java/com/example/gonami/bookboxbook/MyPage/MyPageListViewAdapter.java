@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.IntroActivity;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
@@ -56,6 +57,13 @@ public class MyPageListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
+
+                if (position == 2) {
+                    SaveSharedPreference.logout(context);
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    // Finish를 못함..ㅠㅠ
+                }
             }
         });
 
