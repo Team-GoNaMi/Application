@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){
-                Log.i(TAG, errorString);
+                Log.i(TAG, "No ID");
                 Toast.makeText(LoginActivity.this, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
             else {

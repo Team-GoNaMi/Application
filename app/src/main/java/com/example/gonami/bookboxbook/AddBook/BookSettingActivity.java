@@ -3,14 +3,21 @@ package com.example.gonami.bookboxbook.AddBook;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,14 +35,18 @@ import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BookSettingActivity extends AppCompatActivity{
 
@@ -202,12 +213,15 @@ public class BookSettingActivity extends AppCompatActivity{
             imagebook.setImageURI(data.getData());
             layout.addView(imagebook);
         }
+        //get thumnail
 
         bookImage.add(String.valueOf(data.getData()));
 
         //Uri.parse() 데이터베이스에서 이미지 불러올때
 
     }
+
+
 
     private void check_box_value(){
         //underline

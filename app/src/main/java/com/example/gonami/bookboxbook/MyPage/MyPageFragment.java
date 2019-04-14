@@ -55,7 +55,6 @@ public class MyPageFragment extends Fragment {
 
         menu = new ArrayList<String>();
 
-
         menu.add("알림 설정");
         menu.add("개인정보 수정");
         menu.add("로그아웃");

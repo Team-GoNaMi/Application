@@ -35,9 +35,9 @@ public class ListPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Sell";
+                return "판 책";
             case 1:
-                return "Buy";
+                return "산 책";
             default:
                 return null;
 

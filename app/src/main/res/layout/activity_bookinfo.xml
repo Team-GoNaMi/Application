@@ -98,16 +98,17 @@
         android:inputType="number"/>
 
     <TextView
-        android:id="@+id/tv_edition"
+        android:id="@+id/tv_date_of_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="출간연도"/>
+        android:text="출판날짜"/>
 
     <EditText
-        android:id="@+id/ed_edition"
+        android:id="@+id/ed_publishDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:hint="(ex.20190415)"
         android:inputType="number"/>
     <Button
         android:id="@+id/btn_next"
