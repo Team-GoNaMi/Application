@@ -279,7 +279,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/colorPrimary"
-
             android:text="등록" />
 
     </LinearLayout>

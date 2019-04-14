@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
-                        android:text="내 이름이당" />
+                        android:text="내 ID당" />
 
                 </LinearLayout>
 
@@ -123,8 +123,6 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
 
 
     <ListView

@@ -84,7 +84,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/colorPrimary"
-
         android:text="결제로 넘어가기" />
 
 </LinearLayout>

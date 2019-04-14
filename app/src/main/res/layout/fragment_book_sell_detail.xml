@@ -180,7 +180,7 @@
 
                     <TextView
                         android:id="@+id/tv_book_state_highlighto"
-                        android:layout_width="50dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
@@ -206,7 +206,7 @@
 
                     <TextView
                         android:id="@+id/tv_book_state_writingso"
-                        android:layout_width="50dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
@@ -232,7 +232,7 @@
 
                     <TextView
                         android:id="@+id/tv_book_state_damagedo"
-                        android:layout_width="50dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
@@ -258,7 +258,7 @@
 
                     <TextView
                         android:id="@+id/tv_book_state_covero"
-                        android:layout_width="50dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
@@ -342,6 +342,7 @@
                     android:text="판매자 정보" />
 
                 <ImageView
+                    android:id="@+id/iv_rating_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
