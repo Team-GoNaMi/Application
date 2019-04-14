@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.gonami.bookboxbook.DataCenter.BookInformation;
+import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -56,7 +56,7 @@ public class BookInfoActivity extends AppCompatActivity {
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
         if (isBarcord == true) {
             btn_next.setEnabled(true);
-            btn_next.setBackgroundColor(0xFF8FD694);
+            btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             final String isbn = Intent.getExtras().getString("isbn");
             new Thread() {
                 public void run() {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +19,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.gonami.bookboxbook.DataCenter.BookInformation;
-import com.example.gonami.bookboxbook.DataCenter.SaveSharedPreference;
-import com.example.gonami.bookboxbook.Login.SignUpActivity;
+import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
+import com.example.gonami.bookboxbook.DataModel.BookInformation;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
@@ -153,13 +154,26 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 task.execute("https://" + IP_ADDRESS + "/insert-book.php", registBook.toString());
 //
-//                Log.i(TAG, "Added book in db");
+                Log.i(TAG, "Added book in db");
 
 
 //                Intent registerIntent = new Intent(BookSettingActivity.this, );
 //                registerIntent.putExtra("registerID", register_id);
 //                startActivity(registerIntent);
 //                finish();
+
+
+                String book_register_id = register_id;
+                Bundle bundle = new Bundle();
+                bundle.putString("BookRegisterID", book_register_id);
+                BookSellFragment bookSellFragment = BookSellFragment.newInstance(bundle);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                               .replace(R.id.frame_layout, bookSellFragment)
+                               .commit();
+                finish();
 
             }
         });
@@ -278,10 +292,8 @@ public class BookSettingActivity extends AppCompatActivity{
 
         @Override
         protected String doInBackground(String... strings) {
-            ////////////////////////////////////////////////////
             String serverURL = (String)strings[0];
             String postParameters = (String)strings[1];
-            /////////////////////////////////////////////////////
 
             try {
 
