@@ -54,24 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginVertical="10dp"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/check_bookbox_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="중앙대 서울캠"
-                    android:textAppearance="@style/TextAppearance.AppCompat" />
-
-                <CheckBox
-                    android:id="@+id/check_bookbox_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:text="숭실대" />
-
-            </LinearLayout>
+                android:orientation="vertical"/>
 
         </LinearLayout>
     </LinearLayout>
