@@ -106,7 +106,7 @@
 
                     <TextView
                         android:id="@+id/tv_book_original_price"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:text="원래 가격!!" />
@@ -179,13 +179,13 @@
                         android:text="밑줄(연필/샤프)" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_highlighto"
+                        android:id="@+id/tv_book_state_highlight1_o"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_highlightx"
+                        android:id="@+id/tv_book_state_highlight1_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="없음" />
@@ -205,13 +205,13 @@
                         android:text="밑줄(볼펜/형광펜)" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_writingso"
+                        android:id="@+id/tv_book_state_highlight2_o"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_writingsx"
+                        android:id="@+id/tv_book_state_highlight2_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="없음" />
@@ -231,13 +231,13 @@
                         android:text="필기(연필/샤프)" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_damagedo"
+                        android:id="@+id/tv_book_state_writing1_o"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_damagedx"
+                        android:id="@+id/tv_book_state_writing1_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="없음" />
@@ -257,13 +257,13 @@
                         android:text="필기(볼펜/형광펜)" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_covero"
+                        android:id="@+id/tv_book_state_writing2_o"
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:text="있음" />
 
                     <TextView
-                        android:id="@+id/tv_book_state_coverx"
+                        android:id="@+id/tv_book_state_writing2_x"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="없음" />
@@ -271,6 +271,120 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:paddingLeft="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_state_clean"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="책표지 깨끗함" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_clean_o"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="깨끗함" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_clean_x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="더러움" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_state_name"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="이름기입" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_name_o"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="있음" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_name_x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="없음" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_state_damaged1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="페이지변색" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_damage1_o"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="있음" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_damage1_x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="없음" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/book_state_damaged2"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="페이지훼손" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_damage2_o"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="있음" />
+
+                    <TextView
+                        android:id="@+id/tv_book_state_damage2_x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="없음" />
+
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -58,12 +58,16 @@ public class MyPageListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
 
+
                 if (position == 2) {
                     SaveSharedPreference.logout(context);
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     // Finish를 못함..ㅠㅠ
                 }
+
+                SaveSharedPreference.logout(context);
+
             }
         });
 

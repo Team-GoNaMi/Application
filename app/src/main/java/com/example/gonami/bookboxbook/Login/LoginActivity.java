@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                     edUserPW.requestFocus();
                     return;
                 }
-
+/////////////////////
                 //  확인
                 GetMemberData task = new GetMemberData();
                 task.execute("https://" + IP_ADDRESS + "/get-user-info.php", id, pw);
@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+////////////////
     private class GetMemberData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                 showResult();
             }
         }
-
+/////////////////
         @Override
         protected String doInBackground(String... strings) {
 
@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
             String pw = strings[2];
             String postParameters = "id=" + id + "& password=" + pw;
             Log.i(TAG, "id : " + id + " pw : " + pw);
-
+//////////////////
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -242,7 +242,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         }
-
+///////////////////
         private void showResult() {
             String TAG_SUCCESS="success";
             String TAG_ID="id";
