@@ -57,40 +57,13 @@ public class SignUpActivity extends AppCompatActivity {
         btnIDDupCheck = findViewById(R.id.btn_dup_check);
 
         btnSignUp = findViewById(R.id.btn_sign_up);
-
-
-        edUserPWCheck.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = edUserPW.getText().toString();
-                String check = edUserPWCheck.getText().toString();
-
-                if(!password.equals(check)) {
-                    edUserPWCheck.setHighlightColor(Color.RED);
-                }
-//                else {
-//                    edUserPW.setBackgroundColor(Color.RED);
-//                    edUserPWCheck.setBackgroundColor(Color.RED);
-//                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
         Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+        setResult(RESULT_CANCELED, intent);
         overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
         finish();
     }

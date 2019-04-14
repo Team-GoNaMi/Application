@@ -9,14 +9,16 @@ public class BookInformation implements Serializable {
     private String bookName;
     private String author;
     private String publisher;
-    private String original_price;
-    private String edition;
+    private String original_prices;
+    private int original_price;
+    private int edition;
 
     // Seller가 등록한 정보
     private String register_id;     // 얘로 모든 것을 찾을 수 있게
     private String seller_id;
     private ArrayList<String> school;
-    private String selling_price;
+    private String price;
+    private int selling_price;
     private ArrayList<String> book_image;  //사진은 무슨 형으로 저장해?
     private int underline;
     private int writing;
@@ -32,8 +34,9 @@ public class BookInformation implements Serializable {
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
-        this.original_price = origin_price;
-        this.edition = edition;
+//        this.original_prices = origin_price;
+        this.original_price = Integer.parseInt(origin_price);
+        this.edition = Integer.parseInt(edition);
     }
 
     public void setBookInformation(String register_id, String seller_id, ArrayList<String> school, String selling_price, ArrayList<String> book_image,
@@ -42,7 +45,8 @@ public class BookInformation implements Serializable {
         this.register_id = register_id;
         this.seller_id = seller_id;
         this.school = school;
-        this.selling_price= selling_price;
+//        this.price = selling_price;
+        this.selling_price = Integer.parseInt(selling_price);
         this.book_image = book_image;
         this.underline = underline;
         this.writing = writing;
@@ -68,11 +72,11 @@ public class BookInformation implements Serializable {
         return publisher;
     }
 
-    public String getOriginal_price() {
+    public int getOriginal_price() {
         return original_price;
     }
 
-    public String getEdition() {
+    public int getEdition() {
         return edition;
     }
 
@@ -88,7 +92,7 @@ public class BookInformation implements Serializable {
         return school;
     }
 
-    public String getSelling_price() {
+    public int getSellingPrice() {
         return selling_price;
     }
 

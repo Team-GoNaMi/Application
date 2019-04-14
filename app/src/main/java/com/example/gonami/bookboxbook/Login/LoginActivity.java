@@ -137,6 +137,11 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "회원가입을 완료했습니다!", Toast.LENGTH_SHORT).show();
             edUserID.setText(data.getStringExtra("id"));
         }
+
+        if (requestCode==1000 && resultCode == RESULT_CANCELED) {
+            Log.i("SignUp", "signup cancelled");
+            Toast.makeText(LoginActivity.this, "회원가입이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
