@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
@@ -55,8 +56,6 @@ public class BookInfoActivity extends AppCompatActivity {
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
         if (isBarcord == true) {
-            btn_next.setEnabled(true);
-            btn_next.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             final String isbn = Intent.getExtras().getString("isbn");
             new Thread() {
                 public void run() {
@@ -73,7 +72,6 @@ public class BookInfoActivity extends AppCompatActivity {
 
         }
         else {
-            btn_next.setEnabled(false);
         }
 
 
@@ -99,7 +97,7 @@ public class BookInfoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ed_price.setOnKeyListener(new View.OnKeyListener() {
+        ed_publish_date.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 //Enter key Action
@@ -123,11 +121,41 @@ public class BookInfoActivity extends AppCompatActivity {
 
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
-                        origin_price, ed_publish_date.getText().toString());
-                if ((ed_isbn.getText().length() != 0) && (ed_name.getText().length() != 0) && (ed_author.getText().length() != 0)
-                    && (ed_publisher.getText().length() != 0) && (ed_price.getText().length() != 0) && (ed_publish_date.getText().length() != 0)) {
-                     btn_next.setEnabled(true);
-                 }
+                        ed_price.getText().toString(), ed_publish_date.getText().toString());
+                if (ed_isbn.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "ISBN을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_isbn.requestFocus();
+                    return;
+                }
+
+                if (ed_name.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "책제목을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_name.requestFocus();
+                    return;
+                }
+
+                if (ed_author.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "저자를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    ed_author.requestFocus();
+                    return;
+                }
+
+                if (ed_publisher.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "출판사를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_publisher.requestFocus();
+                    return;
+                }
+
+                if (ed_price.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "가격을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_price.requestFocus();
+                    return;
+                }
+                if (ed_publish_date.getText().length() == 0) {
+                    Toast.makeText(BookInfoActivity.this, "출간연도를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_publish_date.requestFocus();
+                    return;
+                }
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);
