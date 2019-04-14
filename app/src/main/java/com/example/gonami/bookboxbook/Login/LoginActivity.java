@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox cbAutoLogin;
 
     private long backKeyPressedTime;    // 앱 종료 위한 백 버튼 누른 시간
-    private String userJsonString;
 
     private String user_id;
     private String user_pw;
@@ -157,6 +156,8 @@ public class LoginActivity extends AppCompatActivity {
         ProgressDialog progressDialog;
         String errorString = null;
 
+        private String userJsonString;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -175,6 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             if (s.length() == 0){
                 Log.i(TAG, "No ID");
                 Toast.makeText(LoginActivity.this, "아이디가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, errorString);
             }
             else {
                 userJsonString = s;
@@ -269,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     Log.i(TAG, "falseeeeeeeeeeeee");
-                    Toast.makeText(LoginActivity.this, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "아이디가 존재하지 않거나 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {

@@ -28,7 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.gonami.bookboxbook.BookMarket.BookSellFragment;
+import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
@@ -140,14 +140,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 //값에 넣어줌
                 check_box_value();
-
-//                String tempmemo = ed_memo.getText().toString();
-//                String tempprice = ed_price.getText().toString();
-//                if(tempmemo != "" && tempprice != ""){
-//                    memo = ed_memo.getText().toString();
-//                    selling_price = ed_price.getText().toString();
-//                }
-
                 selling_price = ed_price.getText().toString();
                 memo = ed_memo.getText().toString();
 
@@ -182,12 +174,12 @@ public class BookSettingActivity extends AppCompatActivity{
                 String book_register_id = register_id;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", book_register_id);
-                BookSellFragment bookSellFragment = BookSellFragment.newInstance(bundle);
+                BookSellDetailFragment bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
                 fragmentManager.beginTransaction()
-                               .replace(R.id.frame_layout, bookSellFragment)
+                               .replace(R.id.frame_layout, bookSellDetailFragment)
                                .commit();
                 finish();
 
