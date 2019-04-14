@@ -33,11 +33,11 @@
             android:layout_weight="2"
             android:orientation="vertical"
             android:padding="3dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="20dp"
             android:background="@drawable/book_res_border"
             android:layout_marginHorizontal="7dp"
             android:paddingVertical="15dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="20dp">
 
 
         <TextView
@@ -46,8 +46,8 @@
             android:text="북박스 선택"
             android:textSize="20sp"
             android:textColor="@android:color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

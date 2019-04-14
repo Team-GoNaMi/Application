@@ -55,11 +55,11 @@ public class MyPageFragment extends Fragment {
 
         menu = new ArrayList<String>();
 
-        menu.add("내가 판 책");
-        menu.add("내가 산 책");
-        menu.add("북마크");
-        menu.add("앱 설정");
+
+        menu.add("알림 설정");
+        menu.add("개인정보 수정");
         menu.add("로그아웃");
+        menu.add("회원탈퇴");
 
         menuListView = (ListView)thisView.findViewById(R.id.lv_mypage);
         menuListViewAdapter = new MyPageListViewAdapter(menu);

@@ -235,7 +235,6 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="(단위: 원)"
-
                 android:inputType="number" />
 
         </LinearLayout>
