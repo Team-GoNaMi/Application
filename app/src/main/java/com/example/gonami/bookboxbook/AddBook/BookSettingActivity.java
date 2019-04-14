@@ -75,7 +75,7 @@ public class BookSettingActivity extends AppCompatActivity{
         check_damage2 = findViewById(R.id.check_damage2);
 
         ed_memo = findViewById(R.id.ed_memo);
-        //ed_price = findViewById(R.id.ed_price);
+        ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
 
         btn_regist = findViewById(R.id.btn_regist);
@@ -91,6 +91,14 @@ public class BookSettingActivity extends AppCompatActivity{
 
     protected void onResume() {
         super.onResume();
+
+        btn_addphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
 
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -113,15 +121,16 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                 underline, writing, cover, damage_page, memo);
-                finish();
-            }
-        });
 
-        btn_addphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+
+                // 디비에 넣음
+
+
+
+
+
+
+                finish();
             }
         });
 
