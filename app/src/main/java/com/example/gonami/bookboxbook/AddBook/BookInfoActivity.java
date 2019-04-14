@@ -49,7 +49,7 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_author = findViewById(R.id.ed_Author);
         ed_publisher = findViewById(R.id.ed_Publisher);
         ed_price = findViewById(R.id.ed_originalPrice);
-        ed_publish_date = findViewById(R.id.ed_edition);
+        ed_publish_date = findViewById(R.id.ed_publishDate);
         btn_next = findViewById(R.id.btn_next);
 
 
