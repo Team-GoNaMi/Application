@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook.BookMarket;
+package com.example.gonami.bookboxbook.BookMark;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook.DataCenter;
+package com.example.gonami.bookboxbook.DataModel;
 
 public class BookTradeInformation {
     private String trade_id;

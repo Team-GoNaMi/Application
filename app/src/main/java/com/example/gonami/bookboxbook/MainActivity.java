@@ -2,6 +2,7 @@ package com.example.gonami.bookboxbook;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
-import com.example.gonami.bookboxbook.BookMarket.BookMarkFragment;
+import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity  {
     private SearchFragment searchFragment;
     private BookMarkFragment bookMarkFragment;
     private AddFragment addFragment;
-//    private AddActivity addActivity;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
 
@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity  {
                             .replace(R.id.frame_layout, addFragment, "Add")
                             .commit();
                     activeFragment = addFragment;
-//                    Intent intent=new Intent(MainActivity.this, AddActivity.class);
-//                    startActivity(intent);
                     return true;
                 case R.id.navigation_list:
                     fragmentManager.beginTransaction()
@@ -155,6 +153,5 @@ public class MainActivity extends AppCompatActivity  {
 
         }
     }
-
 
 }
