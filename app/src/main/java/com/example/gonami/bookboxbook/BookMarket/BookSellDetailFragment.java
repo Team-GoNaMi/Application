@@ -16,7 +16,7 @@ import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 
-public class BookSellFragment extends Fragment implements MainActivity.OnBackPressedListener  {
+public class BookSellDetailFragment extends Fragment implements MainActivity.OnBackPressedListener  {
 
     private View thisView = null;
 
@@ -27,12 +27,12 @@ public class BookSellFragment extends Fragment implements MainActivity.OnBackPre
 
     private TextView tvBookName;
 
-    public BookSellFragment() {
+    public BookSellDetailFragment() {
 
     }
 
-    public static BookSellFragment newInstance(Bundle bundle) {
-        BookSellFragment fragment = new BookSellFragment();
+    public static BookSellDetailFragment newInstance(Bundle bundle) {
+        BookSellDetailFragment fragment = new BookSellDetailFragment();
         Bundle args = bundle;
 //        args.putString("BookRegisterID",resgister_id);
         fragment.setArguments(args);
@@ -71,7 +71,7 @@ public class BookSellFragment extends Fragment implements MainActivity.OnBackPre
 
     @Override
     public void onBack() {
-        Log.i("Back", "onBack() in BookSellFragment");
+        Log.i("Back", "onBack() in BookSellDetailFragment");
 
         MainActivity mainActivity = (MainActivity)getActivity();
         mainActivity.setonBackPressedListener(null);

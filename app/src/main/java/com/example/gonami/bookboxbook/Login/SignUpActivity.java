@@ -17,7 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,6 +45,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Button btnIDDupCheck;
     private Button btnSignUp;
+
+    private String checkedID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +82,16 @@ public class SignUpActivity extends AppCompatActivity {
         btnIDDupCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String id = edUserID.getText().toString();
+                if (id.length() != 0) {
+                    //  아이디 중복 확인
+                    GetMemberData task = new GetMemberData();
+                    task.execute("https://" + IP_ADDRESS + "/dup-id-check.php", id);
+                }
+                else {
+                    Toast.makeText(SignUpActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -117,6 +134,12 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (!id.equals(checkedID)) {
+                    Toast.makeText(SignUpActivity.this, "ID를 중복체크 해 주세요.", Toast.LENGTH_SHORT).show();
+                    edUserID.requestFocus();
+                    return;
+                }
+
                 if (pw.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPW.requestFocus();
@@ -135,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (phonenum.length() == 0) {   // 11자리가 아니면이라고 고쳐야 함
+                if (phonenum.length() == 0) {   // TODO 11자리가 아니면이라고 고쳐야 함
                     Toast.makeText(SignUpActivity.this, "전화번호를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPN.requestFocus();
                     return;
@@ -246,6 +269,111 @@ public class SignUpActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.i(TAG, "InsertData: Error ", e);
                 return new String("Error: " + e.getMessage());
+            }
+        }
+    }
+
+    private class GetMemberData extends AsyncTask<String, Void, String> {
+
+        String errorString = null;
+
+        private String userJsonString;
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.d(TAG, "response1 - " + s.length() + " : " + s);
+
+            if (s.length() == 0)
+                Log.i(TAG, errorString);
+            else {
+                userJsonString = s;
+                showResult();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String serverURL = strings[0];
+            String id = strings[1];
+
+            String postParameters = "id=" + id;
+
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d(TAG, "response code2 - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+            } catch (Exception e) {
+                Log.d(TAG, "GetUserData : Error ", e);
+                errorString = e.toString();
+            }
+
+            return null;
+        }
+
+        private void showResult() {
+            String TAG_SUCCESS="success";
+            String TAG_ID="id";
+
+            boolean success;
+
+            try {
+                JSONObject jsonObject = new JSONObject(userJsonString);
+
+                success = jsonObject.getBoolean(TAG_SUCCESS);
+                Log.i(TAG, "success : " + success);
+                if(success) {
+                    Log.i(TAG, "ID Dup true");
+                    Toast.makeText(SignUpActivity.this, "아이디를 사용할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    checkedID = jsonObject.getString(TAG_ID);
+                }
+                else {
+                    Log.i(TAG, "ID Dup false");
+                    Toast.makeText(SignUpActivity.this, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (JSONException e) {
+                Log.i(TAG, "showResult : ", e);
             }
         }
     }
