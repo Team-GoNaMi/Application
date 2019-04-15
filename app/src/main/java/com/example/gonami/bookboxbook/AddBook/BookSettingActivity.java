@@ -3,21 +3,14 @@ package com.example.gonami.bookboxbook.AddBook;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -35,18 +28,14 @@ import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BookSettingActivity extends AppCompatActivity{
 
@@ -158,30 +147,31 @@ public class BookSettingActivity extends AppCompatActivity{
 
 
                 // 디비에 넣기
-                BookSettingActivity.InsertMemberData task = new InsertMemberData();
+                InsertBookData task = new InsertBookData();
 
                 task.execute("https://" + IP_ADDRESS + "/insert-book.php", registBook.toString());
 //
                 Log.i(TAG, "Added book in db");
 
+                /**
+                 * TODO
+                 * 책 추가가 끝나고 입력한 정보를 보여주는 상세 페이지 창을 BookSellDetailFragment로 하면
+                 * MainActivity에서 받는 Back Listener 때문에 안됨!
+                 * 따라서 판매자의 상세 정보 창을 보여주고 싶다면, 새로운 Fragment 또는 Activity를 생성해야한다.
+                 * 밑의 주석처리한 코드는 잘못된 코드임! 참고 사항으로 남겨둔 것이므로 지우지 말 것
+                 */
 
-//                Intent registerIntent = new Intent(BookSettingActivity.this, );
-//                registerIntent.putExtra("registerID", register_id);
-//                startActivity(registerIntent);
+//                String book_register_id = register_id;
+//                Bundle bundle = new Bundle();
+//                bundle.putString("BookRegisterID", book_register_id);
+//                BookSellDetailFragment bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
+//
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//                fragmentManager.beginTransaction()
+//                               .replace(R.id.frame_layout, bookSellDetailFragment)
+//                               .commit();
 //                finish();
-
-
-                String book_register_id = register_id;
-                Bundle bundle = new Bundle();
-                bundle.putString("BookRegisterID", book_register_id);
-                BookSellDetailFragment bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                               .replace(R.id.frame_layout, bookSellDetailFragment)
-                               .commit();
-                finish();
 
             }
         });
@@ -291,7 +281,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
 
 
-    private class InsertMemberData extends AsyncTask<String, Void, String> {
+    private class InsertBookData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
 

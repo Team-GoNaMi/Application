@@ -95,58 +95,58 @@ public class SearchFragment extends Fragment {
 //        searchList.add("맞나용???");
 
 
-        GetRegistBookData task = new GetRegistBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-search-info.php", book_register_id);
+//        GetRegistBookData task = new GetRegistBookData();
+//        task.execute("https://" + IP_ADDRESS + "/get-search-info.php", book_register_id);
 
-        bookSearchListViewAdapter = new BookSearchListViewAdapter();
-        bookListView.setAdapter(bookSearchListViewAdapter);
+//        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
+//        bookListView.setAdapter(bookSearchListViewAdapter);
 
-        testBtn = thisView.findViewById(R.id.testBtn);
+//        testBtn = thisView.findViewById(R.id.testBtn);
+//
+//        testBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
+//                //startActivity(intent);
+//                BookSellDetailFragment bookSellDetailFragment;
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("BookRegisterID", "20190414204013-1");
+//                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
+//
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//
+//                fragmentManager.beginTransaction()
+//                               .replace(R.id.frame_layout, bookSellDetailFragment)
+//                               .commit();
+//
+//                MainActivity.activeFragment = bookSellDetailFragment;
+//
+//            }
+//        });
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
-                //startActivity(intent);
-                BookSellDetailFragment bookSellDetailFragment;
 
-                Bundle bundle = new Bundle();
-                bundle.putString("BookRegisterID", "20190414204013-1");
-                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                               .replace(R.id.frame_layout, bookSellDetailFragment)
-                               .commit();
-
-                MainActivity.activeFragment = bookSellDetailFragment;
-
-            }
-        });
-
-
-        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
-                //startActivity(intent);
-                BookSellDetailFragment bookSellDetailFragment;
-
-                Bundle bundle = new Bundle();
-                bundle.putString("BookRegisterID", "20190414204013-1");
-                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, bookSellDetailFragment)
-                        .commit();
-
-                MainActivity.activeFragment = bookSellDetailFragment;
-            }
-        });
+//        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
+//                //startActivity(intent);
+//                BookSellDetailFragment bookSellDetailFragment;
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("BookRegisterID", "20190414204013-1");
+//                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
+//
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.frame_layout, bookSellDetailFragment)
+//                        .commit();
+//
+//                MainActivity.activeFragment = bookSellDetailFragment;
+//            }
+//        });
     }
     private class GetRegistBookData extends AsyncTask<String, Void, String> {
 

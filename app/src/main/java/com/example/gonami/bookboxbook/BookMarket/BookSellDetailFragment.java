@@ -431,7 +431,9 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.i("Back", "onAttach()");
+
         ((MainActivity)context).setonBackPressedListener(this);
+
     }
 
 
