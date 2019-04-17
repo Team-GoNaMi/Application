@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
-                android:text="이름기입 없음" />
+                android:text="이름기입" />
 
             <CheckBox
                 android:id="@+id/check_damage1"

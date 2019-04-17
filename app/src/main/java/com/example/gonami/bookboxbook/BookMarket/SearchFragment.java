@@ -1,26 +1,23 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.gonami.bookboxbook.MainActivity;
+import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +34,7 @@ public class SearchFragment extends Fragment {
     private static String TAG = "Search";
 
     private View thisView = null;
-    private String book_register_id;
+    private String searchWord = "";
 
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
@@ -46,7 +43,7 @@ public class SearchFragment extends Fragment {
 
     private Button testBtn;
 
-    private ArrayList<ViewHolder> bookList;
+    private ArrayList<BookInformation> bookList;
     //adapter에 넣을것
     private String tv_book_name;
     private String tv_book_info;//저자/출판사
@@ -89,18 +86,20 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        bookList = new ArrayList<ViewHolder>();
+        bookList = new ArrayList<BookInformation>();
 
 //        searchList.add("책 검색 페이지");
 //        searchList.add("맞나용???");
 
 
-//        GetRegistBookData task = new GetRegistBookData();
-//        task.execute("https://" + IP_ADDRESS + "/get-search-info.php", book_register_id);
+        GetRegisterBookData task = new GetRegisterBookData();
+        task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
 
 //        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
 //        bookListView.setAdapter(bookSearchListViewAdapter);
 
+
+// Test if it shows book detail
 //        testBtn = thisView.findViewById(R.id.testBtn);
 //
 //        testBtn.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +110,7 @@ public class SearchFragment extends Fragment {
 //                BookSellDetailFragment bookSellDetailFragment;
 //
 //                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", "20190414204013-1");
+//                bundle.putString("BookRegisterID", "20190417222503-1");
 //                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 //
 //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -135,7 +134,7 @@ public class SearchFragment extends Fragment {
 //                BookSellDetailFragment bookSellDetailFragment;
 //
 //                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", "20190414204013-1");
+//                bundle.putString("BookRegisterID", "20190415231107-1");
 //                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 //
 //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -148,7 +147,7 @@ public class SearchFragment extends Fragment {
 //            }
 //        });
     }
-    private class GetRegistBookData extends AsyncTask<String, Void, String> {
+    private class GetRegisterBookData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
         String errorString = null;
@@ -183,9 +182,9 @@ public class SearchFragment extends Fragment {
         protected String doInBackground(String... strings) {
 
             String serverURL = strings[0];
-            String book_register_id = strings[1];
-            String postParameters = "register_id=" + book_register_id;
-            Log.i(TAG, "register_id : " + book_register_id);
+            String search_word = strings[1];
+            String postParameters = "searchWord=" + search_word;
+            Log.i(TAG, "searchWord : " + search_word);
 
             try {
                 URL url = new URL(serverURL);
@@ -238,6 +237,7 @@ public class SearchFragment extends Fragment {
         }
 
         private void showResult() {
+            String TAG_BASIC = "basic";
             String TAG_SUCCESS = "success";
             String TAG_REGISTER_ID = "register_id";
             String TAG_BOOK_NAME = "book_name";
@@ -249,15 +249,31 @@ public class SearchFragment extends Fragment {
             boolean success;
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
 
-                success = jsonObject.getBoolean(TAG_SUCCESS);
-                Log.i(TAG, "success : " + success);
-                if(success){
-                   // bookList.add(jsonObject.getString(TAG_BOOK_NAME),jsonObject.getString(TAG_AUTHOR),jsonObject.getString(TAG_PUBLISHER), jsonObject.getString(TAG_ORIGINAL_PRICE), jsonObject.getString(TAG_SELLING_PRICE));
+                for(int i = 0; i<jsonArray.length();i++){
+                    JSONObject item = jsonArray.getJSONObject(i);
+                    success = item.getBoolean(TAG_SUCCESS);
+//                    Log.i(TAG, "success : " + success);
+                    if(success){
+                        // TODO Add infomration in the book list
+//                    b.addItem(jsonObject.getString(TAG_BOOK_NAME),book_info, "중앙대학교", jsonObject.getString(TAG_ORIGINAL_PRICE), jsonObject.getString(TAG_SELLING_PRICE));
+//                    bookList.add(viewHolder);
+
+                        BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
+                                item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
+                        bookList.add(bookInformation);
+//                        bookSearchListViewAdapter.addItem(bookInformation);
+                        Log.i(TAG, bookList.get(i).getBookName());
+
+
+                    }
+                    else {
+                        Log.i(TAG, "falseeeeeeeeeeeee");
+                    }
                 }
-                else {
-                    Log.i(TAG, "falseeeeeeeeeeeee");
-                }
+
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);
             }
