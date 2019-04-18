@@ -167,24 +167,15 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
     private class GetRegistBookData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
         String errorString = null;
 
         private String userJsonString;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please Wait", null, true, true);
-        }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressDialog.dismiss();
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){

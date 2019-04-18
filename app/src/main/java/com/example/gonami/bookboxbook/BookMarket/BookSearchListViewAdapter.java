@@ -26,7 +26,7 @@ import java.util.Locale;
 public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
-    private BookInformation bookInfo;
+//    private BookInformation bookInfo;
 
     private ImageView ivBookImage;
     private TextView tvBookName;
@@ -38,8 +38,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
     public BookSearchListViewAdapter(ArrayList<BookInformation> bookList) {
         this.bookList = bookList;
     }
-
-
 
     @Override
     public int getCount() {
@@ -57,7 +55,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         final Context context = parent.getContext();
 
         if (convertView == null) {
@@ -74,7 +72,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
 
         // TODO DB에서 불러와서 해당 책 등록번호에 맞는 책 이미지, 책 이름, 책 정보 불러와서 띄우기
-        bookInfo = bookList.get(position);
+        final BookInformation bookInfo = bookList.get(position);
 
         ivBookImage.setImageAlpha(R.mipmap.ic_launcher);    // 책 이미지
         tvBookName.setText(bookInfo.getBookName());
@@ -83,15 +81,24 @@ public class BookSearchListViewAdapter extends BaseAdapter {
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
 
-        Log.i("Search", String.valueOf(this.getCount()));
-
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO 책 페이지로 넘어가야함
-//                Intent intent = new Intent(context, BookSellingPage.class);
-//                context.startActivity(intent);
-                Toast.makeText(context, bookInfo.getBookName(), Toast.LENGTH_SHORT).show();
+                BookSellDetailFragment bookSellDetailFragment;
+                Bundle bundle = new Bundle();
+                bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
+
+                Log.i("Search", bookInfo.getRegister_id());
+
+                FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, bookSellDetailFragment)
+                        .commit();
+
+                MainActivity.activeFragment = bookSellDetailFragment;
             }
         });
 
