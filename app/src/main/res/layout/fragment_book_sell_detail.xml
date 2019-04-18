@@ -103,7 +103,6 @@
                     android:layout_marginVertical="5dp"
                     android:orientation="horizontal">
 
-<<<<<<< HEAD
                     <TextView
                         android:id="@+id/book_location"
                         android:layout_width="70dp"
@@ -125,7 +124,6 @@
                     android:layout_marginVertical="5dp"
                     android:orientation="horizontal">
 
-=======
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -152,7 +150,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical">
->>>>>>> 090e91d93b3367ccba77a93fe838ffa8bdab06b7
 
                     <TextView
                         android:layout_width="wrap_content"

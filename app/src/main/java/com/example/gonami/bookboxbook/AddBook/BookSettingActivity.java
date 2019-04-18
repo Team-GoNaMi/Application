@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -68,7 +69,7 @@ public class BookSettingActivity extends AppCompatActivity{
     ////////////////커리어넷 api
     private EditText ed_memo;
     private EditText ed_price;
-
+    private SearchView searchView;
 
     private Button btn_regist;
 
@@ -104,6 +105,8 @@ public class BookSettingActivity extends AppCompatActivity{
         ed_memo = findViewById(R.id.ed_memo);
         ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
+        searchView = findViewById(R.id.searchView);
+        searchView.setQueryHint("학교를 검색하세요");
 
         btn_regist = findViewById(R.id.btn_regist);
 

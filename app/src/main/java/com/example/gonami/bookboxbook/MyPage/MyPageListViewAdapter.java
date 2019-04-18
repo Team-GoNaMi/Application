@@ -6,6 +6,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.IntroActivity;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
@@ -69,8 +73,21 @@ public class MyPageListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
+                if (position == 1){
+                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
+                    Bundle bundle = new Bundle();
+//                    bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+//                    changePersonalInfoFragment = ChangePersonalInfoFragment.newInstance(bundle);
 
-                if (position == 2) {
+                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_layout, changePersonalInfoFragment)
+                            .commit();
+
+                    MainActivity.activeFragment = changePersonalInfoFragment;
+
+                }else if (position == 2) {
                     DialogInterface.OnClickListener logoutListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -87,10 +104,29 @@ public class MyPageListViewAdapter extends BaseAdapter {
                     };
                     new AlertDialog.Builder(context)
                             .setTitle("로그아웃 하시겠습니까?")
-                            .setPositiveButton("확인", logoutListener)
-                            .setNegativeButton("취소", cancelListener)
+                            .setNegativeButton("확인", logoutListener)
+                            .setPositiveButton("취소", cancelListener)
                             .show();
 
+                }else if(position==3){
+                    DialogInterface.OnClickListener dropListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //TODO db에서 회원제거
+                        }
+                    };
+                    DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            dialog.dismiss();
+                        }
+                    };
+                    new AlertDialog.Builder(context)
+                            .setTitle("탈퇴 하시겠습니까?")
+                            .setNegativeButton("확인", dropListener)
+                            .setPositiveButton("취소", cancelListener)
+                            .show();
                 }
 
                 SaveSharedPreference.logout(context);
