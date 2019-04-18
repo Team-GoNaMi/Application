@@ -6,24 +6,6 @@
     android:orientation="vertical"
     android:layout_marginBottom="56dp">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="search"/>-->
-
-    <!--<SearchView-->
-        <!--android:id="@+id/sv_book_search"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-    <!--</SearchView>-->
-
-    <Button
-        android:id="@+id/testBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -62,11 +44,6 @@
 
     </FrameLayout>
 
-    <!--<Button-->
-        <!--android:id="@+id/btn_test_sell"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="책 상세 페이지"/>-->
 
     <ListView
         android:id="@+id/lv_book_market"

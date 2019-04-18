@@ -103,6 +103,7 @@
                     android:layout_marginVertical="5dp"
                     android:orientation="horizontal">
 
+<<<<<<< HEAD
                     <TextView
                         android:id="@+id/book_location"
                         android:layout_width="70dp"
@@ -124,21 +125,52 @@
                     android:layout_marginVertical="5dp"
                     android:orientation="horizontal">
 
+=======
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="정가"
+                            android:layout_marginRight="5dp"/>
+
+
+                        <TextView
+                            android:id="@+id/tv_book_original_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:text="25000"
+                            android:layout_marginRight="10dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+>>>>>>> 090e91d93b3367ccba77a93fe838ffa8bdab06b7
 
                     <TextView
-                        android:id="@+id/tv_book_original_price"
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="원래 가격!!" />
+                        android:text="팔가"
+                        android:textColor="@android:color/black"
+                        android:layout_marginRight="5dp"/>
 
                     <TextView
                         android:id="@+id/tv_book_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="이 가격에 팔꺼야!!"
+                        android:text="5000"
                         android:textColor="@color/colorAccent"
                         android:textSize="20sp" />
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 

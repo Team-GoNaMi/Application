@@ -99,31 +99,8 @@ public class SearchFragment extends Fragment {
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
 
-
-// Test if it shows book detail
-        testBtn = thisView.findViewById(R.id.testBtn);
-
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BookSellDetailFragment bookSellDetailFragment;
-
-                Bundle bundle = new Bundle();
-                bundle.putString("BookRegisterID", "20190417222503-1");
-                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                               .replace(R.id.frame_layout, bookSellDetailFragment)
-                               .commit();
-
-                MainActivity.activeFragment = bookSellDetailFragment;
-
-            }
-        });
-
     }
+
     private class GetRegisterBookData extends AsyncTask<String, Void, String> {
 
         String errorString = null;
