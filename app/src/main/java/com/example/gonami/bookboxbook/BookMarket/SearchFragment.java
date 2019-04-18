@@ -6,15 +6,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import org.json.JSONArray;
@@ -87,86 +91,49 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bookList = new ArrayList<BookInformation>();
-
-//        searchList.add("책 검색 페이지");
-//        searchList.add("맞나용???");
-
-
         GetRegisterBookData task = new GetRegisterBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
 
-//        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
-//        bookListView.setAdapter(bookSearchListViewAdapter);
+        bookListView = view.findViewById(R.id.lv_book_market);
+
+        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
+        bookListView.setAdapter(bookSearchListViewAdapter);
 
 
 // Test if it shows book detail
-//        testBtn = thisView.findViewById(R.id.testBtn);
-//
-//        testBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
-//                //startActivity(intent);
-//                BookSellDetailFragment bookSellDetailFragment;
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", "20190417222503-1");
-//                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-//
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//
-//                fragmentManager.beginTransaction()
-//                               .replace(R.id.frame_layout, bookSellDetailFragment)
-//                               .commit();
-//
-//                MainActivity.activeFragment = bookSellDetailFragment;
-//
-//            }
-//        });
+        testBtn = thisView.findViewById(R.id.testBtn);
 
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookSellDetailFragment bookSellDetailFragment;
 
-//        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Intent intent = new Intent(getContext(), BookSellDetailFragment.class);
-//                //startActivity(intent);
-//                BookSellDetailFragment bookSellDetailFragment;
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", "20190415231107-1");
-//                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-//
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.frame_layout, bookSellDetailFragment)
-//                        .commit();
-//
-//                MainActivity.activeFragment = bookSellDetailFragment;
-//            }
-//        });
+                Bundle bundle = new Bundle();
+                bundle.putString("BookRegisterID", "20190417222503-1");
+                bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                               .replace(R.id.frame_layout, bookSellDetailFragment)
+                               .commit();
+
+                MainActivity.activeFragment = bookSellDetailFragment;
+
+            }
+        });
+
     }
     private class GetRegisterBookData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
         String errorString = null;
 
         private String userJsonString;
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressDialog.dismiss();
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){
@@ -238,7 +205,6 @@ public class SearchFragment extends Fragment {
 
         private void showResult() {
             String TAG_BASIC = "basic";
-            String TAG_SUCCESS = "success";
             String TAG_REGISTER_ID = "register_id";
             String TAG_BOOK_NAME = "book_name";
             String TAG_AUTHOR = "author";
@@ -254,6 +220,7 @@ public class SearchFragment extends Fragment {
                 for(int i = 0; i<jsonArray.length();i++){
                     JSONObject item = jsonArray.getJSONObject(i);
 
+<<<<<<< HEAD
                     BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
                             item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
                             item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
@@ -261,7 +228,18 @@ public class SearchFragment extends Fragment {
 //                        bookSearchListViewAdapter.addItem(bookInformation);
                     Log.i(TAG, bookList.get(i).getBookName());
 
+=======
+                    BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
+                            item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), "");
+                    bookList.add(bookInformation);
+                    Log.i(TAG, bookList.get(i).getBookName());
+>>>>>>> 616dfb500b518d96175f3fd80765a1e8279107fd
                 }
+
+                // 어뎁터 생성
+                BookSearchListViewAdapter adapter = new BookSearchListViewAdapter(bookList);
+                bookListView.setAdapter(adapter);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);
