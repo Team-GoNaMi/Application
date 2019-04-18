@@ -55,6 +55,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tvPublishDate;
     private TextView tvOriginalPrice;
     private TextView tvPrice;
+    private TextView tvLocation;
     private ImageButton ibBookmark;
     private Button btnBuy;
 
@@ -125,6 +126,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         tvPublishDate = thisView.findViewById(R.id.tv_book_publish_date);
         tvOriginalPrice = thisView.findViewById(R.id.tv_book_original_price);
         tvPrice = thisView.findViewById(R.id.tv_book_price);
+        tvLocation = thisView.findViewById(R.id.tv_book_bb_where);
+
         ibBookmark = thisView.findViewById(R.id.ib_bookmark);
         btnBuy = thisView.findViewById(R.id.btn_buy);
         tv_book_state_highlight1_o = thisView.findViewById(R.id.tv_book_state_highlight1_o);

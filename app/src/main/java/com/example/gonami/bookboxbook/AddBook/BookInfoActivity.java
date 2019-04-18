@@ -71,9 +71,6 @@ public class BookInfoActivity extends AppCompatActivity {
             }.start();
 
         }
-        else {
-        }
-
 
         }
 

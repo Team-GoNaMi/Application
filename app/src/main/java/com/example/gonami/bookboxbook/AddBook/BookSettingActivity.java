@@ -1,16 +1,20 @@
 package com.example.gonami.bookboxbook.AddBook;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +31,17 @@ import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -104,6 +113,19 @@ public class BookSettingActivity extends AppCompatActivity{
         school = new ArrayList<String>();
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
+
+//        new Thread() {
+//            public void run() {
+//                String schoolResult = getSchool("중앙대학교");
+//
+//                Bundle bun = new Bundle();
+//                bun.putString("DATA", schoolResult);
+//
+//                Message msg = handler.obtainMessage();
+//                msg.setData(bun);
+//                handler.sendMessage(msg);
+//            }
+//        }.start();
     }
 
 
@@ -190,11 +212,12 @@ public class BookSettingActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            ImageView imagebook = new ImageView(this);
-            imagebook.setImageURI(data.getData());
-            layout.addView(imagebook);
-        }
+        Log.i("photo","gg"+resultCode);
+
+        ImageView imagebook = new ImageView(this);
+        imagebook.setImageURI(data.getData());
+        layout.addView(imagebook);
+
         //get thumnail
 
         bookImage.add(String.valueOf(data.getData()));
@@ -357,6 +380,68 @@ public class BookSettingActivity extends AppCompatActivity{
                 Log.i(TAG, "InsertData: Error ", e);
                 return new String("Error: " + e.getMessage());
             }
+        }
+    }
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            Bundle bun = msg.getData();
+            String naverResult = bun.getString("DATA");
+
+            String[] splitResult = naverResult.split("\\n");
+            //splitResult[2] = image
+//            ed_name.setText(splitResult[1]);
+//            ed_isbn.setText(splitResult[2]);
+            Log.i("result","ggg"+splitResult.toString());
+        }
+    };
+    public String getSchool(String school) {
+        String key = "bcad9a7ff9219a1bb57dbf6353f2e262";
+
+        StringBuffer sb = new StringBuffer();
+
+        try {
+            String text = URLEncoder.encode(school, "UTF-8");
+
+            String apiURL = "https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey="+key+"&svcType=api&svcCode=SCHOOL&contentType=xml&gubun=univ_list&searchSchulNm="+text;
+
+            URL url = new URL(apiURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xpp = factory.newPullParser();
+            String tag;
+
+            //inputStream으로부터 xml값 받기
+            xpp.setInput(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+            xpp.next();
+            int eventType = xpp.getEventType();
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        tag = xpp.getName(); //태그 이름 얻어오기
+
+                        if (tag.equals("content")) ; //첫번째 검색 결과
+                        else if (tag.equals("schoolName")) {
+                            xpp.next();
+                            sb.append(xpp.getText().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", ""));
+                            sb.append("\n");
+                        } else if (tag.equals("region")) {
+                            xpp.next();
+                            sb.append(xpp.getText().replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>", ""));
+                            sb.append("\n");
+                        }
+                        break;
+                }
+                eventType = xpp.next();
+            }
+            Log.i("sb", sb.toString());
+            return sb.toString();
+        } catch (Exception e) {
+            return e.toString();
         }
     }
 }

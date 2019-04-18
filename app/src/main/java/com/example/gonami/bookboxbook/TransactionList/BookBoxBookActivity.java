@@ -2,6 +2,7 @@ package com.example.gonami.bookboxbook.TransactionList;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -82,7 +83,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                 calDialog = dialog.getDatePicker();
                 calDialog.setMinDate(new Date().getTime());
-                calDialog.setBackgroundColor(0xAFD982);
+//TODO 달력색
                 dialog.show();
 
                 calDialog.init(calDialog.getYear(), calDialog.getMonth(), calDialog.getDayOfMonth(),
@@ -117,11 +118,13 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 //TODO 디비에 넣기
                 //state false로 바꾸기
                 bb_id = String.format("%s_%s", bb_location, bb_num);
-                Intent Intent = new Intent(BookBoxBookActivity.this, SellListFragment.class);
-                BookBoxBookActivity.this.startActivity(Intent);
+//                Intent Intent = new Intent(BookBoxBookActivity.this, SellListFragment.class);
+//                BookBoxBookActivity.this.startActivity(Intent);
                 finish();
             }
         });
+
+        //TODO 피커선택하면 달력에도..
         datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(),
                 new DatePicker.OnDateChangedListener() {
             @Override

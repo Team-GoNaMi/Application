@@ -2,7 +2,9 @@ package com.example.gonami.bookboxbook.MyPage;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,9 +60,6 @@ public class MyPageListViewAdapter extends BaseAdapter {
                 ToggleButton toggleButton = convertView.findViewById(R.id.toggleButton);
             }
         }
-
-//        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        convertView = inflater.inflate(R.layout.mypage_menu, parent, false);
         if (position != 0) {
             TextView tvMenuName = convertView.findViewById(R.id.tv_menu_name);
             tvMenuName.setText(menu.get(position));
@@ -72,10 +71,26 @@ public class MyPageListViewAdapter extends BaseAdapter {
                 Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
 
                 if (position == 2) {
-                    SaveSharedPreference.logout(context);
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    context.startActivity(intent);
-                    // Finish를 못함..ㅠㅠ
+                    DialogInterface.OnClickListener logoutListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SaveSharedPreference.logout(context);
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            context.startActivity(intent);
+                        }
+                    };
+                    DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            dialog.dismiss();
+                        }
+                    };
+                    new AlertDialog.Builder(context)
+                            .setTitle("로그아웃 하시겠습니까?")
+                            .setPositiveButton("확인", logoutListener)
+                            .setNegativeButton("취소", cancelListener)
+                            .show();
+
                 }
 
                 SaveSharedPreference.logout(context);
