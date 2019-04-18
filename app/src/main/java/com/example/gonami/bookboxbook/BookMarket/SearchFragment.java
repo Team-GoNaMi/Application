@@ -87,10 +87,10 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bookList = new ArrayList<BookInformation>();
-        bookListView = view.findViewById(R.id.lv_book_market);
-
         GetRegisterBookData task = new GetRegisterBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
+
+        bookListView = view.findViewById(R.id.lv_book_market);
 
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
@@ -146,24 +146,14 @@ public class SearchFragment extends Fragment {
     }
     private class GetRegisterBookData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
         String errorString = null;
 
         private String userJsonString;
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressDialog.dismiss();
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){
@@ -255,9 +245,12 @@ public class SearchFragment extends Fragment {
                             item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
                             item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
                     bookList.add(bookInformation);
-//                        bookSearchListViewAdapter.addItem(bookInformation);
                     Log.i(TAG, bookList.get(i).getBookName());
                 }
+
+                // 어뎁터 생성
+                BookSearchListViewAdapter adapter = new BookSearchListViewAdapter(bookList);
+                bookListView.setAdapter(adapter);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);
