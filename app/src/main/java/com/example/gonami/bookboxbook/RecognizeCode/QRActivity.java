@@ -26,7 +26,7 @@ public class QRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qr);
         img_qr = findViewById(R.id.img_qr);
 
-        tv_bb_location = findViewById(R.id.tv_bb_location);
+        tv_bb_location = findViewById(R.id.tv_where);
         tv_bb_num = findViewById(R.id.tv_bb_num);
 
         bit_qr = generateQRCode("tradenum");

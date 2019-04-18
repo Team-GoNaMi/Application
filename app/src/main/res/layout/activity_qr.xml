@@ -14,51 +14,61 @@
         android:orientation="horizontal"
         android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/textView1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="거래장소" />
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="10dp">
 
-        <TextView
-            android:id="@+id/tv_bb_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="중앙대학교"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_place"/>
+
+            <TextView
+                android:id="@+id/tv_where"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="중앙대학교"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp">
 
         <TextView
-            android:id="@+id/textView2"
+        android:id="@+id/tv_bb_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorAccent"
+        android:text="9"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="북박스번호" />
-
-        <TextView
-            android:id="@+id/tv_bb_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="9"
-            android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:text="번 박스에서 찾아가 주세요!"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/img_qr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@color/colorPrimary"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
 
 
