@@ -1,6 +1,7 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.widget.DatePicker;
 
 import com.example.gonami.bookboxbook.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,13 +27,18 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
     private DatePicker datePicker;
 
-
     private Button btn_book;
+
+    private String stringDate;
+
+    private SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
     //DB
     private Date book_date;
-    private String bb_id;
+    private  String bb_location;
+    private int bb_num;
+    private String bb_id;//중앙대학교_1 이런식으로
     private String trade_num;
 
     @Override
@@ -41,11 +49,20 @@ public class BookBoxBookActivity extends AppCompatActivity {
         btn_chooseDate = findViewById(R.id.btn_chooseDate);
         btn_book = findViewById(R.id.btn_book);
 
+//        TODO 앞페이지에서 받아온다.
+//        bb_location =
+//        trade_num =
 
         datePicker = findViewById(R.id.datePicker);
         settingPicker();
+        bb_num = getRandomAvailBBNum(book_date);
     }
 
+    private int getRandomAvailBBNum(Date select_date){
+
+        //avail 한 값 디비에서 가져오기
+        return bb_num;
+    }
     private void settingPicker(){
         datePicker.setMinDate(new Date().getTime());
     }
@@ -58,13 +75,16 @@ public class BookBoxBookActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 dialog = new DatePickerDialog(BookBoxBookActivity.this, new DatePickerDialog.OnDateSetListener() {
+
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                     }
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-                dialog.getDatePicker().setMinDate(new Date().getTime());
-                dialog.show();
                 calDialog = dialog.getDatePicker();
+                calDialog.setMinDate(new Date().getTime());
+                calDialog.setBackgroundColor(0xAFD982);
+                dialog.show();
+
                 calDialog.init(calDialog.getYear(), calDialog.getMonth(), calDialog.getDayOfMonth(),
                         new DatePicker.OnDateChangedListener() {
                             @Override
@@ -75,17 +95,30 @@ public class BookBoxBookActivity extends AppCompatActivity {
                                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                     }
                                 });
-                               // tv_test2.setText(String.format("%d/%d/%d", year,monthOfYear + 1, dayOfMonth));
+
+                                //확인 누르면 저장한다.
+                                stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                                try {
+                                    book_date = transFormat.parse(stringDate);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
                         });
+
 
             }
         });
         btn_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent Intent = new Intent(BookBoxBookActivity.this, SellListFragment.class);
-//                BookBoxBookActivity.this.startActivity(Intent);
+
+                //TODO 디비에 넣기
+                //state false로 바꾸기
+                bb_id = String.format("%s_%s", bb_location, bb_num);
+                Intent Intent = new Intent(BookBoxBookActivity.this, SellListFragment.class);
+                BookBoxBookActivity.this.startActivity(Intent);
                 finish();
             }
         });
@@ -93,13 +126,21 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                book_date = new Date();
-                Log.i("///","/////"+book_date);
-                //tv_test.setText(String.format("%d/%d/%d", year,monthOfYear + 1, dayOfMonth));
 
+                stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                Log.i("date", "hee"+stringDate);
+                ///선택 완료시 넣어야하는뎅..
+                try {
+                    book_date = transFormat.parse(stringDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Log.i("date", "hee"+book_date.toString());
             }
 
+
         });
+
 
     }
 
