@@ -87,16 +87,13 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bookList = new ArrayList<BookInformation>();
-
-//        searchList.add("책 검색 페이지");
-//        searchList.add("맞나용???");
-
-
         GetRegisterBookData task = new GetRegisterBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
 
-//        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
-//        bookListView.setAdapter(bookSearchListViewAdapter);
+        bookListView = view.findViewById(R.id.lv_book_market);
+
+        bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
+        bookListView.setAdapter(bookSearchListViewAdapter);
 
 
 // Test if it shows book detail
@@ -149,24 +146,14 @@ public class SearchFragment extends Fragment {
     }
     private class GetRegisterBookData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
         String errorString = null;
 
         private String userJsonString;
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            progressDialog.dismiss();
             Log.d(TAG, "response1 - " + s.length() + " : " + s);
 
             if (s.length() == 0){
@@ -253,26 +240,17 @@ public class SearchFragment extends Fragment {
 
                 for(int i = 0; i<jsonArray.length();i++){
                     JSONObject item = jsonArray.getJSONObject(i);
-                    success = item.getBoolean(TAG_SUCCESS);
-//                    Log.i(TAG, "success : " + success);
-                    if(success){
-                        // TODO Add infomration in the book list
-//                    b.addItem(jsonObject.getString(TAG_BOOK_NAME),book_info, "중앙대학교", jsonObject.getString(TAG_ORIGINAL_PRICE), jsonObject.getString(TAG_SELLING_PRICE));
-//                    bookList.add(viewHolder);
 
-                        BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
-                                item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
-                        bookList.add(bookInformation);
-//                        bookSearchListViewAdapter.addItem(bookInformation);
-                        Log.i(TAG, bookList.get(i).getBookName());
-
-
-                    }
-                    else {
-                        Log.i(TAG, "falseeeeeeeeeeeee");
-                    }
+                    BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
+                            item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
+                    bookList.add(bookInformation);
+                    Log.i(TAG, bookList.get(i).getBookName());
                 }
+
+                // 어뎁터 생성
+                BookSearchListViewAdapter adapter = new BookSearchListViewAdapter(bookList);
+                bookListView.setAdapter(adapter);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);
