@@ -253,25 +253,14 @@ public class SearchFragment extends Fragment {
 
                 for(int i = 0; i<jsonArray.length();i++){
                     JSONObject item = jsonArray.getJSONObject(i);
-                    success = item.getBoolean(TAG_SUCCESS);
-//                    Log.i(TAG, "success : " + success);
-                    if(success){
-                        // TODO Add infomration in the book list
-//                    b.addItem(jsonObject.getString(TAG_BOOK_NAME),book_info, "중앙대학교", jsonObject.getString(TAG_ORIGINAL_PRICE), jsonObject.getString(TAG_SELLING_PRICE));
-//                    bookList.add(viewHolder);
 
-                        BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
-                                item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
-                        bookList.add(bookInformation);
+                    BookInformation bookInformation = new BookInformation(item.getString(TAG_BOOK_NAME),
+                            item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
+                    bookList.add(bookInformation);
 //                        bookSearchListViewAdapter.addItem(bookInformation);
-                        Log.i(TAG, bookList.get(i).getBookName());
+                    Log.i(TAG, bookList.get(i).getBookName());
 
-
-                    }
-                    else {
-                        Log.i(TAG, "falseeeeeeeeeeeee");
-                    }
                 }
 
             } catch (JSONException e) {
