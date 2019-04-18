@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private long backKeyPressedTime;    // 앱 종료 위한 백 버튼 누른 시간
 
-    private String user_id;
-    private String user_pw;
+//    private String user_id;
+//    private String user_pw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -247,6 +247,7 @@ public class LoginActivity extends AppCompatActivity {
             String TAG_SUCCESS="success";
             String TAG_ID="id";
             String TAG_PW="pw";
+            String TAG_NAME="name";
 
             boolean success;
 
@@ -256,14 +257,13 @@ public class LoginActivity extends AppCompatActivity {
                 success = jsonObject.getBoolean(TAG_SUCCESS);
                 Log.i(TAG, "success : " + success);
                 if(success) {
-                    user_id = jsonObject.getString(TAG_ID);
-                    user_pw = jsonObject.getString(TAG_PW);
+                    String user_id = jsonObject.getString(TAG_ID);
+                    String user_pw = jsonObject.getString(TAG_PW);
+                    String user_name = jsonObject.getString(TAG_NAME);
                     Log.i(TAG, "trueeeeeeeeee");
                     Log.i(TAG, "Login checked");
 
-                    if (cbAutoLogin.isChecked()) {
-                        SaveSharedPreference.setUserID(LoginActivity.this, user_id, user_pw);
-                    }
+                    SaveSharedPreference.setUserID(LoginActivity.this, cbAutoLogin.isChecked(), user_id, user_pw, user_name);
 
                     Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(signinIntent);

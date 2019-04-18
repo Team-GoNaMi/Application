@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
 import com.example.gonami.bookboxbook.R;
+
 
 import java.util.ArrayList;
 
@@ -23,6 +25,9 @@ public class MyPageFragment extends Fragment {
     private ListView menuListView;
     private MyPageListViewAdapter menuListViewAdapter;
     private ArrayList<String> menu;
+
+    private TextView tv_user_name;
+    private TextView tv_user_id;
 
     public MyPageFragment() {
 
@@ -52,6 +57,12 @@ public class MyPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        tv_user_name = view.findViewById(R.id.user_name);
+        tv_user_id = view.findViewById(R.id.user_id);
+
+        tv_user_name.setText(SaveSharedPreference.getUserName(getContext()));
+        tv_user_id.setText(SaveSharedPreference.getUserID(getContext()));
 
         menu = new ArrayList<String>();
 

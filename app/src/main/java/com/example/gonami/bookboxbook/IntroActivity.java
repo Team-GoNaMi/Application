@@ -34,7 +34,7 @@ public class IntroActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (SaveSharedPreference.getUserID(IntroActivity.this).length() == 0) {     // 저장된 id가 없다면
+                if (!SaveSharedPreference.getAutoLogin(IntroActivity.this)) {     // 저장된 id가 없다면
                     intent = new Intent(IntroActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();

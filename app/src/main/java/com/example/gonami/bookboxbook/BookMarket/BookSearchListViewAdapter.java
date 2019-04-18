@@ -14,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.MainActivity;
@@ -103,12 +102,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
         });
 
         return convertView;
-    }
-
-    public void filter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        bookList.clear();
-        // TODO 마저 이어서.. -> 뭘 해.....???ㅠㅠㅠ
     }
 
 }
