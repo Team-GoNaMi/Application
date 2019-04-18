@@ -24,8 +24,9 @@ public class SellListFragment extends Fragment {
     private SellLisViewAdapter sellLisViewAdapter;
     private ArrayList<String> sellList;
 
-    private Button testBtn;
-    private Button testBtn2;
+    private Button btn_bookbb;
+    private Button btn_qr;
+    private Button btn_rate;
 
     public SellListFragment() {
 
@@ -53,9 +54,9 @@ public class SellListFragment extends Fragment {
 
         sellList = new ArrayList<String>();
 
-        testBtn = thisView.findViewById(R.id.button);
-        testBtn2 = thisView.findViewById(R.id.button2);
-
+        btn_bookbb = thisView.findViewById(R.id.btn_bookbb);
+        btn_qr = thisView.findViewById(R.id.btn_qr);
+        btn_rate = thisView.findViewById(R.id.btn_rate);
         // Test
         sellList.add("여기는!!!!");
         sellList.add("내가 판 책");
@@ -65,17 +66,24 @@ public class SellListFragment extends Fragment {
         sellLisViewAdapter = new SellLisViewAdapter(sellList);
         sellListView.setAdapter(sellLisViewAdapter);
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        btn_bookbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), BookBoxBookActivity.class);
                 getActivity().startActivity(Intent);
             }
         });
-        testBtn2.setOnClickListener(new View.OnClickListener() {
+        btn_qr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), QRActivity.class);
+                getActivity().startActivity(Intent);
+            }
+        });
+        btn_rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getActivity(), RateActivity.class);
                 getActivity().startActivity(Intent);
             }
         });

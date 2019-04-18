@@ -92,6 +92,7 @@
             android:gravity="center"
             android:text="원래 가격"
             android:textSize="12sp"
+            android:layout_marginTop="10dp"
             android:textColor="@android:color/darker_gray"/>
 
         <TextView
@@ -99,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:text="20000원"
             android:textSize="15sp"
             android:textColor="@android:color/black" />

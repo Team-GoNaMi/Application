@@ -8,17 +8,22 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_bookbb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="북박스예약" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_qr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="큐알코드" />
 
+    <Button
+        android:id="@+id/btn_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="평가" />
 
 
 

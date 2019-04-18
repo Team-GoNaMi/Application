@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="받아본 책은 마음에 드셨나요?"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="(책 수령 10분 후 자동 확정처리 됩니다!)"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        android:layout_marginBottom="30dp"/>
+
+
+
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="30dp"
+        android:text="구매확정"/>
+
+</LinearLayout>
