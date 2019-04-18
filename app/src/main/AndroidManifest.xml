@@ -32,7 +32,7 @@
         <activity android:name=".AddBook.BookInfoActivity"/>
         <activity android:name=".AddBook.BookSettingActivity"/>
         <activity android:name=".TransactionList.BookBoxBookActivity"/>
-        <activity android:name=".RecognizeCode.MakeQRcode"/>
+        <activity android:name=".RecognizeCode.QRActivity"/>
         <activity android:name=".BookMarket.BuyActivity"/>
 
 

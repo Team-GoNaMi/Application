@@ -14,17 +14,20 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-public class MakeQRcode extends AppCompatActivity {
+public class QRActivity extends AppCompatActivity {
 
     private ImageView img_qr;
-    private TextView tv_bb_info;
+    private TextView tv_bb_location;
+    private TextView tv_bb_num;
     private Bitmap bit_qr;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookboxbook);
+        setContentView(R.layout.activity_qr);
         img_qr = findViewById(R.id.img_qr);
-        tv_bb_info = findViewById(R.id.tv_bb_info);
+
+        tv_bb_location = findViewById(R.id.tv_bb_location);
+        tv_bb_num = findViewById(R.id.tv_bb_num);
 
         bit_qr = generateQRCode("tradenum");
         img_qr.setImageBitmap(bit_qr);
@@ -34,7 +37,7 @@ public class MakeQRcode extends AppCompatActivity {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         Bitmap bitmap = null;
         try {
-            bitmap = toBitmap(qrCodeWriter.encode(contents, BarcodeFormat.QR_CODE, 200, 200));
+            bitmap = toBitmap(qrCodeWriter.encode(contents, BarcodeFormat.QR_CODE, 1000, 1000));
         }catch (WriterException e) {
             e.printStackTrace();
         }

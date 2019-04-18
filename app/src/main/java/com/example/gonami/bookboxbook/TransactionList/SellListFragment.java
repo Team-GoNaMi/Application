@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
-import com.example.gonami.bookboxbook.RecognizeCode.MakeQRcode;
+import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 
 import java.util.ArrayList;
 
@@ -77,7 +75,7 @@ public class SellListFragment extends Fragment {
         testBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), MakeQRcode.class);
+                Intent Intent = new Intent(getActivity(), QRActivity.class);
                 getActivity().startActivity(Intent);
             }
         });
