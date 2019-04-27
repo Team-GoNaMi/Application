@@ -21,12 +21,10 @@ import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
-//    private BookInformation bookInfo;
 
     private ImageView ivBookImage;
     private TextView tvBookName;
@@ -70,8 +68,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
         tvBookOriginPrice = convertView.findViewById(R.id.tv_book_original_price);
         tvBookPrice = convertView.findViewById(R.id.tv_book_price);
 
-
-        // TODO DB에서 불러와서 해당 책 등록번호에 맞는 책 이미지, 책 이름, 책 정보 불러와서 띄우기
         final BookInformation bookInfo = bookList.get(position);
 
         if(bookInfo.getBook_image() != null){
@@ -80,9 +76,10 @@ public class BookSearchListViewAdapter extends BaseAdapter {
             Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
 
         }
+
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // 거래 장소
+        tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // TODO 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 
