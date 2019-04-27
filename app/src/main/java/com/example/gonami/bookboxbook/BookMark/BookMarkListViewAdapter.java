@@ -1,6 +1,7 @@
 package com.example.gonami.bookboxbook.BookMark;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         tvBookInfo.setText("강단이 / 겨루");
         tvSchoolNames.setText("중앙대 서울캠, 홍대");
         tvOriginPrice.setText("10원");
+        tvOriginPrice.setPaintFlags(tvOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         tvBookPrice.setText("50000원");
 
 

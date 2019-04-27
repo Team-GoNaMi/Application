@@ -2,6 +2,7 @@ package com.example.gonami.bookboxbook.BookMarket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,11 +74,18 @@ public class BookSearchListViewAdapter extends BaseAdapter {
         // TODO DB에서 불러와서 해당 책 등록번호에 맞는 책 이미지, 책 이름, 책 정보 불러와서 띄우기
         final BookInformation bookInfo = bookList.get(position);
 
-        ivBookImage.setImageAlpha(R.mipmap.ic_launcher);    // 책 이미지
+        if(bookInfo.getBook_image() != null){
+            Log.i("gg", "북이미지가 널이 아님");
+            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
+            Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
+
+        }
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
         tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
+        tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
 
         convertView.setOnClickListener(new View.OnClickListener() {

@@ -30,7 +30,7 @@ public class BookInformation implements Serializable {
     private int buy_avail;
 
     // search와  book mark, 거래 목록에서 객체 생성할 때 사용하는 생성자
-    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, String school) {
+    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price) {
         this.register_id = register_id;
         this.bookName = bookName;
         this.author = author;
@@ -39,13 +39,15 @@ public class BookInformation implements Serializable {
         this.selling_price = selling_price;
     }
 
-    public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date) {
+    public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date, String bookImage) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.original_price = origin_price;
         this.publish_date = publish_date;
+        book_image = new ArrayList<String>();
+        book_image.add(0, bookImage);
     }
 
     public void setBookInformation(String register_id, String seller_id, ArrayList<String> school,
@@ -57,7 +59,10 @@ public class BookInformation implements Serializable {
         this.school = school;
         this.selling_price = selling_price;
 //        this.selling_price = Integer.parseInt(selling_price);
-        this.book_image = book_image;
+        //TODO 수동입력일때 예외처리 사진 받아올까..
+        for(int i = 0; i<book_image.size()-1;i++){
+            this.book_image.add(book_image.get(i));
+        }
         this.underline = underline;
         this.writing = writing;
         this.cover = cover;
@@ -89,6 +94,7 @@ public class BookInformation implements Serializable {
         return concat;
     }
 
+    public String getFirstImage(){ return book_image.get(0);}
     public String getISBN() {
         return isbn;
     }

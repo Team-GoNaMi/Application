@@ -1,6 +1,7 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,8 @@ public class BuyListViewAdapter extends BaseAdapter {
         tvBookInfo.setText("남유선 / 큐브");
         tvSchoolNames.setText("중앙대 서울캠, 부천대");
         tvOriginPrice.setText("25000원");
+        tvOriginPrice.setPaintFlags(tvOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+
         tvBookPrice.setText("5000원");
         btnBookState.setText("판매자가 북박스 예약 중");
 

@@ -2,6 +2,7 @@ package com.example.gonami.bookboxbook.TransactionList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class SellLisViewAdapter extends BaseAdapter {
         tvBookInfo.setText("이승윤 / 플레디스");
         tvSchoolNames.setText("중앙대 서울캠, 숭실대");
         tvOriginPrice.setText("5000원");
+        tvOriginPrice.setPaintFlags(tvOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+
         tvBookPrice.setText("5000원");
         btnBookState.setText("책을 가져가주세욤!");
         return convertView;
