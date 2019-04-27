@@ -1,24 +1,19 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
-import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import org.json.JSONArray;
@@ -43,18 +38,7 @@ public class SearchFragment extends Fragment {
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
 
-    private ArrayList<String> searchList;
-
-    private Button testBtn;
-
     private ArrayList<BookInformation> bookList;
-    //adapter에 넣을것
-    private String tv_book_name;
-    private String tv_book_info;//저자/출판사
-    private String  tv_book_original_price;
-    private String  tv_book_price;
-
-    private String tv_book_schoolname;
 
 //    private SearchView searchView;
     private EditText etSearchBook;

@@ -72,7 +72,7 @@ public class MyPageListViewAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
                 if (position == 1){
                     ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
                     Bundle bundle = new Bundle();
