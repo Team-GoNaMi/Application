@@ -77,6 +77,7 @@ public class SellLisViewAdapter extends BaseAdapter {
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
         tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // TODO 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
+        tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
         btnBookState.setText("책을 가져가주세욤!");
 

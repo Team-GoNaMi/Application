@@ -219,7 +219,7 @@ public class SellListFragment extends Fragment {
 
                         BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
                                 item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), "");
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE));
                         sellList.add(bookInformation);
                         Log.i(TAG, sellList.get(i).getBookName());
                     }
