@@ -2,6 +2,7 @@ package com.example.gonami.bookboxbook.AddBook;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private EditText ed_price;
     private EditText ed_publish_date;
 
+    private String bookImage;
     private Button btn_next;
     private Boolean isBarcord;
 
@@ -81,7 +83,8 @@ public class BookInfoActivity extends AppCompatActivity {
             String naverResult = bun.getString("DATA");
 
             String[] splitResult = naverResult.split("\\n");
-            //splitResult[2] = image
+              bookImage = splitResult[2];
+              Log.i("hello", "gg" + bookImage);
               ed_name.setText(splitResult[1]);
               ed_isbn.setText(splitResult[7]);
               ed_author.setText(splitResult[3]);
@@ -118,7 +121,8 @@ public class BookInfoActivity extends AppCompatActivity {
 
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
-                        ed_price.getText().toString(), ed_publish_date.getText().toString());
+                        ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
+                Log.i("gg","bookimage" + registBook.getBook_image().toString());
                 if (ed_isbn.getText().length() == 0) {
                     Toast.makeText(BookInfoActivity.this, "ISBN을 입력하세요!", Toast.LENGTH_SHORT).show();
                     ed_isbn.requestFocus();

@@ -1,12 +1,21 @@
 package com.example.gonami.bookboxbook.AddBook;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -16,8 +25,14 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -25,6 +40,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -36,6 +54,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -52,6 +72,9 @@ public class BookSettingActivity extends AppCompatActivity{
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "BookSettingg";
 
+    private static final int IMAGE_HIGHT = 500;
+    private static final int IMAGE_WIDTH = 500;
+
     private CheckBox check_underline1;
     private CheckBox check_underline2;
     private CheckBox check_writing1;
@@ -65,11 +88,32 @@ public class BookSettingActivity extends AppCompatActivity{
     private LinearLayout layout;
     private ImageButton btn_addphoto;
 
-
+    private ImageView imageView;
+    private static final int FROM_CAMERA = 0;
+    private static final int FROM_ALBUM = 1;
+    private Uri albumURI, photoURI;
+    private String mCurrentPhotoPath;
     ////////////////커리어넷 api
     private EditText ed_memo;
     private EditText ed_price;
-    private SearchView searchView;
+
+
+
+    private Spinner spin_school;
+    private LinearLayout linear_school;
+    private LinearLayout linear_element;
+    private LinearLayout linear_element1;
+    private LinearLayout linear_element2;
+
+    private Boolean empty1 = true;
+    private Boolean empty2 = true;
+
+    private TextView text_school1;
+    private Button btn_cancle1;
+    private TextView text_school2;
+    private Button btn_cancle2;
+    private String school_element;
+
 
     private Button btn_regist;
 
@@ -82,6 +126,8 @@ public class BookSettingActivity extends AppCompatActivity{
     private ArrayList<String> bookImage;
     private ArrayList<String> school;
     private String register_id;
+    private ArrayAdapter<String> adapter;
+
 
     private String selling_price = "";
     private String seller_id = "";
@@ -93,6 +139,9 @@ public class BookSettingActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_setting);
 
+        adapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.school));
+
         check_underline1 = findViewById(R.id.check_underline1);
         check_underline2= findViewById(R.id.check_underline2);
         check_writing1 = findViewById(R.id.check_writing1);
@@ -101,12 +150,16 @@ public class BookSettingActivity extends AppCompatActivity{
         check_name = findViewById(R.id.check_name);
         check_damage1 = findViewById(R.id.check_damage1);
         check_damage2 = findViewById(R.id.check_damage2);
+        spin_school = findViewById(R.id.spin_school);
+        spin_school.setAdapter(adapter);
+        linear_school = findViewById(R.id.linear_school);
+//        linear_element1 = findViewById(R.id.linear_element1);
+//        linear_element2 = findViewById(R.id.linear_element2);
+
 
         ed_memo = findViewById(R.id.ed_memo);
         ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
-        searchView = findViewById(R.id.searchView);
-        searchView.setQueryHint("학교를 검색하세요");
 
         btn_regist = findViewById(R.id.btn_regist);
 
@@ -116,7 +169,7 @@ public class BookSettingActivity extends AppCompatActivity{
         school = new ArrayList<String>();
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
-
+        Log.i("get","getregistBook"+ registBook.getBook_image().toString());
 //        new Thread() {
 //            public void run() {
 //                String schoolResult = getSchool("중앙대학교");
@@ -129,36 +182,31 @@ public class BookSettingActivity extends AppCompatActivity{
 //                handler.sendMessage(msg);
 //            }
 //        }.start();
-    }
 
+
+    }
 
     protected void onResume() {
         super.onResume();
 
+        //앨범선택, 사진촬영, 취소 다이얼로그 생성
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, 0);
-                }
+            public void onClick(View view) {
+                makeDialog();
             }
         });
-
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
                 BookSettingActivity.this.startActivity(intent);
-
+                //if(text_school1)
                 //값에 넣어줌
                 check_box_value();
                 selling_price = ed_price.getText().toString();
                 memo = ed_memo.getText().toString();
-
-
-
                 seller_id = SaveSharedPreference.getUserID(BookSettingActivity.this);
                 LocalDateTime register_date = LocalDateTime.now();
                 String date = register_date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -166,10 +214,15 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                 underline, writing, cover, damage_page, memo);
-
                 String concatt = registBook.toString();
                 Log.i(TAG, ">>>>>>>>>>>>>\n"+ concatt);
 
+                if(text_school1.getTextSize() != 0){
+                    school.add(text_school1.getText().toString());
+                }
+                if(text_school2.getTextSize() != 0){
+                    school.add(text_school2.getText().toString());
+                }
 
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
@@ -200,36 +253,223 @@ public class BookSettingActivity extends AppCompatActivity{
 
             }
         });
+        spin_school.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0){
+                    school_element = spin_school.getItemAtPosition(position).toString();
+
+                    if(empty1 == true){
+                        text_school1 = new TextView(BookSettingActivity.this);
+                        btn_cancle1 = new Button(BookSettingActivity.this);
+
+                        btn_cancle1.setText("취소");
+                        //text_school.setGravity(Gravity.CENTER);
+                        text_school1.setText("  " + school_element);
+
+//                        linear_element1.addView(text_school1);
+//                        linear_element1.addView(btn_cancle1);
+
+                        linear_element1 = new LinearLayout(BookSettingActivity.this);
+                        linear_element1.addView(text_school1);
+                        linear_element1.addView(btn_cancle1);
+                        linear_school.addView(linear_element1);
+                        empty1 = false;
+                        Log.i("gg", "linear element1");
+                        btn_cancle1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                linear_element1.removeAllViews();
+                                empty1 = true;
+                            }
+                        });
+                    }
+                    else if(empty1 == false && empty2 == true){
+                        text_school2 = new TextView(BookSettingActivity.this);
+                        btn_cancle2 = new Button(BookSettingActivity.this);
+                        //btn_cancle.setId(count);
+                        btn_cancle2.setText("취소");
+                        //text_school.setGravity(Gravity.CENTER);
+                        text_school2.setText("  " + school_element);
+//
+//                        linear_element2.addView(text_school2);
+//                        linear_element2.addView(btn_cancle2);
+
+                        linear_element2 = new LinearLayout(BookSettingActivity.this);
+                        linear_element2.addView(text_school2);
+                        linear_element2.addView(btn_cancle2);
+                        linear_school.addView(linear_element2);
+
+                        empty2 = false;
+                        Log.i("gg", "linear element2");
+
+                        btn_cancle2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                linear_element2.removeAllViews();
+                                empty2 = true;
+                            }
+                        });
+                    }
+                    else if(empty1 == false && empty2 == false){
+                        Toast.makeText(BookSettingActivity.this, "2개이상 추가하지 못합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG, "onRequestPermissionsResult");
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
-            Log.d(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+    private void makeDialog(){
+
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(BookSettingActivity.this);
+
+        alt_bld.setTitle("사진 업로드").setCancelable(
+                false).setPositiveButton("사진촬영",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // 사진 촬영 클릭
+                        takePhoto();
+                    }
+                }).setNeutralButton("앨범선택",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int id) {
+                        //앨범에서 선택
+                        selectAlbum();
+                    }
+                }).setNegativeButton("취소   ",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // 취소 클릭. dialog 닫기.
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
+
+    }
+    private void selectAlbum(){
+        //앨범 열기
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        intent.setType("image/*");
+        startActivityForResult(intent, FROM_ALBUM);
+
+    }
+    public void takePhoto(){
+
+        // 촬영 후 이미지 가져옴
+        String state = Environment.getExternalStorageState();
+
+        if(Environment.MEDIA_MOUNTED.equals(state)){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(intent.resolveActivity(getPackageManager())!=null){
+                File photoFile = null;
+                try{
+                    photoFile = createImageFile();
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                if(photoFile!=null){
+
+                    photoURI = FileProvider.getUriForFile(this,getPackageName(),photoFile);
+                    intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(intent, FROM_CAMERA);
+                }
+            }
+
+        }else{
+            Log.v("알림", "저장공간에 접근 불가능");
+            return;
         }
     }
+    private File createImageFile() throws IOException{
+        String imageFileName = System.currentTimeMillis() + ".jpg";
+        File imageFile= null;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.i("photo","gg"+resultCode);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if(!storageDir.exists()){
+            storageDir.mkdirs();
 
-        ImageView imagebook = new ImageView(this);
-        imagebook.setImageURI(data.getData());
-        layout.addView(imagebook);
-
-        //get thumnail
-
-        bookImage.add(String.valueOf(data.getData()));
-
-        //Uri.parse() 데이터베이스에서 이미지 불러올때
+        }
+        imageFile = File.createTempFile(
+                imageFileName,      /* prefix */
+                ".jpg",         /* suffix */
+                storageDir          /* directory */
+        );
+        mCurrentPhotoPath = imageFile.getAbsolutePath();
+        return imageFile;
 
     }
+    public void galleryAddPic(){
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+        Toast.makeText(this,"사진이 저장되었습니다",Toast.LENGTH_SHORT).show();
+
+    }
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK){
+            return;
+        }
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(IMAGE_HIGHT, IMAGE_WIDTH);
+        imageView = new ImageView(this);
+//        imageView.getLayoutParams().height = IMAGE_WIDTH;
+//        imageView.getLayoutParams().width = IMAGE_WIDTH;
+//        imageView.requestLayout();
+        imageView.setLayoutParams(lp);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setRotation(90);
+        imageView.setBackgroundColor(Color.GREEN);
+        switch (requestCode){
+            case FROM_ALBUM : {
+                //앨범에서 가져오기
+                if(data.getData()!=null){
+                    try{
+                        File albumFile = null;
+                        albumFile = createImageFile();
+                        albumURI = Uri.fromFile(albumFile);
+                        bookImage.add(data.getData().toString());
+                        imageView.setImageURI(data.getData());
+                        layout.addView(imageView);
+                        //cropImage();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Log.v("알림","앨범에서 가져오기 에러");
+                    }
+                }
+                break;
+            }
 
 
+            case FROM_CAMERA : {
+                //촬영
+                try{
+                    galleryAddPic();
+//이미지뷰에 이미지셋팅
+                    bookImage.add(photoURI.toString());
+                    imageView.setImageURI(photoURI);
+                    layout.addView(imageView);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
 
     private void check_box_value(){
         //underline
@@ -303,9 +543,6 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
-
-
-
 
     private class InsertBookData extends AsyncTask<String, Void, String> {
 
@@ -389,9 +626,9 @@ public class BookSettingActivity extends AppCompatActivity{
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             Bundle bun = msg.getData();
-            String naverResult = bun.getString("DATA");
+            String schoolResult = bun.getString("DATA");
 
-            String[] splitResult = naverResult.split("\\n");
+            String[] splitResult = schoolResult.split("\\n");
             //splitResult[2] = image
 //            ed_name.setText(splitResult[1]);
 //            ed_isbn.setText(splitResult[2]);

@@ -43,13 +43,15 @@ public class BookInformation implements Serializable {
         this.bookmark = bookmark;
     }
 
-    public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date) {
+    public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date, String bookImage) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.original_price = origin_price;
         this.publish_date = publish_date;
+        book_image = new ArrayList<String>();
+        book_image.add(0, bookImage);
     }
 
     public void setBookInformation(String register_id, String seller_id, ArrayList<String> school,
@@ -60,7 +62,12 @@ public class BookInformation implements Serializable {
         this.seller_id = seller_id;
         this.school = school;
         this.selling_price = selling_price;
-        this.book_image = book_image;
+
+        //TODO 수동입력일때 예외처리 사진 받아올까..
+        for(int i = 0; i<book_image.size()-1;i++){
+            this.book_image.add(book_image.get(i));
+        }
+
         this.underline = underline;
         this.writing = writing;
         this.cover = cover;
@@ -92,6 +99,7 @@ public class BookInformation implements Serializable {
         return concat;
     }
 
+    public String getFirstImage(){ return book_image.get(0);}
     public String getISBN() {
         return isbn;
     }

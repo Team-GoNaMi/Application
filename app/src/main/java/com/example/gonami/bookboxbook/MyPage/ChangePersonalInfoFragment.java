@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ public class ChangePersonalInfoFragment extends Fragment {
     private Button btn_cancel_change_info;
     private Button btn_change_info;
 
+    private MyPageFragment myPageFragment;
     private View thisView = null;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class ChangePersonalInfoFragment extends Fragment {
         btn_cancel_change_info = view.findViewById(R.id.btn_cancel_change_info);
         btn_change_info = view.findViewById(R.id.btn_change_info);
 
-
+//TODO 예외처리 or 변경된 것 있는지 비교?
         btn_cancel_change_info.setOnClickListener(new View.OnClickListener() {
             final Context context = thisView.getContext();
 
@@ -69,6 +72,18 @@ public class ChangePersonalInfoFragment extends Fragment {
 
             }
         });
+        ed_user_school.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //Enter key Action
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    btn_change_info.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
+
 }
