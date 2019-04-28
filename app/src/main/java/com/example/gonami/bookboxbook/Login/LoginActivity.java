@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPreExecute();
 
             progressDialog = ProgressDialog.show(LoginActivity.this,
-                    "Please Wait", null, true, true);
+                    "로그인 중 입니다. 기다려 주세요.", null, true, true);
         }
 
         @Override
@@ -237,7 +237,7 @@ public class LoginActivity extends AppCompatActivity {
                 return sb.toString().trim();
 
             } catch (Exception e) {
-                Log.d(TAG, "GetUserData : Error ", e);
+                Log.d(TAG, "Error ", e);
                 errorString = e.toString();
             }
             return null;

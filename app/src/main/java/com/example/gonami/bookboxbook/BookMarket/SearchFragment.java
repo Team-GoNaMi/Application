@@ -158,7 +158,7 @@ public class SearchFragment extends Fragment {
                 return sb.toString().trim();
 
             } catch (Exception e) {
-                Log.d(TAG, "GetUserData : Error ", e);
+                Log.d(TAG, "GetRegisterBookData - Error :", e);
                 errorString = e.toString();
             }
             return null;
@@ -173,7 +173,6 @@ public class SearchFragment extends Fragment {
             String TAG_ORIGINAL_PRICE = "original_price";
             String TAG_SELLING_PRICE ="selling_price";
 
-            boolean success;
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
@@ -183,14 +182,14 @@ public class SearchFragment extends Fragment {
 
                     BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
                             item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), "");
+                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false);
                     bookList.add(bookInformation);
                     Log.i(TAG, bookList.get(i).getBookName());
                 }
 
                 // 어뎁터 생성
-                BookSearchListViewAdapter adapter = new BookSearchListViewAdapter(bookList);
-                bookListView.setAdapter(adapter);
+                bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
+                bookListView.setAdapter(bookSearchListViewAdapter);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);

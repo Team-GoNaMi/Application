@@ -39,7 +39,7 @@ public class SellListFragment extends Fragment {
     private View thisView = null;
 
     private ListView sellListView;
-    private SellLisViewAdapter sellLisViewAdapter;
+    private SellListViewAdapter sellListViewAdapter;
 
     private ArrayList<BookInformation> sellList;
 
@@ -78,6 +78,7 @@ public class SellListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ////////////////////////////////////////////////////////////////////////////
         // For test buttons
         btn_bookbb = thisView.findViewById(R.id.btn_bookbb);
         btn_qr = thisView.findViewById(R.id.btn_qr);
@@ -104,16 +105,19 @@ public class SellListFragment extends Fragment {
                 getActivity().startActivity(Intent);
             }
         });
+        ////////////////////////////////////////////////////////////////////////////////
 
+        // 사용자 아이디 받아오기
         String user_id = SaveSharedPreference.getUserID(getContext());
 
+        // DB에서 불러와서 ArrayList에 저장
         sellList = new ArrayList<BookInformation>();
         GetSellBookData task = new GetSellBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-list.php", user_id);
 
         sellListView = thisView.findViewById(R.id.lv_sell_list);
-        sellLisViewAdapter = new SellLisViewAdapter(sellList);
-        sellListView.setAdapter(sellLisViewAdapter);
+        sellListViewAdapter = new SellListViewAdapter(sellList);
+        sellListView.setAdapter(sellListViewAdapter);
 
     }
 
@@ -191,7 +195,7 @@ public class SellListFragment extends Fragment {
                 return sb.toString().trim();
 
             } catch (Exception e) {
-                Log.d(TAG, "GetUserData : Error ", e);
+                Log.d(TAG, "GetSellBookData - Error : ", e);
                 errorString = e.toString();
             }
             return null;
@@ -199,7 +203,6 @@ public class SellListFragment extends Fragment {
 
         private void showResult() {
             String TAG_BASIC = "book_list";
-            String TAG_SUCCESS = "success";
             String TAG_REGISTER_ID = "register_id";
             String TAG_BOOK_NAME = "book_name";
             String TAG_AUTHOR = "author";
@@ -219,7 +222,7 @@ public class SellListFragment extends Fragment {
 
                         BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
                                 item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), "");
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false);
                         sellList.add(bookInformation);
                         Log.i(TAG, sellList.get(i).getBookName());
                     }
@@ -229,8 +232,8 @@ public class SellListFragment extends Fragment {
                 }
 
                 // 어뎁터 생성
-                SellLisViewAdapter adapter = new SellLisViewAdapter(sellList);
-                sellListView.setAdapter(adapter);
+                sellListViewAdapter = new SellListViewAdapter(sellList);
+                sellListView.setAdapter(sellListViewAdapter);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);

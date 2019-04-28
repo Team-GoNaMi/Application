@@ -1,7 +1,6 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -20,7 +19,7 @@ import com.example.gonami.bookboxbook.R;
 
 import java.util.ArrayList;
 
-public class SellLisViewAdapter extends BaseAdapter {
+public class SellListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
 
@@ -34,7 +33,7 @@ public class SellLisViewAdapter extends BaseAdapter {
     private Button btnBookState;
 
 
-    public SellLisViewAdapter(ArrayList<BookInformation> sellList) { this.bookList = sellList; }
+    public SellListViewAdapter(ArrayList<BookInformation> sellList) { this.bookList = sellList; }
 
     @Override
     public int getCount() {
@@ -60,12 +59,12 @@ public class SellLisViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.book_list_transaction, parent, false);
         }
 
-        ivBookImage = convertView.findViewById(R.id.img_book);
-        tvBookName = convertView.findViewById(R.id.tv_book_name);
-        tvBookInfo = convertView.findViewById(R.id.tv_book_info);
-        tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
-        tvBookOriginPrice = convertView.findViewById(R.id.tv_original_price);
-        tvBookPrice = convertView.findViewById(R.id.tv_book_price);
+        ImageView ivBookImage = convertView.findViewById(R.id.img_book);
+        TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
+        TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
+        TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
+        TextView tvBookOriginPrice = convertView.findViewById(R.id.tv_original_price);
+        TextView tvBookPrice = convertView.findViewById(R.id.tv_book_price);
 
         btnBookState = convertView.findViewById(R.id.btn_book_state);
 
@@ -77,6 +76,7 @@ public class SellLisViewAdapter extends BaseAdapter {
         tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // TODO 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
+
         btnBookState.setText("책을 가져가주세욤!");
 
         convertView.setOnClickListener(new View.OnClickListener() {

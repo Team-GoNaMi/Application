@@ -21,12 +21,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gonami.bookboxbook.BookMark.SendBookMarkData;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -43,10 +44,12 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private View thisView = null;
 
     private String book_register_id;
+    private ArrayList<String> bookImage;
+    private boolean checked;
 
     private SearchFragment searchFragment;
 
-
+    private LinearLayout linearLayout_img;
 
     private TextView tvBookName;
     private TextView tvAuthor;
@@ -55,6 +58,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tvOriginalPrice;
     private TextView tvPrice;
     private TextView tvLocation;
+
     private ImageButton ibBookmark;
     private Button btnBuy;
 
@@ -77,12 +81,9 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tv_book_state_damage2_o;
     private TextView tv_book_state_damage2_x;
 
-    private LinearLayout linearLayout_img;
-    private ArrayList<String> bookImage;
-
     private TextView memo;
-
     private TextView rating;
+
     public BookSellDetailFragment() {
 
     }
@@ -150,6 +151,32 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         memo = thisView.findViewById(R.id.tv_book_state_memo);
         rating = thisView.findViewById(R.id.tv_rating);
 
+        ibBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checked) {      // 북마크 해제
+                    ibBookmark.setImageResource(R.drawable.ic_bookmark);
+                    checked = false;
+                    Log.i(TAG, "checked = " + checked);
+
+                    String user_id = SaveSharedPreference.getUserID(getContext());
+                    SendBookMarkData task = new SendBookMarkData();
+                    task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "1");
+                }
+                else {              // 북마크 등록
+                    ibBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
+                    checked = true;
+                    Log.i(TAG, "checked = " + checked);
+//                    int idx = removedMarks.indexOf(position);
+//                    removedMarks.remove(idx);
+
+                    String user_id = SaveSharedPreference.getUserID(getContext());
+                    SendBookMarkData task = new SendBookMarkData();
+                    task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "2");
+                }
+            }
+        });
+
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,8 +189,34 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
 
         //DB
+        String user_id = SaveSharedPreference.getUserID(getContext());
         GetRegistBookData task = new GetRegistBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-info.php", book_register_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-info.php", book_register_id, user_id);
+
+    }
+
+    @Override
+    public void onBack() {
+        Log.i("Back", "onBack() in BookSellDetailFragment");
+
+        MainActivity mainActivity = (MainActivity)getActivity();
+        mainActivity.setonBackPressedListener(null);
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, searchFragment)
+                .commit();
+
+        MainActivity.activeFragment = searchFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i("Back", "onAttach()");
+
+        ((MainActivity)context).setonBackPressedListener(this);
 
     }
 
@@ -194,8 +247,9 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
             String serverURL = strings[0];
             String book_register_id = strings[1];
-            String postParameters = "register_id=" + book_register_id;
-            Log.i(TAG, "register_id : " + book_register_id);
+            String user_id = strings[2];
+            String postParameters = "register_id=" + book_register_id + "& user_id=" + user_id;
+            Log.i(TAG, "postParameters : " + postParameters);
 
             try {
                 URL url = new URL(serverURL);
@@ -237,12 +291,12 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                 }
 
                 bufferedReader.close();
-                Log.i(TAG, ">>>"+sb.toString().trim());
+                Log.i(TAG, sb.toString().trim());
 
                 return sb.toString().trim();
 
             } catch (Exception e) {
-                Log.d(TAG, "GetUserData : Error ", e);
+                Log.d(TAG, "GetRegisterData - Error :", e);
                 errorString = e.toString();
             }
             return null;
@@ -250,13 +304,16 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         private void showResult() {
             String TAG_SUCCESS = "success";
+
+            String TAG_BOOK_MARK = "bookmark";
+
             String TAG_BOOK_NAME = "book_name";
             String TAG_AUTHOR = "author";
             String TAG_PUBLISHER = "publisher";
             String TAG_PUBLISH_DATE = "publish_date";
             String TAG_ORIGINAL_PRICE = "original_price";
             String TAG_SELLING_PRICE ="selling_price";
-            //String TAG_BOOK_MARK = "";///////////
+
             String TAG_HIGHLIGHT = "underline";
             String TAG_WRITING = "writing";
             String TAG_COVER = "cover";
@@ -281,6 +338,14 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                     tvPrice.setText(jsonObject.getString(TAG_SELLING_PRICE));
                     memo.setText(jsonObject.getString(TAG_MEMO));
+
+
+                    checked = jsonObject.getBoolean(TAG_BOOK_MARK);
+                    if (checked)
+                        ibBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
+                    else
+                        ibBookmark.setImageResource(R.drawable.ic_bookmark);
+
 
                     switch (jsonObject.getInt(TAG_HIGHLIGHT)){
                         case 0:
@@ -403,31 +468,5 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         }
 
     }
-
-    @Override
-    public void onBack() {
-        Log.i("Back", "onBack() in BookSellDetailFragment");
-
-        MainActivity mainActivity = (MainActivity)getActivity();
-        mainActivity.setonBackPressedListener(null);
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, searchFragment)
-                .commit();
-
-        MainActivity.activeFragment = searchFragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.i("Back", "onAttach()");
-
-        ((MainActivity)context).setonBackPressedListener(this);
-
-    }
-
 
 }

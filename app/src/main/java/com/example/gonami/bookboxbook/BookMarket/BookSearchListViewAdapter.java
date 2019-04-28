@@ -25,13 +25,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
 
-    private ImageView ivBookImage;
-    private TextView tvBookName;
-    private TextView tvBookInfo;
-    private TextView tvSchoolNames;
-    private TextView tvBookOriginPrice;
-    private TextView tvBookPrice;
-
     public BookSearchListViewAdapter(ArrayList<BookInformation> bookList) {
         this.bookList = bookList;
     }
@@ -60,12 +53,12 @@ public class BookSearchListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.book_list, parent, false);
         }
 
-        ivBookImage = (ImageView)convertView.findViewById(R.id.img_book);
-        tvBookName = convertView.findViewById(R.id.tv_book_name);
-        tvBookInfo = convertView.findViewById(R.id.tv_book_info);
-        tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
-        tvBookOriginPrice = convertView.findViewById(R.id.tv_book_original_price);
-        tvBookPrice = convertView.findViewById(R.id.tv_book_price);
+        ImageView ivBookImage = (ImageView)convertView.findViewById(R.id.img_book);
+        TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
+        TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
+        TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
+        TextView tvBookOriginPrice = convertView.findViewById(R.id.tv_book_original_price);
+        TextView tvBookPrice = convertView.findViewById(R.id.tv_book_price);
 
         final BookInformation bookInfo = bookList.get(position);
 

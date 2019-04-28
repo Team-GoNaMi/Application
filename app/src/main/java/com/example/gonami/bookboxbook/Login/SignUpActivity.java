@@ -2,23 +2,17 @@ package com.example.gonami.bookboxbook.Login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
-import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import org.json.JSONException;
@@ -86,8 +80,8 @@ public class SignUpActivity extends AppCompatActivity {
                 String id = edUserID.getText().toString();
                 if (id.length() != 0) {
                     //  아이디 중복 확인
-                    GetMemberData task = new GetMemberData();
-                    task.execute("https://" + IP_ADDRESS + "/dup-id-check.php", id);
+                    CheckDupID task = new CheckDupID();
+                    task.execute("https://" + IP_ADDRESS + "/check-dup-id.php", id);
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -196,7 +190,7 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPreExecute();
 
             progressDialog = ProgressDialog.show(SignUpActivity.this,
-                    "Please Wait", null, true, true);
+                    "회원가입 중입니다. 기다려 주세요.", null, true, true);
         }
 
 
@@ -210,13 +204,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            String id = (String)strings[1];
-            String pw = (String)strings[2];
-            String name = (String)strings[3];
-            String phonenum = (String)strings[4];
-            String school = (String)strings[5];
+            String id = strings[1];
+            String pw = strings[2];
+            String name = strings[3];
+            String phonenum = strings[4];
+            String school = strings[5];
 
-            String serverURL = (String)strings[0];
+            String serverURL = strings[0];
             String postParameters = "id=" + id + "& password=" + pw + "& name=" + name +"& phonenum=" + phonenum +"&school=" + school;
 
 
@@ -267,13 +261,13 @@ public class SignUpActivity extends AppCompatActivity {
                 return sb.toString();
 
             } catch (Exception e) {
-                Log.i(TAG, "InsertData: Error ", e);
+                Log.i(TAG, "InsertData - Error : ", e);
                 return new String("Error: " + e.getMessage());
             }
         }
     }
 
-    private class GetMemberData extends AsyncTask<String, Void, String> {
+    private class CheckDupID extends AsyncTask<String, Void, String> {
 
         String errorString = null;
 
@@ -344,7 +338,7 @@ public class SignUpActivity extends AppCompatActivity {
                 return sb.toString().trim();
 
             } catch (Exception e) {
-                Log.d(TAG, "GetUserData : Error ", e);
+                Log.d(TAG, "CheckDupID - Error : ", e);
                 errorString = e.toString();
             }
 

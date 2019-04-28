@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BookInformation implements Serializable {
-    // 책 자체의 정보 - 이걸 디비가 갖고 있어야 하나..??
+    // 책 자체의 정보
     private String isbn;
     private String bookName;
     private String author;
@@ -29,14 +29,18 @@ public class BookInformation implements Serializable {
     //  책 상태
     private int buy_avail;
 
+    // 북 마크
+    private boolean bookmark;
+
     // search와  book mark, 거래 목록에서 객체 생성할 때 사용하는 생성자
-    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, String school) {
+    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark) {
         this.register_id = register_id;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.original_price = original_price;
         this.selling_price = selling_price;
+        this.bookmark = bookmark;
     }
 
     public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date) {
@@ -50,13 +54,12 @@ public class BookInformation implements Serializable {
 
     public void setBookInformation(String register_id, String seller_id, ArrayList<String> school,
                                    String selling_price, ArrayList<String> book_image,
-                           int underline, int writing, int cover, int damage_page, String memo) {
+                                   int underline, int writing, int cover, int damage_page, String memo) {
 
         this.register_id = register_id;
         this.seller_id = seller_id;
         this.school = school;
         this.selling_price = selling_price;
-//        this.selling_price = Integer.parseInt(selling_price);
         this.book_image = book_image;
         this.underline = underline;
         this.writing = writing;
@@ -155,6 +158,14 @@ public class BookInformation implements Serializable {
 
     public int isSell_avail() {
         return buy_avail;
+    }
+
+    public boolean isBookmark() {
+        return bookmark;
+    }
+
+    public void convertBookmark() {
+        this.bookmark = !this.bookmark;
     }
 
     public void setBuy_avail(int avail) {
