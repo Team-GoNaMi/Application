@@ -210,7 +210,6 @@ public class SellListFragment extends Fragment {
             String TAG_ORIGINAL_PRICE = "original_price";
             String TAG_SELLING_PRICE ="selling_price";
 
-            boolean success;
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);

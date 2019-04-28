@@ -82,19 +82,6 @@ public class BookMarkFragment extends Fragment {
         bookmarkListView.setAdapter(bookmarkListAdapter);
     }
 
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        ArrayList<Integer> removedMarks = new ArrayList<Integer>();
-//        removedMarks = bookmarkListAdapter.getRemovedMarks();
-//
-//        Log.i(TAG, removedMarks.toString());
-//
-//        for (int idx : removedMarks) {
-//            bookmarkList.remove(idx);
-//        }
-//    }
-
     private class GetBookMarkData extends AsyncTask<String, Void, String> {
 
         String errorString = null;

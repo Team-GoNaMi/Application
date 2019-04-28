@@ -43,9 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private long backKeyPressedTime;    // 앱 종료 위한 백 버튼 누른 시간
 
-//    private String user_id;
-//    private String user_pw;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

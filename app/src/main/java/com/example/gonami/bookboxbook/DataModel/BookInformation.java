@@ -10,7 +10,6 @@ public class BookInformation implements Serializable {
     private String author;
     private String publisher;
     private String original_price;
-//    private int original_price;
     private String publish_date;
 
     // Seller가 등록한 정보
@@ -18,7 +17,6 @@ public class BookInformation implements Serializable {
     private String seller_id;
     private ArrayList<String> school;
     private String selling_price;
-//    private int selling_price;
     private ArrayList<String> book_image;  //사진은 무슨 형으로 저장해?
     private int underline;
     private int writing;
@@ -100,6 +98,7 @@ public class BookInformation implements Serializable {
     }
 
     public String getFirstImage(){ return book_image.get(0);}
+
     public String getISBN() {
         return isbn;
     }

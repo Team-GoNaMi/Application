@@ -24,13 +24,6 @@ public class SellListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
 
-    private ImageView ivBookImage;
-    private TextView tvBookName;
-    private TextView tvBookInfo;
-    private TextView tvSchoolNames;
-    private TextView tvBookOriginPrice;
-    private TextView tvBookPrice;
-
     private Button btnBookState;
 
 
@@ -84,7 +77,7 @@ public class SellListViewAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO 책 페이지로 넘어가야함
+                // 책 페이지로 넘어가야함
                 BookSellDetailFragment bookSellDetailFragment;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", bookInfo.getRegister_id());

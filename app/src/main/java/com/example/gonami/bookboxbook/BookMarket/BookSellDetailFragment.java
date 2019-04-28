@@ -1,6 +1,5 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
