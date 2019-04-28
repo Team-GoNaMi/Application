@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.opengl.Matrix;
 import android.os.AsyncTask;
@@ -24,9 +25,14 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,6 +40,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
@@ -88,7 +96,24 @@ public class BookSettingActivity extends AppCompatActivity{
     ////////////////커리어넷 api
     private EditText ed_memo;
     private EditText ed_price;
-    private SearchView searchView;
+
+
+
+    private Spinner spin_school;
+    private LinearLayout linear_school;
+    private LinearLayout linear_element;
+    private LinearLayout linear_element1;
+    private LinearLayout linear_element2;
+
+    private Boolean empty1 = true;
+    private Boolean empty2 = true;
+
+    private TextView text_school1;
+    private Button btn_cancle1;
+    private TextView text_school2;
+    private Button btn_cancle2;
+    private String school_element;
+
 
     private Button btn_regist;
 
@@ -101,6 +126,7 @@ public class BookSettingActivity extends AppCompatActivity{
     private ArrayList<String> bookImage;
     private ArrayList<String> school;
     private String register_id;
+    private ArrayAdapter<String> adapter;
 
 
     private String selling_price = "";
@@ -113,6 +139,9 @@ public class BookSettingActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_setting);
 
+        adapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.school));
+
         check_underline1 = findViewById(R.id.check_underline1);
         check_underline2= findViewById(R.id.check_underline2);
         check_writing1 = findViewById(R.id.check_writing1);
@@ -121,12 +150,16 @@ public class BookSettingActivity extends AppCompatActivity{
         check_name = findViewById(R.id.check_name);
         check_damage1 = findViewById(R.id.check_damage1);
         check_damage2 = findViewById(R.id.check_damage2);
+        spin_school = findViewById(R.id.spin_school);
+        spin_school.setAdapter(adapter);
+        linear_school = findViewById(R.id.linear_school);
+//        linear_element1 = findViewById(R.id.linear_element1);
+//        linear_element2 = findViewById(R.id.linear_element2);
+
 
         ed_memo = findViewById(R.id.ed_memo);
         ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
-        searchView = findViewById(R.id.searchView);
-        searchView.setQueryHint("학교를 검색하세요");
 
         btn_regist = findViewById(R.id.btn_regist);
 
@@ -153,39 +186,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
     }
 
-//
-//    private void getPermission(){
-//        PermissionListener permissionlistener = new PermissionListener() {
-//
-//            @Override
-//
-//            public void onPermissionGranted() {
-//
-//                Toast.makeText(BookSettingActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//
-//            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-//
-//                Toast.makeText(BookSettingActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//        };
-//
-//        new TedPermission(this)
-//
-//                .setPermissionListener(permissionlistener)
-//
-//                .setDeniedMessage("If you reject permission,you can not use this service" +
-//                        "\n\nPlease turn on permissions at [Setting] > [Permission] ")
-//                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-//
-//                .check();
-//    }
-//
     protected void onResume() {
         super.onResume();
 
@@ -202,7 +202,7 @@ public class BookSettingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
                 BookSettingActivity.this.startActivity(intent);
-
+                //if(text_school1)
                 //값에 넣어줌
                 check_box_value();
                 selling_price = ed_price.getText().toString();
@@ -211,11 +211,18 @@ public class BookSettingActivity extends AppCompatActivity{
                 LocalDateTime register_date = LocalDateTime.now();
                 String date = register_date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 register_id = date + "-" + seller_id;
+
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                 underline, writing, cover, damage_page, memo);
                 String concatt = registBook.toString();
                 Log.i(TAG, ">>>>>>>>>>>>>\n"+ concatt);
 
+                if(text_school1.getTextSize() != 0){
+                    school.add(text_school1.getText().toString());
+                }
+                if(text_school2.getTextSize() != 0){
+                    school.add(text_school2.getText().toString());
+                }
 
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
@@ -246,7 +253,76 @@ public class BookSettingActivity extends AppCompatActivity{
 
             }
         });
+        spin_school.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0){
+                    school_element = spin_school.getItemAtPosition(position).toString();
+
+                    if(empty1 == true){
+                        text_school1 = new TextView(BookSettingActivity.this);
+                        btn_cancle1 = new Button(BookSettingActivity.this);
+
+                        btn_cancle1.setText("취소");
+                        //text_school.setGravity(Gravity.CENTER);
+                        text_school1.setText("  " + school_element);
+
+//                        linear_element1.addView(text_school1);
+//                        linear_element1.addView(btn_cancle1);
+
+                        linear_element1 = new LinearLayout(BookSettingActivity.this);
+                        linear_element1.addView(text_school1);
+                        linear_element1.addView(btn_cancle1);
+                        linear_school.addView(linear_element1);
+                        empty1 = false;
+                        Log.i("gg", "linear element1");
+                        btn_cancle1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                linear_element1.removeAllViews();
+                                empty1 = true;
+                            }
+                        });
+                    }
+                    else if(empty1 == false && empty2 == true){
+                        text_school2 = new TextView(BookSettingActivity.this);
+                        btn_cancle2 = new Button(BookSettingActivity.this);
+                        //btn_cancle.setId(count);
+                        btn_cancle2.setText("취소");
+                        //text_school.setGravity(Gravity.CENTER);
+                        text_school2.setText("  " + school_element);
+//
+//                        linear_element2.addView(text_school2);
+//                        linear_element2.addView(btn_cancle2);
+
+                        linear_element2 = new LinearLayout(BookSettingActivity.this);
+                        linear_element2.addView(text_school2);
+                        linear_element2.addView(btn_cancle2);
+                        linear_school.addView(linear_element2);
+
+                        empty2 = false;
+                        Log.i("gg", "linear element2");
+
+                        btn_cancle2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                linear_element2.removeAllViews();
+                                empty2 = true;
+                            }
+                        });
+                    }
+                    else if(empty1 == false && empty2 == false){
+                        Toast.makeText(BookSettingActivity.this, "2개이상 추가하지 못합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
     private void makeDialog(){
