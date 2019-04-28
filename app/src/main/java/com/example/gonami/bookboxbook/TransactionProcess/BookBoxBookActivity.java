@@ -1,8 +1,6 @@
-package com.example.gonami.bookboxbook.TransactionList;
+package com.example.gonami.bookboxbook.TransactionProcess;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;

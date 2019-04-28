@@ -6,12 +6,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
@@ -42,7 +47,9 @@ public class SearchFragment extends Fragment {
 
 //    private SearchView searchView;
     private EditText etSearchBook;
-    private Button btnSearch;
+    private ImageButton btnSearch;
+    private Spinner spinSearch;
+    private ArrayAdapter adapter;
 
     public SearchFragment() {
 
@@ -59,6 +66,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -74,15 +82,49 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.school));
         bookList = new ArrayList<BookInformation>();
         GetRegisterBookData task = new GetRegisterBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
 
         bookListView = view.findViewById(R.id.lv_book_market);
-
+        etSearchBook = view.findViewById(R.id.et_search_book);
+        btnSearch = view.findViewById(R.id.btn_search);
+        spinSearch = view.findViewById(R.id.spin_search);
+        spinSearch.setAdapter(adapter);
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
+        etSearchBook.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //Enter key Action
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    btnSearch.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 디비에서 검색한다
+            }
+        });
+        spinSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private class GetRegisterBookData extends AsyncTask<String, Void, String> {

@@ -18,6 +18,8 @@ import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
+import com.example.gonami.bookboxbook.TransactionProcess.BookBoxBookActivity;
+import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

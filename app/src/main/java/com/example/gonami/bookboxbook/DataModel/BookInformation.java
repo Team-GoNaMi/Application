@@ -84,7 +84,7 @@ public class BookInformation implements Serializable {
         concat += "&publish_date=" + publish_date;
         concat += "&register_id=" + register_id;
         concat += "&seller_id=" + seller_id;
-        concat += "&school=" + school;  // TODO change form
+        concat += "&school=" + school;
         concat += "&selling_price=" + selling_price;
         concat += "&book_image=" + book_image; // TODO change form
         concat += "&underline=" + underline;

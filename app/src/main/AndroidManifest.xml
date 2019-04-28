@@ -31,10 +31,10 @@
         <activity android:name=".RecognizeCode.ScannerActivity"/>
         <activity android:name=".AddBook.BookInfoActivity"/>
         <activity android:name=".AddBook.BookSettingActivity"/>
-        <activity android:name=".TransactionList.BookBoxBookActivity"/>
+        <activity android:name=".TransactionProcess.BookBoxBookActivity"/>
         <activity android:name=".RecognizeCode.QRActivity"/>
         <activity android:name=".BookMarket.BuyActivity"/>
-        <activity android:name=".TransactionList.RateActivity"/>
+        <activity android:name=".TransactionProcess.RateActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
