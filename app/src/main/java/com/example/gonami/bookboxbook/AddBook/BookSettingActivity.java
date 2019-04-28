@@ -210,11 +210,6 @@ public class BookSettingActivity extends AppCompatActivity{
                 String date = register_date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 register_id = date + "-" + seller_id;
 
-                registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
-                underline, writing, cover, damage_page, memo);
-                String concatt = registBook.toString();
-                Log.i(TAG, ">>>>>>>>>>>>>\n"+ concatt);
-
                 if(empty1 == false){
                     school.add(text_school1.getText().toString());
                 }
@@ -222,6 +217,13 @@ public class BookSettingActivity extends AppCompatActivity{
                     school.add(text_school2.getText().toString());
                 }
                 Log.i("Gg", "hello"+school.toString());
+
+                // 책 정보 입력
+                registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
+                        underline, writing, cover, damage_page, memo);
+                String concatt = registBook.toString();
+                Log.i(TAG, ">>>>>>>>>>>>>\n"+ concatt);
+
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
 
@@ -251,6 +253,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
             }
         });
+
         spin_school.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -323,6 +326,7 @@ public class BookSettingActivity extends AppCompatActivity{
         });
 
     }
+
     private void makeDialog(){
 
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(BookSettingActivity.this);
@@ -351,6 +355,7 @@ public class BookSettingActivity extends AppCompatActivity{
         alert.show();
 
     }
+
     private void selectAlbum(){
         //앨범 열기
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -359,6 +364,7 @@ public class BookSettingActivity extends AppCompatActivity{
         startActivityForResult(intent, FROM_ALBUM);
 
     }
+
     public void takePhoto(){
 
         // 촬영 후 이미지 가져옴
@@ -387,6 +393,7 @@ public class BookSettingActivity extends AppCompatActivity{
             return;
         }
     }
+
     private File createImageFile() throws IOException{
         String imageFileName = System.currentTimeMillis() + ".jpg";
         File imageFile= null;
@@ -405,6 +412,7 @@ public class BookSettingActivity extends AppCompatActivity{
         return imageFile;
 
     }
+
     public void galleryAddPic(){
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
@@ -414,8 +422,8 @@ public class BookSettingActivity extends AppCompatActivity{
         Toast.makeText(this,"사진이 저장되었습니다",Toast.LENGTH_SHORT).show();
 
     }
-    @Override
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -633,6 +641,7 @@ public class BookSettingActivity extends AppCompatActivity{
             Log.i("result","ggg"+splitResult.toString());
         }
     };
+
     public String getSchool(String school) {
         String key = "bcad9a7ff9219a1bb57dbf6353f2e262";
 

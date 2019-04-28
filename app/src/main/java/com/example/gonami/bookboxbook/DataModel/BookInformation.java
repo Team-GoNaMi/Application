@@ -1,5 +1,7 @@
 package com.example.gonami.bookboxbook.DataModel;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -75,6 +77,18 @@ public class BookInformation implements Serializable {
     }
 
     public String toString() {
+
+        String school_list = school.toString();
+        Log.i("School", school_list);
+        String schools = school_list.substring(1, school_list.length()-1);
+        Log.i("School", schools + " - " + schools.length());
+
+//        schools.replaceAll(" ", "");
+//        schools.replaceAll("\\p{Z}", "");
+//        Log.i("School", schools);
+
+        String book_img_list = book_image.toString();
+
         String concat = "";
         concat += "isbn=" + isbn;
         concat += "&book_name=" + bookName;
@@ -84,9 +98,9 @@ public class BookInformation implements Serializable {
         concat += "&publish_date=" + publish_date;
         concat += "&register_id=" + register_id;
         concat += "&seller_id=" + seller_id;
-        concat += "&school=" + school;
+        concat += "&school=" + school_list;
         concat += "&selling_price=" + selling_price;
-        concat += "&book_image=" + book_image; // TODO change form
+        concat += "&book_image=" + book_img_list; // TODO change form
         concat += "&underline=" + underline;
         concat += "&writing=" + writing;
         concat += "&cover=" + cover;
