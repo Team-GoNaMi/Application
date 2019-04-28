@@ -92,6 +92,7 @@ public class SearchFragment extends Fragment {
         etSearchBook = view.findViewById(R.id.et_search_book);
         btnSearch = view.findViewById(R.id.btn_search);
         spinSearch = view.findViewById(R.id.spin_search);
+        spinSearch.setPrompt("학교선택");
         spinSearch.setAdapter(adapter);
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
@@ -116,7 +117,6 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
 
             }
 
