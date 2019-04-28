@@ -101,7 +101,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
     private Spinner spin_school;
     private LinearLayout linear_school;
-    private LinearLayout linear_element;
+
     private LinearLayout linear_element1;
     private LinearLayout linear_element2;
 
@@ -153,8 +153,6 @@ public class BookSettingActivity extends AppCompatActivity{
         spin_school = findViewById(R.id.spin_school);
         spin_school.setAdapter(adapter);
         linear_school = findViewById(R.id.linear_school);
-//        linear_element1 = findViewById(R.id.linear_element1);
-//        linear_element2 = findViewById(R.id.linear_element2);
 
 
         ed_memo = findViewById(R.id.ed_memo);
@@ -217,13 +215,13 @@ public class BookSettingActivity extends AppCompatActivity{
                 String concatt = registBook.toString();
                 Log.i(TAG, ">>>>>>>>>>>>>\n"+ concatt);
 
-                if(text_school1.getTextSize() != 0){
+                if(empty1 == false){
                     school.add(text_school1.getText().toString());
                 }
-                if(text_school2.getTextSize() != 0){
+                if(empty2 == false){
                     school.add(text_school2.getText().toString());
                 }
-
+                Log.i("Gg", "hello"+school.toString());
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
 
@@ -266,7 +264,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
                         btn_cancle1.setText("취소");
                         //text_school.setGravity(Gravity.CENTER);
-                        text_school1.setText("  " + school_element);
+                        text_school1.setText(school_element);
 
 //                        linear_element1.addView(text_school1);
 //                        linear_element1.addView(btn_cancle1);
@@ -291,7 +289,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         //btn_cancle.setId(count);
                         btn_cancle2.setText("취소");
                         //text_school.setGravity(Gravity.CENTER);
-                        text_school2.setText("  " + school_element);
+                        text_school2.setText(school_element);
 //
 //                        linear_element2.addView(text_school2);
 //                        linear_element2.addView(btn_cancle2);

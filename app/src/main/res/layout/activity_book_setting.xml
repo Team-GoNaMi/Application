@@ -222,22 +222,7 @@
                 android:id="@+id/linear_school"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/linear_element1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_element2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-            </LinearLayout>
+                android:orientation="vertical"/>
 
         </LinearLayout>
         <LinearLayout
