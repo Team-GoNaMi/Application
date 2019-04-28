@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.BookMark.SendBookMarkData;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
@@ -45,6 +46,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private String book_register_id;
     private ArrayList<String> bookImage;
     private boolean checked;
+    private String seller_id;
 
     private SearchFragment searchFragment;
 
@@ -153,25 +155,29 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         ibBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checked) {      // 북마크 해제
-                    ibBookmark.setImageResource(R.drawable.ic_bookmark);
-                    checked = false;
-                    Log.i(TAG, "checked = " + checked);
+                Log.i("HoiHoi", seller_id  + " / " +SaveSharedPreference.getUserID(getContext()));
 
-                    String user_id = SaveSharedPreference.getUserID(getContext());
-                    SendBookMarkData task = new SendBookMarkData();
-                    task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "1");
+                if (!seller_id.equals(SaveSharedPreference.getUserID(getContext()))) {
+                    if (checked) {      // 북마크 해제
+                        ibBookmark.setImageResource(R.drawable.ic_bookmark);
+                        checked = false;
+                        Log.i(TAG, "checked = " + checked);
+
+                        String user_id = SaveSharedPreference.getUserID(getContext());
+                        SendBookMarkData task = new SendBookMarkData();
+                        task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "1");
+                    } else {              // 북마크 등록
+                        ibBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
+                        checked = true;
+                        Log.i(TAG, "checked = " + checked);
+
+                        String user_id = SaveSharedPreference.getUserID(getContext());
+                        SendBookMarkData task = new SendBookMarkData();
+                        task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "2");
+                    }
                 }
-                else {              // 북마크 등록
-                    ibBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
-                    checked = true;
-                    Log.i(TAG, "checked = " + checked);
-//                    int idx = removedMarks.indexOf(position);
-//                    removedMarks.remove(idx);
-
-                    String user_id = SaveSharedPreference.getUserID(getContext());
-                    SendBookMarkData task = new SendBookMarkData();
-                    task.execute("https://" + IP_ADDRESS + "/set-bookmark.php", user_id, book_register_id, "2");
+                else {
+                    Toast.makeText(getContext(), "본인 책이에요! 돌아가요~ 호이호이", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -303,7 +309,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         private void showResult() {
             String TAG_SUCCESS = "success";
-
             String TAG_BOOK_MARK = "bookmark";
 
             String TAG_BOOK_NAME = "book_name";
@@ -319,6 +324,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             String TAG_DAMAGE = "damage_page";
 
             String TAG_MEMO = "memo";
+            String TAG_SELLER_ID = "seller_id";
             //String TAG_RATING = "";
 
             boolean success;
@@ -338,12 +344,14 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     tvPrice.setText(jsonObject.getString(TAG_SELLING_PRICE));
                     memo.setText(jsonObject.getString(TAG_MEMO));
 
-
+                    // 북마크
                     checked = jsonObject.getBoolean(TAG_BOOK_MARK);
-                    if (checked)
+                    if (checked)        // 북마크 o
                         ibBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
-                    else
+                    else                // 북마크 x
                         ibBookmark.setImageResource(R.drawable.ic_bookmark);
+
+                    seller_id = jsonObject.getString(TAG_SELLER_ID);
 
 
                     switch (jsonObject.getInt(TAG_HIGHLIGHT)){
