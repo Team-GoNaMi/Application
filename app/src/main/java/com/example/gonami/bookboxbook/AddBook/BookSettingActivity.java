@@ -93,7 +93,6 @@ public class BookSettingActivity extends AppCompatActivity{
     private static final int FROM_ALBUM = 1;
     private Uri albumURI, photoURI;
     private String mCurrentPhotoPath;
-    ////////////////커리어넷 api
     private EditText ed_memo;
     private EditText ed_price;
 
@@ -131,7 +130,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
     private String selling_price = "";
     private String seller_id = "";
-
     private BookInformation registBook;
 
     @Override
@@ -168,19 +166,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
         Log.i("get","getregistBook"+ registBook.getBook_image().toString());
-//        new Thread() {
-//            public void run() {
-//                String schoolResult = getSchool("중앙대학교");
-//
-//                Bundle bun = new Bundle();
-//                bun.putString("DATA", schoolResult);
-//
-//                Message msg = handler.obtainMessage();
-//                msg.setData(bun);
-//                handler.sendMessage(msg);
-//            }
-//        }.start();
-
 
     }
 
@@ -200,8 +185,6 @@ public class BookSettingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
                 BookSettingActivity.this.startActivity(intent);
-                //if(text_school1)
-                //값에 넣어줌
                 check_box_value();
                 selling_price = ed_price.getText().toString();
                 memo = ed_memo.getText().toString();
@@ -216,7 +199,6 @@ public class BookSettingActivity extends AppCompatActivity{
                 if(empty2 == false){
                     school.add(text_school2.getText().toString());
                 }
-                Log.i("Gg", "hello"+school.toString());
 
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
@@ -266,11 +248,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle1 = new Button(BookSettingActivity.this);
 
                         btn_cancle1.setText("취소");
-                        //text_school.setGravity(Gravity.CENTER);
                         text_school1.setText(school_element);
-
-//                        linear_element1.addView(text_school1);
-//                        linear_element1.addView(btn_cancle1);
 
                         linear_element1 = new LinearLayout(BookSettingActivity.this);
                         linear_element1.addView(text_school1);
@@ -289,13 +267,9 @@ public class BookSettingActivity extends AppCompatActivity{
                     else if(empty1 == false && empty2 == true){
                         text_school2 = new TextView(BookSettingActivity.this);
                         btn_cancle2 = new Button(BookSettingActivity.this);
-                        //btn_cancle.setId(count);
                         btn_cancle2.setText("취소");
-                        //text_school.setGravity(Gravity.CENTER);
+
                         text_school2.setText(school_element);
-//
-//                        linear_element2.addView(text_school2);
-//                        linear_element2.addView(btn_cancle2);
 
                         linear_element2 = new LinearLayout(BookSettingActivity.this);
                         linear_element2.addView(text_school2);
@@ -332,7 +306,7 @@ public class BookSettingActivity extends AppCompatActivity{
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(BookSettingActivity.this);
 
         alt_bld.setTitle("사진 업로드").setCancelable(
-                false).setPositiveButton("사진촬영",
+                false).setNegativeButton("사진촬영",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // 사진 촬영 클릭
@@ -344,7 +318,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         //앨범에서 선택
                         selectAlbum();
                     }
-                }).setNegativeButton("취소   ",
+                }).setPositiveButton("취소   ",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // 취소 클릭. dialog 닫기.
@@ -432,9 +406,6 @@ public class BookSettingActivity extends AppCompatActivity{
         }
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(IMAGE_HIGHT, IMAGE_WIDTH);
         imageView = new ImageView(this);
-//        imageView.getLayoutParams().height = IMAGE_WIDTH;
-//        imageView.getLayoutParams().width = IMAGE_WIDTH;
-//        imageView.requestLayout();
         imageView.setLayoutParams(lp);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setRotation(90);
@@ -450,7 +421,6 @@ public class BookSettingActivity extends AppCompatActivity{
                         bookImage.add(data.getData().toString());
                         imageView.setImageURI(data.getData());
                         layout.addView(imageView);
-                        //cropImage();
                     }catch (Exception e){
                         e.printStackTrace();
                         Log.v("알림","앨범에서 가져오기 에러");
@@ -464,7 +434,6 @@ public class BookSettingActivity extends AppCompatActivity{
                 //촬영
                 try{
                     galleryAddPic();
-//이미지뷰에 이미지셋팅
                     bookImage.add(photoURI.toString());
                     imageView.setImageURI(photoURI);
                     layout.addView(imageView);

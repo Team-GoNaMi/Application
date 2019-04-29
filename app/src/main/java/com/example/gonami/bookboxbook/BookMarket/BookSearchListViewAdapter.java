@@ -72,6 +72,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
+
 //        if(bookInfo.getBook_image() != null){
 //            Log.i("gg", "북이미지가 널이 아님");
 //            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
@@ -81,7 +82,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
 
         if (bookInfo.isImageExist()) {
-//            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstBookImage()));
+
             new Thread() {
                 @SuppressLint("HandlerLeak")
                 Handler handler = new Handler() {
@@ -116,7 +117,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
                 }
             }.start();
-
 
         }
 

@@ -60,6 +60,7 @@ public class BookInformation implements Serializable {
         this.publisher = publisher;
         this.original_price = origin_price;
         this.publish_date = publish_date;
+
         book_image = new ArrayList<String>();
         book_image.add(0, bookImage);
     }
@@ -73,7 +74,6 @@ public class BookInformation implements Serializable {
         this.school = school;
         this.selling_price = selling_price;
 
-        //TODO 수동입력일때 예외처리 사진 받아올까..
         for(int i = 0; i<book_image.size()-1;i++){
             this.book_image.add(book_image.get(i));
         }
