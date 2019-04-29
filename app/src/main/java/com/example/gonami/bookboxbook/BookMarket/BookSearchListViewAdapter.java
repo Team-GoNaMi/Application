@@ -1,9 +1,11 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,15 +62,23 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
-        if(bookInfo.getBook_image() != null){
-            Log.i("gg", "북이미지가 널이 아님");
-            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
-            Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
+
+//        if(bookInfo.getBook_image() != null){
+//            Log.i("gg", "북이미지가 널이 아님");
+//            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
+//            Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
+//
+//        }
+
+
+        if (bookInfo.isImageExist()) {
+//            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstBookImage()));
+
         }
 
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // TODO 거래 장소
+        tvSchoolNames.setText(bookInfo.getSchoolString());     // TODO 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 

@@ -67,7 +67,7 @@ public class SellListViewAdapter extends BaseAdapter {
         ivBookImage.setImageAlpha(R.mipmap.ic_launcher);    // TODO 책 이미지
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText("중앙대 서울캠, 숙명여대");     // TODO 거래 장소
+        tvSchoolNames.setText(bookInfo.getSchoolString());     // TODO 거래 장소
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
