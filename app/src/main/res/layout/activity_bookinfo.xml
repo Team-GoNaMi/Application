@@ -110,6 +110,7 @@
         android:layout_marginBottom="5dp"
         android:hint="(ex.20190415)"
         android:inputType="number"/>
+
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"

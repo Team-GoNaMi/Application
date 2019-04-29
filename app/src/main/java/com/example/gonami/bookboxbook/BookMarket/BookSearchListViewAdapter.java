@@ -1,10 +1,14 @@
 package com.example.gonami.bookboxbook.BookMarket;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -19,11 +23,17 @@ import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
+    private Bitmap bitmap;
 
     public BookSearchListViewAdapter(ArrayList<BookInformation> bookList) {
         this.bookList = bookList;
@@ -53,7 +63,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.book_list, parent, false);
         }
 
-        ImageView ivBookImage = (ImageView)convertView.findViewById(R.id.img_book);
+        final ImageView ivBookImage = (ImageView)convertView.findViewById(R.id.img_book);
         TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
         TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
         TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
@@ -72,6 +82,42 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         if (bookInfo.isImageExist()) {
 //            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstBookImage()));
+            new Thread() {
+                @SuppressLint("HandlerLeak")
+                Handler handler = new Handler() {
+                    public void handleMessage(Message msg) {
+                        ivBookImage.setImageBitmap(bitmap);
+                    }
+                };
+                public void run() {
+
+
+                    try {
+                        URL url = new URL(bookInfo.getFirstBookImage());
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+
+                        InputStream inputStream = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bundle bun = new Bundle();
+                    bun.putString("DATA", "image");
+
+                    Message msg = handler.obtainMessage();
+                    msg.setData(bun);
+                    handler.sendMessage(msg);
+
+                }
+            }.start();
+
+
         }
 
         tvBookName.setText(bookInfo.getBookName());
