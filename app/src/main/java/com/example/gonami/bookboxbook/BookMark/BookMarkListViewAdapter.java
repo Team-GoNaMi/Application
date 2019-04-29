@@ -1,7 +1,12 @@
 package com.example.gonami.bookboxbook.BookMark;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.graphics.Paint;
@@ -19,13 +24,18 @@ import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class BookMarkListViewAdapter extends BaseAdapter {
 
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private String TAG = "BookMarkAdapter";
-
+    private Bitmap bitmap;
     private ArrayList<BookInformation> bookList;
 
     public BookMarkListViewAdapter(ArrayList<BookInformation> bookList) {
@@ -61,7 +71,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.book_list_mark, parent, false);
         }
 
-        ImageView ivBookImage = convertView.findViewById(R.id.img_book);
+        final ImageView ivBookImage = convertView.findViewById(R.id.img_book);
         TextView tvBookName = convertView.findViewById(R.id.tv_book_name);
         TextView tvBookInfo = convertView.findViewById(R.id.tv_book_info);
         TextView tvSchoolNames = convertView.findViewById(R.id.tv_book_schoolname);
@@ -72,10 +82,47 @@ public class BookMarkListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
-        ivBookImage.setImageAlpha(R.mipmap.ic_launcher);        // TODO 책 이미지
+        if (bookInfo.isImageExist()) {
+
+            new Thread() {
+                @SuppressLint("HandlerLeak")
+                Handler handler = new Handler() {
+                    public void handleMessage(Message msg) {
+                        ivBookImage.setImageBitmap(bitmap);
+                    }
+                };
+                public void run() {
+
+
+                    try {
+                        URL url = new URL(bookInfo.getFirstBookImage());
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+
+                        InputStream inputStream = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bundle bun = new Bundle();
+                    bun.putString("DATA", "image");
+
+                    Message msg = handler.obtainMessage();
+                    msg.setData(bun);
+                    handler.sendMessage(msg);
+
+                }
+            }.start();
+
+        }
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText(bookInfo.getSchoolString());           // TODO 거래 장소
+        tvSchoolNames.setText(bookInfo.getSchoolString());
         tvBookOriginalPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
 

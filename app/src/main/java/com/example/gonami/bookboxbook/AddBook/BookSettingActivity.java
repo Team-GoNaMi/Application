@@ -1,17 +1,12 @@
 package com.example.gonami.bookboxbook.AddBook;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,18 +14,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,12 +29,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
@@ -60,7 +48,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
@@ -96,8 +83,6 @@ public class BookSettingActivity extends AppCompatActivity{
     private EditText ed_memo;
     private EditText ed_price;
 
-
-
     private Spinner spin_school;
     private LinearLayout linear_school;
 
@@ -108,9 +93,10 @@ public class BookSettingActivity extends AppCompatActivity{
     private Boolean empty2 = true;
 
     private TextView text_school1;
-    private Button btn_cancle1;
+    //private Button btn_cancle1;
+    private ImageButton btn_cancle1;
     private TextView text_school2;
-    private Button btn_cancle2;
+    private ImageButton btn_cancle2;
     private String school_element;
 
 
@@ -245,9 +231,14 @@ public class BookSettingActivity extends AppCompatActivity{
 
                     if(empty1 == true){
                         text_school1 = new TextView(BookSettingActivity.this);
-                        btn_cancle1 = new Button(BookSettingActivity.this);
+                        btn_cancle1 = new ImageButton(BookSettingActivity.this);
 
-                        btn_cancle1.setText("취소");
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
+
+                        btn_cancle1.setImageResource(android.R.drawable.ic_delete);
+                        btn_cancle1.setBackgroundColor(Color.WHITE);
+                        btn_cancle1.setLayoutParams(lp);
+
                         text_school1.setText(school_element);
 
                         linear_element1 = new LinearLayout(BookSettingActivity.this);
@@ -266,8 +257,13 @@ public class BookSettingActivity extends AppCompatActivity{
                     }
                     else if(empty1 == false && empty2 == true){
                         text_school2 = new TextView(BookSettingActivity.this);
-                        btn_cancle2 = new Button(BookSettingActivity.this);
-                        btn_cancle2.setText("취소");
+                        btn_cancle2 = new ImageButton(BookSettingActivity.this);
+
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
+
+                        btn_cancle2.setImageResource(android.R.drawable.ic_delete);
+                        btn_cancle2.setBackgroundColor(Color.WHITE);
+                        btn_cancle2.setLayoutParams(lp);
 
                         text_school2.setText(school_element);
 
@@ -312,13 +308,13 @@ public class BookSettingActivity extends AppCompatActivity{
                         // 사진 촬영 클릭
                         takePhoto();
                     }
-                }).setNeutralButton("앨범선택",
+                }).setPositiveButton("앨범선택",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int id) {
                         //앨범에서 선택
                         selectAlbum();
                     }
-                }).setPositiveButton("취소   ",
+                }).setNeutralButton("취소   ",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // 취소 클릭. dialog 닫기.
@@ -409,7 +405,6 @@ public class BookSettingActivity extends AppCompatActivity{
         imageView.setLayoutParams(lp);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setRotation(90);
-        imageView.setBackgroundColor(Color.GREEN);
         switch (requestCode){
             case FROM_ALBUM : {
                 //앨범에서 가져오기
