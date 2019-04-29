@@ -64,7 +64,6 @@ public class BookSearchListViewAdapter extends BaseAdapter {
             Log.i("gg", "북이미지가 널이 아님");
             ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
             Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
-
         }
 
         tvBookName.setText(bookInfo.getBookName());

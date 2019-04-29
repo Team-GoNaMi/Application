@@ -2,7 +2,7 @@ package com.example.gonami.bookboxbook.AddBook;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -21,8 +22,11 @@ import com.example.gonami.bookboxbook.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -39,8 +43,9 @@ public class BookInfoActivity extends AppCompatActivity {
     private String bookImage;
     private Button btn_next;
     private Boolean isBarcord;
-
+    private  String naverResult;
     private BookInformation registBook;
+    private Bitmap bitmap;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +59,13 @@ public class BookInfoActivity extends AppCompatActivity {
         ed_publish_date = findViewById(R.id.ed_publishDate);
         btn_next = findViewById(R.id.btn_next);
 
-
         Intent Intent = new Intent(this.getIntent());
         isBarcord = Intent.getExtras().getBoolean("isBarcord");
         if (isBarcord == true) {
             final String isbn = Intent.getExtras().getString("isbn");
             new Thread() {
                 public void run() {
-                    String naverResult = getNaverSearch(isbn);
+                    naverResult = getNaverSearch(isbn);
 
                     Bundle bun = new Bundle();
                     bun.putString("DATA", naverResult);
@@ -69,28 +73,30 @@ public class BookInfoActivity extends AppCompatActivity {
                     Message msg = handler.obtainMessage();
                     msg.setData(bun);
                     handler.sendMessage(msg);
+
                 }
             }.start();
 
         }
 
-        }
-
+    }
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             Bundle bun = msg.getData();
-            String naverResult = bun.getString("DATA");
+            naverResult = bun.getString("DATA");
 
             String[] splitResult = naverResult.split("\\n");
-              bookImage = splitResult[2];
-              Log.i("hello", "gg" + bookImage);
-              ed_name.setText(splitResult[1]);
-              ed_isbn.setText(splitResult[7]);
-              ed_author.setText(splitResult[3]);
-              ed_publisher.setText(splitResult[5]);
-              ed_price.setText(splitResult[4]);
-              ed_publish_date.setText(splitResult[6]);
+
+            Log.i("gggggg", "쪼개기"+splitResult.toString());
+            bookImage = splitResult[2];
+
+            ed_name.setText(splitResult[1]);
+            ed_isbn.setText(splitResult[7]);
+            ed_author.setText(splitResult[3]);
+            ed_publisher.setText(splitResult[5]);
+            ed_price.setText(splitResult[4]);
+            ed_publish_date.setText(splitResult[6]);
         }
     };
     @Override
@@ -119,10 +125,7 @@ public class BookInfoActivity extends AppCompatActivity {
                     origin_price = temp[0];
                 }
 
-                registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
-                        ed_author.getText().toString(), ed_publisher.getText().toString(),
-                        ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
-                Log.i("gg","bookimage" + registBook.getBook_image().toString());
+
                 if (ed_isbn.getText().length() == 0) {
                     Toast.makeText(BookInfoActivity.this, "ISBN을 입력하세요!", Toast.LENGTH_SHORT).show();
                     ed_isbn.requestFocus();
@@ -157,6 +160,27 @@ public class BookInfoActivity extends AppCompatActivity {
                     ed_publish_date.requestFocus();
                     return;
                 }
+
+                if(isBarcord == false){
+
+                    new Thread() {
+                        public void run() {
+                            naverResult = getNaverSearch(ed_isbn.getText().toString());
+
+                            Bundle bun = new Bundle();
+                            bun.putString("DATA", naverResult);
+
+                            Message msg = handler.obtainMessage();
+                            msg.setData(bun);
+                            handler.sendMessage(msg);
+                        }
+                    }.start();
+                }
+
+                registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
+                        ed_author.getText().toString(), ed_publisher.getText().toString(),
+                        ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
+                Log.i("gg","bookimage" + registBook.getBook_image().toString());
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);
