@@ -170,6 +170,8 @@ public class BookMarkFragment extends Fragment {
             String TAG_ORIGINAL_PRICE = "original_price";
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_BOOKMARK = "bookmark";
+            String TAG_SCHOOL = "school";
+            String TAG_BOOK_IMAGE = "book_images";
 
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
@@ -182,7 +184,7 @@ public class BookMarkFragment extends Fragment {
 
                         BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
                                 item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), item.getBoolean(TAG_BOOKMARK));
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), item.getBoolean(TAG_BOOKMARK), item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
                         bookmarkList.add(bookInformation);
                         Log.i(TAG, bookmarkList.get(i).getBookName());
                     }

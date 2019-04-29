@@ -75,7 +75,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
         ivBookImage.setImageAlpha(R.mipmap.ic_launcher);        // TODO 책 이미지
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText("중앙대 서울캠, 홍대");           // TODO 거래 장소
+        tvSchoolNames.setText(bookInfo.getSchoolString());           // TODO 거래 장소
         tvBookOriginalPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
 

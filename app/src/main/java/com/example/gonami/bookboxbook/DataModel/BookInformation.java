@@ -32,8 +32,8 @@ public class BookInformation implements Serializable {
     // 북 마크
     private boolean bookmark;
 
-    // search와  book mark, 거래 목록에서 객체 생성할 때 사용하는 생성자
-    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark) {
+    // search와  book mark, 거래 List에서 객체 생성할 때 사용하는 생성자
+    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark, String schools, String images) {
         this.register_id = register_id;
         this.bookName = bookName;
         this.author = author;
@@ -41,6 +41,16 @@ public class BookInformation implements Serializable {
         this.original_price = original_price;
         this.selling_price = selling_price;
         this.bookmark = bookmark;
+
+        String[] school_array = schools.split(",");
+        this.school = new ArrayList<String>();
+        for (String school : school_array)
+            this.school.add(school);
+
+        String[] image_array = images.split(",");
+        this.book_image = new ArrayList<String>();
+        for (String image : image_array)
+            this.book_image.add(image);
     }
 
     public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date, String bookImage) {
@@ -83,11 +93,10 @@ public class BookInformation implements Serializable {
         String schools = school_list.substring(1, school_list.length()-1);
         Log.i("School", schools + " - " + schools.length());
 
-//        schools.replaceAll(" ", "");
-//        schools.replaceAll("\\p{Z}", "");
-//        Log.i("School", schools);
-
         String book_img_list = book_image.toString();
+        Log.i("Image", book_img_list);
+        String book_images = book_img_list.substring(1, book_img_list.length()-1);
+        Log.i("Image", book_images + " - " + book_images.length());
 
         String concat = "";
         concat += "isbn=" + isbn;
@@ -98,9 +107,11 @@ public class BookInformation implements Serializable {
         concat += "&publish_date=" + publish_date;
         concat += "&register_id=" + register_id;
         concat += "&seller_id=" + seller_id;
-        concat += "&school=" + school_list;
+        concat += "&school=" + schools;
+
+
         concat += "&selling_price=" + selling_price;
-        concat += "&book_image=" + book_img_list; // TODO change form
+        concat += "&book_image=" + book_images; // TODO change form
         concat += "&underline=" + underline;
         concat += "&writing=" + writing;
         concat += "&cover=" + cover;
@@ -110,8 +121,6 @@ public class BookInformation implements Serializable {
 
         return concat;
     }
-
-    public String getFirstImage(){ return book_image.get(0);}
 
     public String getISBN() {
         return isbn;
@@ -149,12 +158,31 @@ public class BookInformation implements Serializable {
         return school;
     }
 
+    public String getSchoolString() {
+        String schools = "";
+        for (String school : school) {
+            schools += school + ",";
+        }
+        int end = schools.length() - 1;
+        schools = schools.substring(0, end);
+
+        return schools;
+    }
+
     public String getSellingPrice() {
         return selling_price;
     }
 
     public ArrayList<String> getBook_image() {
         return book_image;
+    }
+
+    public String getFirstBookImage() {
+        return book_image.get(0);
+    }
+
+    public Boolean isImageExist() {
+        return (book_image.size() != 0);
     }
 
     public int getUnderline() {

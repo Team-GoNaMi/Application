@@ -325,6 +325,10 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
             String TAG_MEMO = "memo";
             String TAG_SELLER_ID = "seller_id";
+
+            String TAG_SCHOOL = "school";
+            String TAG_BOOK_IMAGE = "book_images";
+
             //String TAG_RATING = "";
 
             boolean success;
@@ -343,6 +347,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                     tvPrice.setText(jsonObject.getString(TAG_SELLING_PRICE));
                     memo.setText(jsonObject.getString(TAG_MEMO));
+
+                    tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
 
                     // 북마크
                     checked = jsonObject.getBoolean(TAG_BOOK_MARK);
