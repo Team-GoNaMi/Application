@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.MainActivity;
@@ -75,43 +76,9 @@ public class SellListViewAdapter extends BaseAdapter {
         final BookInformation bookInfo = bookList.get(position);
 
         if (bookInfo.isImageExist()) {
-
-            new Thread() {
-                @SuppressLint("HandlerLeak")
-                Handler handler = new Handler() {
-                    public void handleMessage(Message msg) {
-                        ivBookImage.setImageBitmap(bitmap);
-                    }
-                };
-                public void run() {
-
-
-                    try {
-                        URL url = new URL(bookInfo.getFirstBookImage());
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setDoInput(true);
-                        conn.connect();
-
-                        InputStream inputStream = conn.getInputStream();
-                        bitmap = BitmapFactory.decodeStream(inputStream);
-
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    Bundle bun = new Bundle();
-                    bun.putString("DATA", "image");
-
-                    Message msg = handler.obtainMessage();
-                    msg.setData(bun);
-                    handler.sendMessage(msg);
-
-                }
-            }.start();
-
+            Glide.with(parentContext).load(bookInfo.getFirstBookImage()).into(ivBookImage);
         }
+
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
         tvSchoolNames.setText(bookInfo.getSchoolString());

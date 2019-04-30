@@ -93,13 +93,10 @@ public class BookSettingActivity extends AppCompatActivity{
     private Boolean empty2 = true;
 
     private TextView text_school1;
-    //private Button btn_cancle1;
     private ImageButton btn_cancle1;
     private TextView text_school2;
     private ImageButton btn_cancle2;
     private String school_element;
-
-
     private Button btn_regist;
 
     //DB에 넣을 값들
@@ -138,7 +135,6 @@ public class BookSettingActivity extends AppCompatActivity{
         spin_school.setAdapter(adapter);
         linear_school = findViewById(R.id.linear_school);
 
-
         ed_memo = findViewById(R.id.ed_memo);
         ed_price = findViewById(R.id.ed_price);
         btn_addphoto = findViewById(R.id.btn_addphoto);
@@ -158,7 +154,6 @@ public class BookSettingActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
 
-        //앨범선택, 사진촬영, 취소 다이얼로그 생성
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,7 +241,6 @@ public class BookSettingActivity extends AppCompatActivity{
                         linear_element1.addView(btn_cancle1);
                         linear_school.addView(linear_element1);
                         empty1 = false;
-                        Log.i("gg", "linear element1");
                         btn_cancle1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -273,7 +267,6 @@ public class BookSettingActivity extends AppCompatActivity{
                         linear_school.addView(linear_element2);
 
                         empty2 = false;
-                        Log.i("gg", "linear element2");
 
                         btn_cancle2.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -305,19 +298,16 @@ public class BookSettingActivity extends AppCompatActivity{
                 false).setNegativeButton("사진촬영",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // 사진 촬영 클릭
                         takePhoto();
                     }
                 }).setPositiveButton("앨범선택",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int id) {
-                        //앨범에서 선택
                         selectAlbum();
                     }
                 }).setNeutralButton("취소   ",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // 취소 클릭. dialog 닫기.
                         dialog.cancel();
                     }
                 });
@@ -412,7 +402,8 @@ public class BookSettingActivity extends AppCompatActivity{
                     try{
                         File albumFile = null;
                         albumFile = createImageFile();
-                        albumURI = Uri.fromFile(albumFile);
+//                        albumURI = Uri.fromFile(albumFile);
+//                        Log.v("albumUri",albumURI.toString());
                         bookImage.add(data.getData().toString());
                         imageView.setImageURI(data.getData());
                         layout.addView(imageView);

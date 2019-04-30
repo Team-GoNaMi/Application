@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -43,9 +42,9 @@ public class BookInfoActivity extends AppCompatActivity {
     private String bookImage;
     private Button btn_next;
     private Boolean isBarcord;
-    private  String naverResult;
+    private String naverResult;
     private BookInformation registBook;
-    private Bitmap bitmap;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +75,6 @@ public class BookInfoActivity extends AppCompatActivity {
 
                 }
             }.start();
-
         }
 
     }
@@ -88,7 +86,6 @@ public class BookInfoActivity extends AppCompatActivity {
 
             String[] splitResult = naverResult.split("\\n");
 
-            Log.i("gggggg", "쪼개기"+splitResult.toString());
             bookImage = splitResult[2];
 
             ed_name.setText(splitResult[1]);
@@ -104,9 +101,9 @@ public class BookInfoActivity extends AppCompatActivity {
         super.onResume();
 
         ed_publish_date.setOnKeyListener(new View.OnKeyListener() {
+           //TODO 엔터 동작 이상함
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //Enter key Action
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     btn_next.performClick();
                     return true;
@@ -117,9 +114,9 @@ public class BookInfoActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String origin_price = ed_price.getText().toString();
 
+                //TODO 가격이 달러면..?
                 if (origin_price.contains(".")) {
                     String[] temp = origin_price.split("\\.");
                     origin_price = temp[0];
@@ -161,6 +158,7 @@ public class BookInfoActivity extends AppCompatActivity {
                     return;
                 }
 
+                //TODO ISBN 예외처리..
                 if(isBarcord == false){
 
                     new Thread() {
@@ -180,6 +178,7 @@ public class BookInfoActivity extends AppCompatActivity {
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
                         ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
+
                 Log.i("gg","bookimage" + registBook.getBook_image().toString());
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);

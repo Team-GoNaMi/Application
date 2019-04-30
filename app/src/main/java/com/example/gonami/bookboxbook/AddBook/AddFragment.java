@@ -16,33 +16,27 @@ import com.example.gonami.bookboxbook.RecognizeCode.ScannerActivity;
 public class AddFragment extends Fragment {
 
     private View thisView = null;
-
     private Button btn_barcord;
     private Button btn_manual;
-
 
     public AddFragment() {
 
     }
-
     public static AddFragment newInstance() {
         AddFragment fragment = new AddFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (thisView == null)
             thisView = inflater.inflate(R.layout.fragment_add_book, null);
-
         return thisView;
     }
 
@@ -68,7 +62,5 @@ public class AddFragment extends Fragment {
                 startActivity(manualIntent);
             }
         });
-
-
     }
 }

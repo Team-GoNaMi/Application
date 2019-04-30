@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
@@ -34,7 +35,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
     private Bitmap bitmap;
-
+    private Thread bookThread;
     public BookSearchListViewAdapter(ArrayList<BookInformation> bookList) {
         this.bookList = bookList;
     }
@@ -72,52 +73,8 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
-
-//        if(bookInfo.getBook_image() != null){
-//            Log.i("gg", "북이미지가 널이 아님");
-//            ivBookImage.setImageURI(Uri.parse(bookInfo.getFirstImage()));    // 책 이미지
-//            Log.i("gg", "uri는" + Uri.parse(bookInfo.getFirstImage()));
-//
-//        }
-
-
         if (bookInfo.isImageExist()) {
-
-            new Thread() {
-                @SuppressLint("HandlerLeak")
-                Handler handler = new Handler() {
-                    public void handleMessage(Message msg) {
-                        ivBookImage.setImageBitmap(bitmap);
-                    }
-                };
-                public void run() {
-
-
-                    try {
-                        URL url = new URL(bookInfo.getFirstBookImage());
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setDoInput(true);
-                        conn.connect();
-
-                        InputStream inputStream = conn.getInputStream();
-                        bitmap = BitmapFactory.decodeStream(inputStream);
-
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    Bundle bun = new Bundle();
-                    bun.putString("DATA", "image");
-
-                    Message msg = handler.obtainMessage();
-                    msg.setData(bun);
-                    handler.sendMessage(msg);
-
-                }
-            }.start();
-
+            Glide.with(context).load(bookInfo.getFirstBookImage()).into(ivBookImage);
         }
 
         tvBookName.setText(bookInfo.getBookName());
