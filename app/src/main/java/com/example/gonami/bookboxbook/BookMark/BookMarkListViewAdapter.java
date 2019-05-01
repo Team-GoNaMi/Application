@@ -83,9 +83,10 @@ public class BookMarkListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
-        if (bookInfo.isImageExist()) {
-            Glide.with(parentContext).load(bookInfo.getFirstBookImage()).into(ivBookImage);
-        }
+//        if (bookInfo.isImageExist()) {
+//            Glide.with(parentContext).load(bookInfo.getFirstBookImage()).into(ivBookImage);
+//        }
+        Glide.with(parentContext).load(bookInfo.getFirstBookImage()).into(ivBookImage);
 
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
