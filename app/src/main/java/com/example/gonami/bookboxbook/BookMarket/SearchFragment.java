@@ -38,8 +38,10 @@ public class SearchFragment extends Fragment {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "Search";
 
-    private View thisView = null;
     private String searchWord = "";
+    private String school = "";
+
+    private View thisView = null;
 
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
@@ -87,7 +89,7 @@ public class SearchFragment extends Fragment {
                 getResources().getStringArray(R.array.school));
         bookList = new ArrayList<BookInformation>();
         GetRegisterBookData task = new GetRegisterBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
+        task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
 
         bookListView = view.findViewById(R.id.lv_book_market);
         etSearchBook = view.findViewById(R.id.et_search_book);
@@ -111,14 +113,23 @@ public class SearchFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //TODO 디비에서 검색한다
+                GetRegisterBookData task = new GetRegisterBookData();
+                task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
+
             }
         });
         spinSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (position == 0) {
+                    school = "all";
+                }
+                else {
+                    school = spinSearch.getItemAtPosition(position).toString();
+                }
             }
 
             @Override
@@ -154,8 +165,10 @@ public class SearchFragment extends Fragment {
 
             String serverURL = strings[0];
             String search_word = strings[1];
-            String postParameters = "searchWord=" + search_word;
-            Log.i(TAG, "searchWord : " + search_word);
+            String school = strings[2];
+
+            String postParameters = "searchWord=" + search_word + "& school=" + school;
+            Log.i(TAG, "searchWord : " + postParameters);
 
             try {
                 URL url = new URL(serverURL);
