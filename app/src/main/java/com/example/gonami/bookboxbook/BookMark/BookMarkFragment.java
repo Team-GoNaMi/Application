@@ -74,7 +74,7 @@ public class BookMarkFragment extends Fragment {
         // DB에서 불러와서 ArrayList에 저장
         bookmarkList = new ArrayList<BookInformation>();
         GetBookMarkData task = new GetBookMarkData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-list.php", user_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-mark.php", user_id);
 
 
         bookmarkListView = thisView.findViewById(R.id.lv_bookmark);
@@ -107,7 +107,7 @@ public class BookMarkFragment extends Fragment {
         protected String doInBackground(String... strings) {
             String serverURL = strings[0];
             String user_id = strings[1];
-            String postParameters = "user_id=" + user_id  + "& state= 1";
+            String postParameters = "user_id=" + user_id ;
 
             Log.i(TAG, "user_id : " + user_id);
 

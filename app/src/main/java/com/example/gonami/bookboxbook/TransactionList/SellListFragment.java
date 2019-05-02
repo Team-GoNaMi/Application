@@ -119,7 +119,7 @@ public class SellListFragment extends Fragment {
         // DB에서 불러와서 ArrayList에 저장
         sellList = new ArrayList<BookInformation>();
         GetSellBookData task = new GetSellBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-list.php", user_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-trade.php", user_id);
 
         sellListView = thisView.findViewById(R.id.lv_sell_list);
         sellListViewAdapter = new SellListViewAdapter(sellList);
@@ -171,7 +171,7 @@ public class SellListFragment extends Fragment {
         protected String doInBackground(String... strings) {
             String serverURL = strings[0];
             String user_id = strings[1];
-            String postParameters = "user_id=" + user_id  + "& state= 2";
+            String postParameters = "user_id=" + user_id  + "& state= 1";
 
             Log.i(TAG, "user_id : " + user_id);
 
@@ -235,6 +235,9 @@ public class SellListFragment extends Fragment {
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_SCHOOL = "school";
             String TAG_BOOK_IMAGE = "book_image";
+            String TAG_STATE = "state";
+
+
 
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
