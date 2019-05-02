@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
@@ -221,14 +222,19 @@ public class SearchFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
 
-                for(int i = 0; i<jsonArray.length();i++){
-                    JSONObject item = jsonArray.getJSONObject(i);
+                if (jsonArray.length() != 0) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
 
-                    BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
-                            item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
-                    bookList.add(bookInformation);
-                    Log.i(TAG, bookList.get(i).getBookName());
+                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
+                                item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
+                        bookList.add(bookInformation);
+                        Log.i(TAG, bookList.get(i).getBookName());
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(), "책 목록이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
                 // 어뎁터 생성

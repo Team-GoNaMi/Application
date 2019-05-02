@@ -190,7 +190,7 @@ public class BookMarkFragment extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "책 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "북마크 한 책이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
                 // 어뎁터 생성
