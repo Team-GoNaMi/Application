@@ -11,7 +11,7 @@ public class BookTradeInformation {
         this.bookRegister_id = bookRegister_id;
         this.seller_id = seller_id;
         this.buyer_id = buyer_id;
-        this.status = 0;
+        this.status = status;
     }
 
     public String getBookRegister_id() {

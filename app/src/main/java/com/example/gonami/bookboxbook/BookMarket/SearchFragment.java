@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.R;
@@ -37,8 +38,10 @@ public class SearchFragment extends Fragment {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "Search";
 
-    private View thisView = null;
     private String searchWord = "";
+    private String school = "";
+
+    private View thisView = null;
 
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
@@ -86,7 +89,7 @@ public class SearchFragment extends Fragment {
                 getResources().getStringArray(R.array.school));
         bookList = new ArrayList<BookInformation>();
         GetRegisterBookData task = new GetRegisterBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord);
+        task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
 
         bookListView = view.findViewById(R.id.lv_book_market);
         etSearchBook = view.findViewById(R.id.et_search_book);
@@ -110,14 +113,23 @@ public class SearchFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //TODO 디비에서 검색한다
+                GetRegisterBookData task = new GetRegisterBookData();
+                task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
+
             }
         });
         spinSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (position == 0) {
+                    school = "all";
+                }
+                else {
+                    school = spinSearch.getItemAtPosition(position).toString();
+                }
             }
 
             @Override
@@ -153,8 +165,10 @@ public class SearchFragment extends Fragment {
 
             String serverURL = strings[0];
             String search_word = strings[1];
-            String postParameters = "searchWord=" + search_word;
-            Log.i(TAG, "searchWord : " + search_word);
+            String school = strings[2];
+
+            String postParameters = "searchWord=" + search_word + "& school=" + school;
+            Log.i(TAG, "searchWord : " + postParameters);
 
             try {
                 URL url = new URL(serverURL);
@@ -221,14 +235,19 @@ public class SearchFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
 
-                for(int i = 0; i<jsonArray.length();i++){
-                    JSONObject item = jsonArray.getJSONObject(i);
+                if (jsonArray.length() != 0) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
 
-                    BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
-                            item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                            item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
-                    bookList.add(bookInformation);
-                    Log.i(TAG, bookList.get(i).getBookName());
+                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
+                                item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
+                        bookList.add(bookInformation);
+                        Log.i(TAG, bookList.get(i).getBookName());
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(), "책 목록이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
                 // 어뎁터 생성

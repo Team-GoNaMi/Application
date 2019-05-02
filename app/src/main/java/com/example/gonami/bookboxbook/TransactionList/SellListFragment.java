@@ -46,7 +46,6 @@ public class SellListFragment extends Fragment {
     private SellListViewAdapter sellListViewAdapter;
 
     private ArrayList<BookInformation> sellList;
-
     private ArrayList<BookTradeInformation> tradeList;
 
     private Button btn_bookbb;
@@ -125,7 +124,7 @@ public class SellListFragment extends Fragment {
         sellList = new ArrayList<BookInformation>();
         tradeList = new ArrayList<BookTradeInformation>();
         GetSellBookData task = new GetSellBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-list.php", user_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-trade.php", user_id);
 
         sellListView = thisView.findViewById(R.id.lv_sell_list);
         sellListViewAdapter = new SellListViewAdapter(sellList, tradeList);
@@ -161,7 +160,7 @@ public class SellListFragment extends Fragment {
         protected String doInBackground(String... strings) {
             String serverURL = strings[0];
             String user_id = strings[1];
-            String postParameters = "user_id=" + user_id  + "& state= 2";
+            String postParameters = "user_id=" + user_id;
 
             Log.i(TAG, "user_id : " + user_id);
 
@@ -225,13 +224,15 @@ public class SellListFragment extends Fragment {
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_SCHOOL = "school";
             String TAG_BOOK_IMAGE = "book_image";
+            String TAG_STATE = "state";
+
+
 
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
 
                 if (jsonArray.length() != 0) {
-
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
 
@@ -240,10 +241,14 @@ public class SellListFragment extends Fragment {
                                 item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
                         sellList.add(bookInformation);
                         Log.i(TAG, sellList.get(i).getBookName());
+
+                        BookTradeInformation bookTradeInformation = new BookTradeInformation(item.getString(TAG_REGISTER_ID), "", "", item.getInt(TAG_STATE));
+                        tradeList.add(bookTradeInformation);
+                        Log.i(TAG, tradeList.get(i).getBookRegister_id() + tradeList.get(i).getStatus());
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "책 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "판 책이 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
                 // 어뎁터 생성
