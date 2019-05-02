@@ -137,6 +137,7 @@ public class SellListViewAdapter extends BaseAdapter {
                     //북박스예약
                     case 2:
                         Intent = new Intent(parentContext, BookBoxBookActivity.class);
+                        Intent.putExtra("school", bookInfo.getSchool());
                         parentContext.startActivity(Intent);
                         break;
                     //예약정보(책넣어주세요)
