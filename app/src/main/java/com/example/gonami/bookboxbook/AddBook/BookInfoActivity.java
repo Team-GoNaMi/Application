@@ -2,7 +2,6 @@ package com.example.gonami.bookboxbook.AddBook;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,11 +20,8 @@ import com.example.gonami.bookboxbook.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -179,7 +175,7 @@ public class BookInfoActivity extends AppCompatActivity {
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
                         ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
 
-                Log.i("gg","bookimage" + registBook.getBook_image().toString());
+                Log.i("gg","bookimage" + registBook.getFirstBookImage());
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);

@@ -58,6 +58,13 @@
         android:layout_gravity="left"
         android:textColor="@android:color/holo_red_light"/>
 
+    <CheckBox
+        android:id="@+id/cb_autologin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="자동 로그인"/>
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -66,13 +73,6 @@
         android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
         android:text="로그인" />
-
-    <CheckBox
-        android:id="@+id/cb_autologin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="자동 로그인"/>
 
     <Button
         android:id="@+id/btn_sign_up"

@@ -147,7 +147,7 @@ public class BookSettingActivity extends AppCompatActivity{
         school = new ArrayList<String>();
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
-        Log.i("get","getregistBook"+ registBook.getBook_image().toString());
+        Log.i("get","getregistBook"+ registBook.getFirstBookImage().toString());
 
     }
 

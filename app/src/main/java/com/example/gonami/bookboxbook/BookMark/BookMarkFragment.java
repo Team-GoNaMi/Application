@@ -171,7 +171,7 @@ public class BookMarkFragment extends Fragment {
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_BOOKMARK = "bookmark";
             String TAG_SCHOOL = "school";
-            String TAG_BOOK_IMAGE = "book_images";
+            String TAG_BOOK_IMAGE = "book_image";
 
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
