@@ -15,11 +15,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
+import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.BookBoxBookActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
+import com.example.gonami.bookboxbook.TransactionProcess.RegisterBankAccountActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +46,8 @@ public class SellListFragment extends Fragment {
     private SellListViewAdapter sellListViewAdapter;
 
     private ArrayList<BookInformation> sellList;
+
+    private ArrayList<BookTradeInformation> tradeList;
 
     private Button btn_bookbb;
     private Button btn_qr;
@@ -90,6 +94,7 @@ public class SellListFragment extends Fragment {
 
         btn_state = thisView.findViewById(R.id.btn_state);
 
+        btn_state.setText("북박스예약");
         btn_bookbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,30 +123,15 @@ public class SellListFragment extends Fragment {
 
         // DB에서 불러와서 ArrayList에 저장
         sellList = new ArrayList<BookInformation>();
+        tradeList = new ArrayList<BookTradeInformation>();
         GetSellBookData task = new GetSellBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-list.php", user_id);
 
         sellListView = thisView.findViewById(R.id.lv_sell_list);
-        sellListViewAdapter = new SellListViewAdapter(sellList);
+        sellListViewAdapter = new SellListViewAdapter(sellList, tradeList);
         sellListView.setAdapter(sellListViewAdapter);
-        //판매자 -> state id를 받아오면 될듯
-        btn_state.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (btn_state.getText().toString()){
-                    case "북박스예약":
-                        btn_bookbb.performClick();
-                        btn_state.setText("계좌번호입력");
-                        break;
 
-                    case "계좌번호입력":
-                        break;
 
-                    case "":
-                        break;
-                }
-            }
-        });
 
     }
 
@@ -257,7 +247,7 @@ public class SellListFragment extends Fragment {
                 }
 
                 // 어뎁터 생성
-                sellListViewAdapter = new SellListViewAdapter(sellList);
+                sellListViewAdapter = new SellListViewAdapter(sellList, tradeList);
                 sellListView.setAdapter(sellListViewAdapter);
 
             } catch (JSONException e) {
