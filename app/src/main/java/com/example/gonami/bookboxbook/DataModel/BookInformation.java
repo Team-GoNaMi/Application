@@ -49,6 +49,9 @@ public class BookInformation implements Serializable {
         this.school = new ArrayList<String>();
         for (String school : school_array)
             this.school.add(school);
+
+        //temp
+        this.book_photo = new ArrayList<String>();
     }
 
     public BookInformation(String isbn, String bookName, String author, String publisher, String origin_price, String publish_date, String bookImage) {
@@ -60,6 +63,9 @@ public class BookInformation implements Serializable {
         this.publish_date = publish_date;
 
         this.book_image = bookImage;
+
+        //temp
+        this.book_photo = new ArrayList<String>();
     }
 
     public void setBookInformation(String register_id, String seller_id, ArrayList<String> school,
@@ -102,6 +108,7 @@ public class BookInformation implements Serializable {
         concat += "&publisher=" + publisher;
         concat += "&original_price=" + original_price;
         concat += "&publish_date=" + publish_date;
+        concat += "&book_image=" + book_image;
 
         concat += "&register_id=" + register_id;
         concat += "&seller_id=" + seller_id;

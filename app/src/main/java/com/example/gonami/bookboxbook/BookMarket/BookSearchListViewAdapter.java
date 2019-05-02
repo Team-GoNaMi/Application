@@ -73,9 +73,10 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         final BookInformation bookInfo = bookList.get(position);
 
-        if (bookInfo.isImageExist()) {
-            Glide.with(context).load(bookInfo.getFirstBookImage()).into(ivBookImage);
-        }
+//        if (bookInfo.isImageExist()) {
+//            Glide.with(context).load(bookInfo.getFirstBookImage()).into(ivBookImage);
+//        }
+        Glide.with(context).load(bookInfo.getFirstBookImage()).into(ivBookImage);
 
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());

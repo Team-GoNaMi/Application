@@ -175,7 +175,7 @@ public class BookInfoActivity extends AppCompatActivity {
                         ed_author.getText().toString(), ed_publisher.getText().toString(),
                         ed_price.getText().toString(), ed_publish_date.getText().toString(), bookImage);
 
-                Log.i("gg","bookimage" + registBook.getBook_photo().toString());
+                Log.i("gg","bookimage" + registBook.getFirstBookImage());
 
                 Intent Intent = new Intent(BookInfoActivity.this, BookSettingActivity.class);
                 Intent.putExtra("registBook", registBook);
