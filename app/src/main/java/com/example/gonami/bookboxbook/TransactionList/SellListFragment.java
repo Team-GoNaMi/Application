@@ -49,6 +49,8 @@ public class SellListFragment extends Fragment {
     private Button btn_qr;
     private Button btn_rate;
 
+    private Button btn_state;
+
     public SellListFragment() {
 
     }
@@ -86,6 +88,8 @@ public class SellListFragment extends Fragment {
         btn_qr = thisView.findViewById(R.id.btn_qr);
         btn_rate = thisView.findViewById(R.id.btn_rate);
 
+        btn_state = thisView.findViewById(R.id.btn_state);
+
         btn_bookbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +124,24 @@ public class SellListFragment extends Fragment {
         sellListView = thisView.findViewById(R.id.lv_sell_list);
         sellListViewAdapter = new SellListViewAdapter(sellList);
         sellListView.setAdapter(sellListViewAdapter);
+        //판매자 -> state id를 받아오면 될듯
+        btn_state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (btn_state.getText().toString()){
+                    case "북박스예약":
+                        btn_bookbb.performClick();
+                        btn_state.setText("계좌번호입력");
+                        break;
+
+                    case "계좌번호입력":
+                        break;
+
+                    case "":
+                        break;
+                }
+            }
+        });
 
     }
 
