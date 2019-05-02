@@ -167,7 +167,7 @@ public class SearchFragment extends Fragment {
             String search_word = strings[1];
             String school = strings[2];
 
-            String postParameters = "searchWord=" + search_word + "& school=" + school;
+            String postParameters = "searchWord=" + search_word + "& searchSchool=" + school;
             Log.i(TAG, "searchWord : " + postParameters);
 
             try {
