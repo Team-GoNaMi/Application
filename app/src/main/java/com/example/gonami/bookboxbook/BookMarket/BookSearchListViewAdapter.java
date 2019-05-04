@@ -34,8 +34,7 @@ import java.util.ArrayList;
 public class BookSearchListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
-    private Bitmap bitmap;
-    private Thread bookThread;
+
     public BookSearchListViewAdapter(ArrayList<BookInformation> bookList) {
         this.bookList = bookList;
     }
@@ -80,7 +79,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
 
         tvBookName.setText(bookInfo.getBookName());
         tvBookInfo.setText(bookInfo.getAuthor() + " / " +bookInfo.getPublisher());
-        tvSchoolNames.setText(bookInfo.getSchoolString());     // TODO 거래 장소
+        tvSchoolNames.setText(bookInfo.getSchoolString());
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -93,6 +92,7 @@ public class BookSearchListViewAdapter extends BaseAdapter {
                 BookSellDetailFragment bookSellDetailFragment;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+                bundle.putString("from", "Search");
                 bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 
                 Log.i("Search", bookInfo.getRegister_id());
