@@ -43,6 +43,7 @@ public class SellListViewAdapter extends BaseAdapter {
     private ArrayList<BookInformation> bookList;
     private ArrayList<BookTradeInformation> tradeList;
     private Intent Intent;
+
     public SellListViewAdapter(ArrayList<BookInformation> sellList, ArrayList<BookTradeInformation> tradeList) {
         this.bookList = sellList;
         this.tradeList = tradeList;

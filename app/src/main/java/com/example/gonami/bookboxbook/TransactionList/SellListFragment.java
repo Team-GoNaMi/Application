@@ -52,7 +52,6 @@ public class SellListFragment extends Fragment {
     private Button btn_qr;
     private Button btn_rate;
 
-    private Button btn_state;
 
     public SellListFragment() {
 
@@ -91,9 +90,9 @@ public class SellListFragment extends Fragment {
         btn_qr = thisView.findViewById(R.id.btn_qr);
         btn_rate = thisView.findViewById(R.id.btn_rate);
 
-        btn_state = thisView.findViewById(R.id.btn_state);
+//        btn_state = thisView.findViewById(R.id.btn_state);
 
-        btn_state.setText("북박스예약");
+//        btn_state.setText("북박스예약");
         btn_bookbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
