@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -52,7 +51,7 @@ public class SearchFragment extends Fragment {
     private EditText etSearchBook;
     private ImageButton btnSearch;
     private Spinner spinSearch;
-    private ArrayAdapter adapter;
+    private ArrayAdapter spinnerAdapter;
 
     public SearchFragment() {
 
@@ -85,20 +84,24 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item,
-                getResources().getStringArray(R.array.school));
         bookList = new ArrayList<BookInformation>();
+        school = "all";
         GetRegisterBookData task = new GetRegisterBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
 
         bookListView = view.findViewById(R.id.lv_book_market);
         etSearchBook = view.findViewById(R.id.et_search_book);
         btnSearch = view.findViewById(R.id.btn_search);
+
+        spinnerAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.school));
         spinSearch = view.findViewById(R.id.spin_search);
         spinSearch.setPrompt("학교선택");
-        spinSearch.setAdapter(adapter);
+        spinSearch.setAdapter(spinnerAdapter);
+
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
+
         etSearchBook.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -115,6 +118,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
 
                 //TODO 디비에서 검색한다
+                searchWord = etSearchBook.getText().toString();
                 GetRegisterBookData task = new GetRegisterBookData();
                 task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);
 
@@ -167,7 +171,7 @@ public class SearchFragment extends Fragment {
             String search_word = strings[1];
             String school = strings[2];
 
-            String postParameters = "searchWord=" + search_word + "& school=" + school;
+            String postParameters = "searchWord=" + search_word + "& searchSchool=" + school;
             Log.i(TAG, "searchWord : " + postParameters);
 
             try {
@@ -234,6 +238,7 @@ public class SearchFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray(TAG_BASIC);
+                bookList = new ArrayList<BookInformation>();
 
                 if (jsonArray.length() != 0) {
                     for (int i = 0; i < jsonArray.length(); i++) {
