@@ -128,6 +128,7 @@ public class BookMarkListViewAdapter extends BaseAdapter {
                 BookSellDetailFragment bookSellDetailFragment;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+                bundle.putString("from", "BookMark");
                 bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 
                 Log.i("SellList", bookInfo.getRegister_id());

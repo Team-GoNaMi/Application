@@ -43,6 +43,7 @@ public class SellListViewAdapter extends BaseAdapter {
     private ArrayList<BookInformation> bookList;
     private ArrayList<BookTradeInformation> tradeList;
     private Intent Intent;
+
     public SellListViewAdapter(ArrayList<BookInformation> sellList, ArrayList<BookTradeInformation> tradeList) {
         this.bookList = sellList;
         this.tradeList = tradeList;
@@ -137,6 +138,7 @@ public class SellListViewAdapter extends BaseAdapter {
                     //북박스예약
                     case 2:
                         Intent = new Intent(parentContext, BookBoxBookActivity.class);
+                        Intent.putExtra("school", bookInfo.getSchool());
                         parentContext.startActivity(Intent);
                         break;
                     //예약정보(책넣어주세요)
@@ -165,6 +167,7 @@ public class SellListViewAdapter extends BaseAdapter {
                 BookSellDetailFragment bookSellDetailFragment;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+                bundle.putString("from", "Sell");
                 bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 
                 Log.i("SellList", bookInfo.getRegister_id());

@@ -21,10 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMark.SendBookMarkData;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+import com.example.gonami.bookboxbook.TransactionList.BuyListFragment;
+import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
+import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,11 +48,17 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private View thisView = null;
 
     private String book_register_id;
+    private String from_fragment;
+
     private ArrayList<String> bookImage;
     private boolean checked;
     private String seller_id;
 
     private SearchFragment searchFragment;
+    private BookMarkFragment bookMarkFragment;
+    private SellListFragment sellListFragment;
+    private BuyListFragment buyListFragment;
+    private TransactionListFragment transactionListFragment;
 
     private LinearLayout linearLayout_img;
 
@@ -110,9 +120,20 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         if (getArguments() != null) {
             book_register_id = getArguments().getString("BookRegisterID");
+            from_fragment = getArguments().getString("from");
+            Log.i(TAG, from_fragment);
         }
 
-        searchFragment = SearchFragment.newInstance();
+//        switch (from_fragment) {
+//            case "Search":
+//                searchFragment = SearchFragment.newInstance();
+//            case "BookMark" :
+//                bookMarkFragment = BookMarkFragment.newInstance();
+//            case "Sell" :
+//                sellListFragment = SellListFragment.newInstance();
+//            case "Buy" :
+//                buyListFragment = BuyListFragment.newInstance();
+//        }
 
         return thisView;
     }
@@ -209,11 +230,42 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, searchFragment)
-                .commit();
+        switch (from_fragment) {
+            case "Search":
+                searchFragment = SearchFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, searchFragment)
+                        .commit();
 
-        MainActivity.activeFragment = searchFragment;
+                MainActivity.activeFragment = searchFragment;
+                break;
+            case "BookMark" :
+                bookMarkFragment = BookMarkFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, bookMarkFragment)
+                        .commit();
+
+                MainActivity.activeFragment = bookMarkFragment;
+                break;
+            case "Sell" :
+                transactionListFragment = TransactionListFragment.newInstance();
+                sellListFragment = SellListFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, sellListFragment)
+                        .commit();
+
+                MainActivity.activeFragment = transactionListFragment;
+                break;
+            case "Buy" :
+                transactionListFragment = TransactionListFragment.newInstance();
+                buyListFragment = BuyListFragment.newInstance();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, buyListFragment)
+                        .commit();
+
+                MainActivity.activeFragment = transactionListFragment;
+                break;
+        }
     }
 
     @Override
