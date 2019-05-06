@@ -355,7 +355,7 @@ public class BookSettingActivity extends AppCompatActivity{
     }
 
     private File createImageFile() throws IOException{
-        String imageFileName = System.currentTimeMillis() + ".jpg";
+        String imageFileName = System.currentTimeMillis() + "-";
         File imageFile= null;
 
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -394,7 +394,7 @@ public class BookSettingActivity extends AppCompatActivity{
         imageView = new ImageView(this);
         imageView.setLayoutParams(lp);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setRotation(90);
+//        imageView.setRotation(90);
         switch (requestCode){
             case FROM_ALBUM : {
                 //앨범에서 가져오기
@@ -420,6 +420,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 //촬영
                 try{
                     galleryAddPic();
+                    Log.i(TAG, ">>>>>> uri : "+photoURI.toString());
                     bookImage.add(photoURI.toString());
                     imageView.setImageURI(photoURI);
                     layout.addView(imageView);

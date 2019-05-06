@@ -54,12 +54,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private boolean checked;
     private String seller_id;
 
-    private SearchFragment searchFragment;
-    private BookMarkFragment bookMarkFragment;
-    private SellListFragment sellListFragment;
-    private BuyListFragment buyListFragment;
-    private TransactionListFragment transactionListFragment;
-
     private LinearLayout linearLayout_img;
 
     private TextView tvBookName;
@@ -123,17 +117,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             from_fragment = getArguments().getString("from");
             Log.i(TAG, from_fragment);
         }
-
-//        switch (from_fragment) {
-//            case "Search":
-//                searchFragment = SearchFragment.newInstance();
-//            case "BookMark" :
-//                bookMarkFragment = BookMarkFragment.newInstance();
-//            case "Sell" :
-//                sellListFragment = SellListFragment.newInstance();
-//            case "Buy" :
-//                buyListFragment = BuyListFragment.newInstance();
-//        }
 
         return thisView;
     }
@@ -206,10 +189,16 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!seller_id.equals(SaveSharedPreference.getUserID(getContext()))) {
+                    Intent Intent = new Intent(getActivity(), BuyActivity.class);
+                    Intent.putExtra("book_regist_id", book_register_id);
+                    Intent.putExtra("schools", tvLocation.getText());
 
-                Intent Intent = new Intent(getActivity(), BuyActivity.class);
-                Intent.putExtra("book_regist_id", book_register_id);
-                getActivity().startActivity(Intent);
+                    getActivity().startActivity(Intent);
+                }
+                else {
+                    Toast.makeText(getContext(), "본인 책이에요! 돌아가요~ 호이호이", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -232,7 +221,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         switch (from_fragment) {
             case "Search":
-                searchFragment = SearchFragment.newInstance();
+                SearchFragment searchFragment = SearchFragment.newInstance();
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, searchFragment)
                         .commit();
@@ -240,7 +229,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                 MainActivity.activeFragment = searchFragment;
                 break;
             case "BookMark" :
-                bookMarkFragment = BookMarkFragment.newInstance();
+                BookMarkFragment bookMarkFragment = BookMarkFragment.newInstance();
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, bookMarkFragment)
                         .commit();
@@ -248,22 +237,22 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                 MainActivity.activeFragment = bookMarkFragment;
                 break;
             case "Sell" :
-                transactionListFragment = TransactionListFragment.newInstance();
-                sellListFragment = SellListFragment.newInstance();
+                TransactionListFragment transactionListFragment1 = TransactionListFragment.newInstance();
+                SellListFragment sellListFragment = SellListFragment.newInstance();
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, sellListFragment)
                         .commit();
 
-                MainActivity.activeFragment = transactionListFragment;
+                MainActivity.activeFragment = transactionListFragment1;
                 break;
             case "Buy" :
-                transactionListFragment = TransactionListFragment.newInstance();
-                buyListFragment = BuyListFragment.newInstance();
+                TransactionListFragment transactionListFragment2 = TransactionListFragment.newInstance();
+                BuyListFragment buyListFragment = BuyListFragment.newInstance();
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_layout, buyListFragment)
                         .commit();
 
-                MainActivity.activeFragment = transactionListFragment;
+                MainActivity.activeFragment = transactionListFragment2;
                 break;
         }
     }
