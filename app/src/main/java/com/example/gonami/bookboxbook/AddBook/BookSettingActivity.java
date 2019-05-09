@@ -1,10 +1,14 @@
 package com.example.gonami.bookboxbook.AddBook;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -38,11 +43,15 @@ import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -119,6 +128,10 @@ public class BookSettingActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_setting);
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
 
         adapter = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,
                 getResources().getStringArray(R.array.school));
@@ -145,6 +158,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
         bookImage = new ArrayList<String>();
         school = new ArrayList<String>();
+
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
         Log.i("get","getregistBook"+ registBook.getFirstBookImage().toString());
@@ -180,6 +194,19 @@ public class BookSettingActivity extends AppCompatActivity{
                 if(empty2 == false){
                     school.add(text_school2.getText().toString());
                 }
+
+                Log.d("Photo", "Photo Upload Task Start");
+                String ImageUploadURL = "https://" + IP_ADDRESS + "/insert-photo.php";
+                SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+                String idx = pref.getString("idx", "");
+                ImageUploadTask imageUploadTask = new ImageUploadTask();
+                imageUploadTask.execute(ImageUploadURL, mCurrentPhotoPath, idx);
+
+
+
+
+
+
 
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
@@ -382,7 +409,23 @@ public class BookSettingActivity extends AppCompatActivity{
         Toast.makeText(this,"사진이 저장되었습니다",Toast.LENGTH_SHORT).show();
 
     }
+    // Bitmap 을 저장하는 메소드
+    private void saveCropImage(Bitmap bitmap, String filePath) {
+        File copyFile = new File(filePath);
+        BufferedOutputStream bos = null;
+        try {
+            copyFile.createNewFile();
+            bos = new BufferedOutputStream(new FileOutputStream(copyFile));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos); // 이미지가 클 경우 OutOfMemoryException 발생이 예상되어 압축
+            // sendBroadcast를 통해 Crop된 사진을 앨범에 보이도록 갱신한다.
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
 
+            bos.flush();
+            bos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -394,16 +437,21 @@ public class BookSettingActivity extends AppCompatActivity{
         imageView = new ImageView(this);
         imageView.setLayoutParams(lp);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//        imageView.setRotation(90);
+        imageView.setRotation(90);
         switch (requestCode){
             case FROM_ALBUM : {
                 //앨범에서 가져오기
                 if(data.getData()!=null){
                     try{
-                        File albumFile = null;
-                        albumFile = createImageFile();
-//                        albumURI = Uri.fromFile(albumFile);
-//                        Log.v("albumUri",albumURI.toString());
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(data.getData(), filePathColumn,null,null, null);
+
+                        if(cursor != null){
+                            cursor.moveToFirst();
+
+                            mCurrentPhotoPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+                            cursor.close();
+                        }
                         bookImage.add(data.getData().toString());
                         imageView.setImageURI(data.getData());
                         layout.addView(imageView);
@@ -432,6 +480,8 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
+
+
 
     private void check_box_value(){
         //underline
@@ -505,7 +555,56 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
+    private  class ImageUploadTask extends AsyncTask<String, Integer, Boolean> {
+        ProgressDialog progressDialog; // API 26에서 deprecated
 
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progressDialog = new ProgressDialog(BookSettingActivity.this);
+//            progressDialog.setMessage("이미지 업로드중....");
+//            progressDialog.show();
+//        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            try {
+                JSONObject jsonObject = ImageParser.uploadImage(params[0],params[1], params[2]);
+                if (jsonObject != null){
+                    return jsonObject.getString("result").equals("success");
+                }
+            } catch (JSONException e) {
+                Log.i("TAG", "Error3 : " + e.getLocalizedMessage());
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+//            if (progressDialog != null)
+//                progressDialog.dismiss();
+
+            if (aBoolean){
+                Toast.makeText(getApplicationContext(), "파일 업로드 성공", Toast.LENGTH_LONG).show();
+            }  else{
+                Toast.makeText(getApplicationContext(), "파일 업로드 실패", Toast.LENGTH_LONG).show();
+            }
+
+//            // 임시 파일 삭제 (카메라로 사진 촬영한 이미지)
+//            if(mImageCaptureUri != null){
+//                File file = new File(mImageCaptureUri.getPath());
+//                if(file.exists()) {
+//                    file.delete();
+//                }
+//                mImageCaptureUri = null;
+//            }
+//
+//            imagePath = "";
+
+        }
+    }
     private class InsertBookData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
