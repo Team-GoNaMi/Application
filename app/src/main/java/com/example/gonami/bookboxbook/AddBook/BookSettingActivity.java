@@ -202,12 +202,6 @@ public class BookSettingActivity extends AppCompatActivity{
                 ImageUploadTask imageUploadTask = new ImageUploadTask();
                 imageUploadTask.execute(ImageUploadURL, mCurrentPhotoPath, idx);
 
-
-
-
-
-
-
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                         underline, writing, cover, damage_page, memo);
@@ -216,7 +210,6 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
-
                 task.execute("https://" + IP_ADDRESS + "/insert-book.php", registBook.toString());
 //
                 Log.i(TAG, "Added book in db");
@@ -575,7 +568,7 @@ public class BookSettingActivity extends AppCompatActivity{
                     return jsonObject.getString("result").equals("success");
                 }
             } catch (JSONException e) {
-                Log.i("TAG", "Error3 : " + e.getLocalizedMessage());
+                Log.i(TAG, "Error3 : " + e.getLocalizedMessage());
             }
             return false;
         }

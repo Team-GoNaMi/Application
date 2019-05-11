@@ -350,6 +350,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         private void showResult() {
             String TAG_SUCCESS = "success";
+            String TAG_BUY_AVAIL = "buy_avail";
             String TAG_BOOK_MARK = "bookmark";
 
             String TAG_BOOK_NAME = "book_name";
@@ -399,6 +400,17 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                         ibBookmark.setImageResource(R.drawable.ic_bookmark);
 
                     seller_id = jsonObject.getString(TAG_SELLER_ID);
+
+                    // 구매 완료 책 구분
+                    String buy_avail = jsonObject.getString(TAG_BUY_AVAIL);
+                    if (buy_avail.equals("0")) {
+                        btnBuy.setEnabled(false);
+                        btnBuy.setText("구매 완료");
+                    }
+                    else if (buy_avail.equals("1")) {
+                        btnBuy.setEnabled(true);
+                        btnBuy.setText("구매하기");
+                    }
 
 
                     switch (jsonObject.getInt(TAG_HIGHLIGHT)){
