@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.gonami.bookboxbook.R;
 
@@ -31,56 +32,45 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private String TAG = "BookBoxBook";
-    private RadioButton radioSchool1;
-    private RadioButton radioSchool2;
-    private ArrayList<String> schools;
 
+    private TextView tv_school;
     private Button btn_chooseDate;
     private DatePickerDialog dialog;
     private final Calendar cal = Calendar.getInstance();
     private DatePicker calDialog;
-
     private DatePicker datePicker;
 
     private Button btn_book;
     private String stringDate;
     private SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private RadioGroup radioGroup;
 
     //DB
     private Date book_date;
     private String bb_location;
     private int bb_num;
     private String bb_id;//중앙대학교_1 이런식으로
-    private String state = "0";
     private String book_register_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_bookboxbook);
+
+        tv_school = findViewById(R.id.tv_school);
+
         btn_chooseDate = findViewById(R.id.btn_chooseDate);
         btn_book = findViewById(R.id.btn_book);
-        radioSchool1 = findViewById(R.id.checkSchool1);
-        radioGroup = findViewById(R.id.radioGroup);
 
-        schools = new ArrayList<String>();
         Intent intent = new Intent(this.getIntent());
-        schools = intent.getExtras().getStringArrayList("school");
-
         book_register_id = intent.getExtras().getString("register_id");
-        radioSchool1.setText(schools.get(0));
-        if(schools.size() == 2){
-            radioSchool2 = new RadioButton(BookBoxBookActivity.this);
-            radioSchool2.setText(schools.get(1));
-            radioGroup.addView(radioSchool2);
-        }
+        bb_location = intent.getExtras().getString("school");
 //        trade_num =
 
         datePicker = findViewById(R.id.datePicker);
         settingPicker();
         bb_num = getRandomAvailBBNum(book_date);
     }
+
 
     private int getRandomAvailBBNum(Date select_date){
         //avail 한 값 디비에서 가져오기
@@ -93,17 +83,8 @@ public class BookBoxBookActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == 0){
-                    bb_location = radioSchool1.getText().toString();
-                }
-                else{
-                    bb_location = radioSchool2.getText().toString();
-                }
-            }
-        });
+        tv_school.setText(bb_location);
+
         //DATE PICKER DIALOG
         btn_chooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +134,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 bb_id = String.format("%s-%s", bb_location, bb_num);
 
                 BookBoxBookActivity.InsertBookBoxData task = new BookBoxBookActivity.InsertBookBoxData();
-                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_id, book_date.toString(),book_register_id, state);
+                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, book_date.toString(),book_register_id);
 
                 finish();
             }
@@ -194,10 +175,10 @@ public class BookBoxBookActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String serverURL = (String)strings[0];
-//            String postParameters = (String)strings[1];
 
-            String postParameters = "bb_id=" + strings[1] +"&date=" + strings[2] + "&book_register_id="
-                    + strings[3] + "&state=" + strings[4];
+            // TODO date가 이틀이어야함함
+           String postParameters = "bb_location=" + strings[1] +"&date=" + strings[2] + "&book_register_id=" + strings[3];
+            Log.i(TAG, "postParameters"+postParameters);
 
             try {
 

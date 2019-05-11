@@ -26,6 +26,7 @@ public class BookInformation implements Serializable {
     private int cover;
     private int damage_page;
     private String memo;
+    private String selected_school;
 
     //  책 상태
     private int buy_avail;
@@ -34,7 +35,7 @@ public class BookInformation implements Serializable {
     private boolean bookmark;
 
     // search와  book mark, 거래 List에서 객체 생성할 때 사용하는 생성자
-    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark, String schools, String image) {
+    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark, String schools, String selected, String image) {
         this.register_id = register_id;
         this.bookName = bookName;
         this.author = author;
@@ -49,6 +50,7 @@ public class BookInformation implements Serializable {
         this.school = new ArrayList<String>();
         for (String school : school_array)
             this.school.add(school);
+        this.selected_school = selected;
 
         //temp
         this.book_photo = new ArrayList<String>();
@@ -172,6 +174,10 @@ public class BookInformation implements Serializable {
         schools = schools.substring(0, end);
 
         return schools;
+    }
+
+    public String getSelected_school() {
+        return selected_school;
     }
 
     public String getSellingPrice() {
