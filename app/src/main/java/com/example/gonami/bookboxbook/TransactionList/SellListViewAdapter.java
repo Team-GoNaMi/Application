@@ -132,6 +132,10 @@ public class SellListViewAdapter extends BaseAdapter {
                     //예약정보(책넣어주세요)
                     case 3:
                         Intent = new Intent(parentContext, QRActivity.class);
+//                        Intent.putExtra("selectSchool",)
+                        //선택한 학교, 북박스 번호,
+                        Intent.putExtra("register_id", bookInfo.getRegister_id());
+                        Intent.putExtra("ISBN", bookInfo.getISBN());
                         parentContext.startActivity(Intent);
                         break;
                     //계좌번호
