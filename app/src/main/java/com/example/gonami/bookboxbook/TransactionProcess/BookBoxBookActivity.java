@@ -1,8 +1,6 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,13 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.gonami.bookboxbook.AddBook.BookSettingActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -57,7 +52,8 @@ public class BookBoxBookActivity extends AppCompatActivity {
     private String bb_location;
     private int bb_num;
     private String bb_id;//중앙대학교_1 이런식으로
-
+    private String state = "0";
+    private String book_register_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +68,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
         Intent intent = new Intent(this.getIntent());
         schools = intent.getExtras().getStringArrayList("school");
 
+        book_register_id = intent.getExtras().getString("register_id");
         radioSchool1.setText(schools.get(0));
         if(schools.size() == 2){
             radioSchool2 = new RadioButton(BookBoxBookActivity.this);
@@ -151,12 +148,12 @@ public class BookBoxBookActivity extends AppCompatActivity {
         btn_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //TODO 예외처리
                 bb_id = String.format("%s-%s", bb_location, bb_num);
 
                 BookBoxBookActivity.InsertBookBoxData task = new BookBoxBookActivity.InsertBookBoxData();
-                task.execute("https://" + IP_ADDRESS + "/insert-book.php", bb_id, book_date.toString(), bb_location, String.valueOf(bb_num));
-
+                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_id, book_date.toString(),book_register_id, state);
 
                 finish();
             }
@@ -187,22 +184,10 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
     private class InsertBookBoxData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(BookBoxBookActivity.this,
-                    "Please Wait", null, true, true);
-        }
-
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            progressDialog.dismiss();
             Log.i(TAG, "POST response1  - " + result);
         }
 
@@ -211,8 +196,8 @@ public class BookBoxBookActivity extends AppCompatActivity {
             String serverURL = (String)strings[0];
 //            String postParameters = (String)strings[1];
 
-            String postParameters = "bb_id=" + strings[1] +"&date=" + strings[2] + "&location="
-                    + strings[3] + "&locker_num=" + strings[4];
+            String postParameters = "bb_id=" + strings[1] +"&date=" + strings[2] + "&book_register_id="
+                    + strings[3] + "&state=" + strings[4];
 
             try {
 
