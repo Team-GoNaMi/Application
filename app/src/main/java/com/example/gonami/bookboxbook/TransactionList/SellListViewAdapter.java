@@ -1,14 +1,9 @@
 package com.example.gonami.bookboxbook.TransactionList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,12 +24,6 @@ import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.BookBoxBookActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.RegisterBankAccountActivity;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class SellListViewAdapter extends BaseAdapter {
@@ -103,7 +91,7 @@ public class SellListViewAdapter extends BaseAdapter {
                 break;
 
             //북박스예약
-            case 2:
+            case 1:
                 btnBookState.setText("북박스예약");
                 btnBookState.setClickable(true);
                 break;
@@ -136,9 +124,10 @@ public class SellListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 switch (bookTrade.getStatus()){
                     //북박스예약
-                    case 2:
+                    case 1:
                         Intent = new Intent(parentContext, BookBoxBookActivity.class);
                         Intent.putExtra("school", bookInfo.getSchool());
+                        Intent.putExtra("register_id", bookInfo.getRegister_id());
                         parentContext.startActivity(Intent);
                         break;
                     //예약정보(책넣어주세요)
