@@ -116,14 +116,15 @@ public class SellListFragment extends Fragment {
         });
         ////////////////////////////////////////////////////////////////////////////////
 
-        // 사용자 아이디 받아오기
-        String user_id = SaveSharedPreference.getUserID(getContext());
+        // 사용자(판매자) 아이디 받아오기
+        String seller_id = SaveSharedPreference.getUserID(getContext());
 
         // DB에서 불러와서 ArrayList에 저장
         sellList = new ArrayList<BookInformation>();
         tradeList = new ArrayList<BookTradeInformation>();
+
         GetSellBookData task = new GetSellBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-trade.php", user_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-trade.php", seller_id);
 
         sellListView = thisView.findViewById(R.id.lv_sell_list);
         sellListViewAdapter = new SellListViewAdapter(sellList, tradeList);
@@ -159,9 +160,9 @@ public class SellListFragment extends Fragment {
         protected String doInBackground(String... strings) {
             String serverURL = strings[0];
             String user_id = strings[1];
-            String postParameters = "user_id=" + user_id;
+            String postParameters = "user_id=" + user_id + "& state=1";
 
-            Log.i(TAG, "user_id : " + user_id);
+            Log.i(TAG, "postParamenters : " + postParameters);
 
             try {
                 URL url = new URL(serverURL);
