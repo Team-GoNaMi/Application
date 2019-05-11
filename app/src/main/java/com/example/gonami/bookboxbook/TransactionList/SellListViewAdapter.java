@@ -71,6 +71,7 @@ public class SellListViewAdapter extends BaseAdapter {
         final Button btnBookState = convertView.findViewById(R.id.btn_book_state);
 
         final BookInformation bookInfo = bookList.get(position);
+        final BookTradeInformation bookTrade = tradeList.get(position);
 
         Glide.with(parentContext).load(bookInfo.getFirstBookImage()).into(ivBookImage);
 
@@ -80,8 +81,6 @@ public class SellListViewAdapter extends BaseAdapter {
         tvBookOriginPrice.setText(bookInfo.getOriginal_price() + "원");
         tvBookOriginPrice.setPaintFlags(tvBookOriginPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         tvBookPrice.setText(bookInfo.getSellingPrice() + "원");
-
-        final BookTradeInformation bookTrade = tradeList.get(position);
 
         switch (bookTrade.getStatus()){
             //거래전(판매가능)
