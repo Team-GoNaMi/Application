@@ -111,6 +111,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                                 stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
                                 try {
                                     book_date = transFormat.parse(stringDate);
+                                    Log.i(TAG, book_date + "  &&&&& " + stringDate);
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
