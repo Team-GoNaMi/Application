@@ -3,7 +3,6 @@ package com.example.gonami.bookboxbook.TransactionList;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
@@ -24,8 +21,6 @@ import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
-import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
-import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
 
 import java.util.ArrayList;
 
@@ -79,26 +74,41 @@ public class BuyListViewAdapter extends BaseAdapter {
         btnBookState.setText("판매자가 북박스 예약 중");
 
         switch (bookTrade.getStatus()){
-            //북박스 예약중
+            //북박스예약
             case 1:
                 btnBookState.setText("북박스 예약중");
                 btnBookState.setClickable(false);
                 break;
-
-            //책을 가져가주세요
+            //예약정보(책넣어주세요)
+            case 2:
+                btnBookState.setText("책 넣는 중");
+                btnBookState.setClickable(false);
+                break;
+                //qr 나와야되여
+            case 3:
+                btnBookState.setText("책을 가져가 주세요");
+                btnBookState.setClickable(true);
+                break;
             case 4:
-                btnBookState.setText("책을 가져가주세요");
+                btnBookState.setText("구매 확정 해 주세요");
                 btnBookState.setClickable(true);
                 break;
-            //구매확정해주세요
-            case 5:
-                btnBookState.setText("구매확정");
-                btnBookState.setClickable(true);
+
+                //TODO 거래정보 보여주면 좋을듯
+           case 5:
+                btnBookState.setText("거래완료");
+                btnBookState.setClickable(false);
+            case 6:
                 break;
-            //평가
+
             case 7:
-                btnBookState.setText("평가");
-                btnBookState.setClickable(true);
+                btnBookState.setText("신고접수중");
+                btnBookState.setClickable(false);
+                break;
+
+            case 8:
+                btnBookState.setText("거래 취소");
+                btnBookState.setClickable(false);
                 break;
 
         }
@@ -108,12 +118,13 @@ public class BuyListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 switch (bookTrade.getStatus()){
                     //책을 가져가주세요
-                    case 4:
-                        Intent = new Intent(parentContext, QRActivity.class);
+                    case 3:
+                        Intent.putExtra("register_id", bookInfo.getRegister_id());
+                        Intent.putExtra("ISBN", bookInfo.getISBN());
                         parentContext.startActivity(Intent);
                         break;
-                    //구매확정해주세요 //팝업창이면 될듯
-                    case 5:
+                    //구매확정해주세요 //팝업창이면 될듯 //평가로 넘어갑니당
+                    case 4:
                         AlertDialog.Builder buyComplite = new AlertDialog.Builder(parentContext);
 
                         buyComplite.setTitle("구매를 확정하시겠습니까?(10분)").setCancelable(
@@ -130,11 +141,6 @@ public class BuyListViewAdapter extends BaseAdapter {
                                 });
                         AlertDialog alert = buyComplite.create();
                         alert.show();
-                        break;
-                    //평가
-                    case 7:
-                        Intent = new Intent(parentContext, RateActivity.class);
-                        parentContext.startActivity(Intent);
                         break;
                 }
             }

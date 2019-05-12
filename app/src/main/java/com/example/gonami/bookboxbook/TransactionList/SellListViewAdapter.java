@@ -85,34 +85,44 @@ public class SellListViewAdapter extends BaseAdapter {
         switch (bookTrade.getStatus()){
             //거래전(판매가능)
             case 0:
-                btnBookState.setText("판매가능");
+                btnBookState.setText("판매중");
                 btnBookState.setClickable(false);
                 break;
-
             //북박스예약
             case 1:
-                btnBookState.setText("북박스예약");
+                btnBookState.setText("북박스 예약해 주세요");
                 btnBookState.setClickable(true);
                 break;
             //예약정보(책넣어주세요)
-            case 3:
+            case 2:
                 btnBookState.setText("책을 넣어주세요");
                 btnBookState.setClickable(true);
                 break;
-            //계좌번호
-            case 6:
-                btnBookState.setText("계좌번호입력");
+            case 3:
+                btnBookState.setText("책을 가져가는중");
+                btnBookState.setClickable(false);
+            case 4:
+                break;
+                //입금전
+            case 5:
+                btnBookState.setText("계좌번호를 입력하세요");
                 btnBookState.setClickable(true);
                 break;
-            //입금전
-            case 8:
-                btnBookState.setText("입금중입니다");
-                btnBookState.setClickable(false);
-                break;
+
             //입금완료
             //TODO 거래정보 보여주면 좋을듯
-            case 9:
-                btnBookState.setText("입금완료");
+            case 6:
+                btnBookState.setText("거래완료");
+                btnBookState.setClickable(false);
+                break;
+
+            case 7:
+                btnBookState.setText("신고당했어요ㅜㅜ");
+                btnBookState.setClickable(false);
+                break;
+
+            case 8:
+                btnBookState.setText("거래 취소");
                 btnBookState.setClickable(false);
                 break;
 
@@ -130,7 +140,7 @@ public class SellListViewAdapter extends BaseAdapter {
                         parentContext.startActivity(Intent);
                         break;
                     //예약정보(책넣어주세요)
-                    case 3:
+                    case 2:
                         Intent = new Intent(parentContext, QRActivity.class);
 //                        Intent.putExtra("selectSchool",)
                         //선택한 학교, 북박스 번호,
@@ -139,15 +149,11 @@ public class SellListViewAdapter extends BaseAdapter {
                         parentContext.startActivity(Intent);
                         break;
                     //계좌번호
-                    case 6:
+                    case 5:
                         Intent = new Intent(parentContext, RegisterBankAccountActivity.class);
                         parentContext.startActivity(Intent);
                         break;
 
-//                    //입금완료
-//                    //TODO 거래정보 보여주면 좋을듯 팝업창..
-//                    case 9:
-//                        break;
                 }
             }
         });
