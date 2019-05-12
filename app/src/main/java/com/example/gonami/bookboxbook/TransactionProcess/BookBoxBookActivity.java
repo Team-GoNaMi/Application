@@ -68,7 +68,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
     private void settingPicker(){
         datePicker.setMinDate(new Date().getTime());
-        stringDate = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()) + "-" + String.valueOf(datePicker.getDayOfMonth());
+        stringDate = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()+1) + "-" + String.valueOf(datePicker.getDayOfMonth());
 
     }
     @Override
