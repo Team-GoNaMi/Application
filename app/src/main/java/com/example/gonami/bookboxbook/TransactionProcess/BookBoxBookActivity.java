@@ -68,16 +68,11 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
         datePicker = findViewById(R.id.datePicker);
         settingPicker();
-        bb_num = getRandomAvailBBNum(book_date);
     }
 
-
-    private int getRandomAvailBBNum(Date select_date){
-        //avail 한 값 디비에서 가져오기
-        return bb_num;
-    }
     private void settingPicker(){
         datePicker.setMinDate(new Date().getTime());
+
     }
     @Override
     protected void onResume() {

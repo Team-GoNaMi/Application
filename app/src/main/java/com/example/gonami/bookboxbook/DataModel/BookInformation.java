@@ -35,7 +35,8 @@ public class BookInformation implements Serializable {
     private boolean bookmark;
 
     // search와  book mark, 거래 List에서 객체 생성할 때 사용하는 생성자
-    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price, Boolean bookmark, String schools, String selected, String image) {
+    public BookInformation(String register_id, String bookName, String author, String publisher, String original_price, String selling_price,
+                           Boolean bookmark, String schools, String selected, String image) {
         this.register_id = register_id;
         this.bookName = bookName;
         this.author = author;

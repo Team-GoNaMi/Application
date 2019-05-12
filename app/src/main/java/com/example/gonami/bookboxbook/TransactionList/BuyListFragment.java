@@ -174,6 +174,7 @@ public class BuyListFragment extends Fragment {
             String TAG_ORIGINAL_PRICE = "original_price";
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_SCHOOL = "school";
+            String TAG_SELECTED_SCHOOL = "selected_school";
             String TAG_BOOK_IMAGE = "book_image";
             String TAG_STATE = "state";
 
@@ -189,7 +190,8 @@ public class BuyListFragment extends Fragment {
 
                         BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
                                 item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
-                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), false, item.getString(TAG_SCHOOL), item.getString(TAG_BOOK_IMAGE));
+                                item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE),
+                                false, item.getString(TAG_SCHOOL), item.getString(TAG_SELECTED_SCHOOL), item.getString(TAG_BOOK_IMAGE));
                         buyList.add(bookInformation);
                         Log.i(TAG, buyList.get(i).getBookName());
 
