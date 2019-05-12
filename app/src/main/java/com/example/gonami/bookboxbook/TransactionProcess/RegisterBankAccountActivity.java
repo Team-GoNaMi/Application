@@ -1,20 +1,38 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.R;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class RegisterBankAccountActivity extends AppCompatActivity {
+
+    private static String IP_ADDRESS = "bookboxbook.duckdns.org";
+    private String TAG = "BankAccount";
 
     private EditText edBankInfo;
     private EditText edBankAccountNum;
     private EditText edBankAccountOwner;
     private Button btnBankResComplete;
+
+    //DB
+    private String bankInfo;
+    private String bankAccountNum;
+    private String bankAccountOwner;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +50,99 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         btnBankResComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (edBankInfo.getText().length() == 0) {
+                    Toast.makeText(RegisterBankAccountActivity.this, "은행을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edBankInfo.requestFocus();
+                    return;
+                }
+
+                if (edBankAccountNum.getText().length() == 0) {
+                    Toast.makeText(RegisterBankAccountActivity.this, "계좌번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edBankAccountNum.requestFocus();
+                    return;
+                }
+
+                if (edBankAccountOwner.getText().length() == 0) {
+                    Toast.makeText(RegisterBankAccountActivity.this, "예금주명을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    edBankAccountOwner.requestFocus();
+                    return;
+                }
+
+                bankInfo = edBankInfo.getText().toString();
+                bankAccountNum = edBankAccountNum.getText().toString();
+                bankAccountOwner = edBankAccountOwner.getText().toString();
+
+                RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
+                task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum,bankAccountOwner);
                 //TODO 계좌정보 넣기
             }
         });
+    }
+    private class InsertAccountData extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.i(TAG, "POST response1  - " + result);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String serverURL = (String)strings[0];
+            String postParameters = "bank_info=" + strings[1] +"&account_num=" + strings[2] + "&account_owner=" + strings[3];
+            Log.i(TAG, "postParameters"+postParameters);
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.i(TAG, "POST response code2 - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                    Log.i(TAG, "OKAY");
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                    Log.i(TAG, String.valueOf(responseStatusCode));
+
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                Log.i(TAG, "////"+sb.toString());
+                return sb.toString();
+
+            } catch (Exception e) {
+                Log.i(TAG, "InsertData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+        }
     }
 }

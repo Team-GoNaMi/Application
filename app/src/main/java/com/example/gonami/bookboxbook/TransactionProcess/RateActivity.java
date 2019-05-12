@@ -65,8 +65,6 @@ public class RateActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String serverURL = (String)strings[0];
-
-            // TODO date가 이틀이어야함함
             String postParameters = "rate=" + strings[1];
             Log.i(TAG, "postParameters"+postParameters);
 
