@@ -1,6 +1,5 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +19,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class RateActivity extends AppCompatActivity {
+
+    private static String IP_ADDRESS = "bookboxbook.duckdns.org";
+    private String TAG = "Rate";
+
     private Button btn_rate;
     private RatingBar ratingBar;
     private float rate;
@@ -43,12 +46,14 @@ public class RateActivity extends AppCompatActivity {
         btn_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO rate db에 넣기
+                RateActivity.InsertRateData task = new RateActivity.InsertRateData();
+                task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate));
+
                 finish();
             }
         });
     }
-    private class InsertBookBoxData extends AsyncTask<String, Void, String> {
+    private class InsertRateData extends AsyncTask<String, Void, String> {
 
 
         @Override
@@ -62,7 +67,7 @@ public class RateActivity extends AppCompatActivity {
             String serverURL = (String)strings[0];
 
             // TODO date가 이틀이어야함함
-            String postParameters = "bb_location=" + strings[1] +"&date=" + strings[2] + "&book_register_id=" + strings[3];
+            String postParameters = "rate=" + strings[1];
             Log.i(TAG, "postParameters"+postParameters);
 
             try {
