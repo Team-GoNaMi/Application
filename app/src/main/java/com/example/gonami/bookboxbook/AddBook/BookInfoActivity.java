@@ -118,7 +118,6 @@ public class BookInfoActivity extends AppCompatActivity {
                     origin_price = temp[0];
                 }
 
-
                 if (ed_isbn.getText().length() == 0) {
                     Toast.makeText(BookInfoActivity.this, "ISBN을 입력하세요!", Toast.LENGTH_SHORT).show();
                     ed_isbn.requestFocus();

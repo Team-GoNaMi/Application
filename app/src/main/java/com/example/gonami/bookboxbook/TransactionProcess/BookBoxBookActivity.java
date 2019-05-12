@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.gonami.bookboxbook.R;
@@ -22,9 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -98,7 +94,6 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                 calDialog = dialog.getDatePicker();
                 calDialog.setMinDate(new Date().getTime());
-//TODO 달력색
                 dialog.show();
 
                 calDialog.init(calDialog.getYear(), calDialog.getMonth(), calDialog.getDayOfMonth(),
@@ -111,14 +106,8 @@ public class BookBoxBookActivity extends AppCompatActivity {
                                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                     }
                                 });
-
                                 //확인 누르면 저장한다.
                                 stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
-                                try {
-                                    book_date = transFormat.parse(stringDate);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
                             }
 
                         });
@@ -134,7 +123,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 bb_id = String.format("%s-%s", bb_location, bb_num);
 
                 BookBoxBookActivity.InsertBookBoxData task = new BookBoxBookActivity.InsertBookBoxData();
-                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, book_date.toString(),book_register_id);
+                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, stringDate,book_register_id);
 
                 finish();
             }
@@ -147,14 +136,6 @@ public class BookBoxBookActivity extends AppCompatActivity {
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                 stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
-                Log.i("date", "hee"+stringDate);
-                ///선택 완료시 넣어야하는뎅..
-                try {
-                    book_date = transFormat.parse(stringDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Log.i("date", "hee"+book_date.toString());
             }
 
 
@@ -177,7 +158,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
             String serverURL = (String)strings[0];
 
             // TODO date가 이틀이어야함함
-           String postParameters = "bb_location=" + strings[1] +"&date=" + strings[2] + "&book_register_id=" + strings[3];
+            String postParameters = "bb_location=" + strings[1] +"&date=" + strings[2] + "&book_register_id=" + strings[3];
             Log.i(TAG, "postParameters"+postParameters);
 
             try {
