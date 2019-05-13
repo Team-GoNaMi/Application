@@ -151,6 +151,7 @@ public class SellListViewAdapter extends BaseAdapter {
                     //계좌번호
                     case 5:
                         Intent = new Intent(parentContext, RegisterBankAccountActivity.class);
+                        Intent.putExtra("register_id", bookInfo.getRegister_id());
                         parentContext.startActivity(Intent);
                         break;
 

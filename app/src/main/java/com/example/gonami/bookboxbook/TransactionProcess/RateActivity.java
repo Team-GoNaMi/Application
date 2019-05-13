@@ -1,5 +1,6 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,12 +27,16 @@ public class RateActivity extends AppCompatActivity {
     private Button btn_rate;
     private RatingBar ratingBar;
     private float rate;
+    private String register_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
         btn_rate = findViewById(R.id.btn_rate);
         ratingBar = findViewById(R.id.ratingBar);
+
+        Intent intent = new Intent(this.getIntent());
+        register_id = intent.getExtras().getString("register_id");
     }
     @Override
     protected void onResume() {
@@ -47,7 +52,7 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RateActivity.InsertRateData task = new RateActivity.InsertRateData();
-                task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate));
+                task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate), register_id);
 
                 finish();
             }
@@ -65,7 +70,7 @@ public class RateActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String serverURL = (String)strings[0];
-            String postParameters = "rate=" + strings[1];
+            String postParameters = "rate=" + strings[1] + "&register_id=" + strings[2];
             Log.i(TAG, "postParameters"+postParameters);
 
             try {

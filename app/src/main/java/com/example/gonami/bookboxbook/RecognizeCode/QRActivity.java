@@ -35,9 +35,11 @@ public class QRActivity extends AppCompatActivity {
     private ImageView img_qr;
     private TextView tv_bb_location;
     private TextView tv_bb_num;
+    private TextView tv_date;
 
     private String bb_location;
     private String bb_num;
+    private String bb_date;
 
     private Bitmap bit_qr;
     private String register_id;
@@ -54,6 +56,7 @@ public class QRActivity extends AppCompatActivity {
         insertData = String.format("%s$$$%s", isbn, register_id);
         tv_bb_location = findViewById(R.id.tv_where);
         tv_bb_num = findViewById(R.id.tv_bb_num);
+        tv_date = findViewById(R.id.tv_date);
 
         bit_qr = generateQRCode(insertData);
         img_qr.setImageBitmap(bit_qr);
@@ -64,7 +67,7 @@ public class QRActivity extends AppCompatActivity {
 
         tv_bb_location.setText(bb_location);
         tv_bb_num.setText(bb_num);
-
+        tv_date.setText(bb_date);
     }
 
     public static Bitmap generateQRCode(String contents) {
@@ -173,6 +176,7 @@ public class QRActivity extends AppCompatActivity {
         private void showResult() {
 
             String TAG_BOX_ID = "box_id";
+            String TAG_DATE = "date";
             String[] temp;
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
@@ -180,6 +184,9 @@ public class QRActivity extends AppCompatActivity {
                 temp = jsonObject.getString(TAG_BOX_ID).split("_");
                 bb_location = temp[0];
                 bb_num = temp[1];
+
+                bb_date = jsonObject.getString(TAG_DATE);
+
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);

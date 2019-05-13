@@ -1,5 +1,6 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
     private String bankInfo;
     private String bankAccountNum;
     private String bankAccountOwner;
+    private String book_register_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,9 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         edBankAccountNum = findViewById(R.id.ed_bank_account_num);
         edBankAccountOwner = findViewById(R.id.ed_bank_account_owner);
         btnBankResComplete = findViewById(R.id.btn_bank_res_complete);
+
+        Intent intent = new Intent(this.getIntent());
+        book_register_id = intent.getExtras().getString("register_id");
     }
 
     @Override
@@ -71,10 +76,9 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
                 bankInfo = edBankInfo.getText().toString();
                 bankAccountNum = edBankAccountNum.getText().toString();
                 bankAccountOwner = edBankAccountOwner.getText().toString();
-
+//TODO 예금주 일치?
                 RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
-                task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum,bankAccountOwner);
-                //TODO 계좌정보 넣기
+                task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
             }
         });
     }
@@ -90,7 +94,7 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String serverURL = (String)strings[0];
-            String postParameters = "bank_info=" + strings[1] +"&account_num=" + strings[2] + "&account_owner=" + strings[3];
+            String postParameters = "bank_info=" + strings[1] +"&account_num=" + strings[2] + "&register_id=" + strings[3];
             Log.i(TAG, "postParameters"+postParameters);
 
             try {

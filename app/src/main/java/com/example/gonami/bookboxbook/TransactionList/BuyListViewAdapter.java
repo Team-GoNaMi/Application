@@ -3,6 +3,7 @@ package com.example.gonami.bookboxbook.TransactionList;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,8 @@ import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
+import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,6 @@ public class BuyListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
     private ArrayList<BookTradeInformation> tradeList;
-    private android.content.Intent Intent;
 
     public BuyListViewAdapter(ArrayList<BookInformation> buyList, ArrayList<BookTradeInformation> tradeList) {
         this.bookList = buyList;
@@ -119,9 +121,11 @@ public class BuyListViewAdapter extends BaseAdapter {
                 switch (bookTrade.getStatus()){
                     //책을 가져가주세요
                     case 3:
-                        Intent.putExtra("register_id", bookInfo.getRegister_id());
-                        Intent.putExtra("ISBN", bookInfo.getISBN());
-                        parentContext.startActivity(Intent);
+                        Intent intent = new Intent(parentContext, QRActivity.class);
+
+                        intent.putExtra("register_id", bookInfo.getRegister_id());
+                        intent.putExtra("ISBN", bookInfo.getISBN());
+                        parentContext.startActivity(intent);
                         break;
                     //구매확정해주세요 //팝업창이면 될듯 //평가로 넘어갑니당
                     case 4:
@@ -137,6 +141,9 @@ public class BuyListViewAdapter extends BaseAdapter {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int id) {
                                         //평가로 넘어가거나
+                                        Intent intent = new Intent(parentContext, RateActivity.class);
+                                        intent.putExtra("register_id", bookInfo.getRegister_id());
+                                        parentContext.startActivity(intent);
                                     }
                                 });
                         AlertDialog alert = buyComplite.create();
