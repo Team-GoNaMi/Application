@@ -79,6 +79,8 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
 //TODO 예금주 일치?
                 RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
                 task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
+
+                finish();
             }
         });
     }

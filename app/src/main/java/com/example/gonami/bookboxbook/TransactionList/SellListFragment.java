@@ -217,6 +217,7 @@ public class SellListFragment extends Fragment {
         private void showResult() {
             String TAG_BASIC = "book_list";
             String TAG_REGISTER_ID = "register_id";
+            String TAG_ISBN = "isbn";
             String TAG_BOOK_NAME = "book_name";
             String TAG_AUTHOR = "author";
             String TAG_PUBLISHER = "publisher";
@@ -224,7 +225,6 @@ public class SellListFragment extends Fragment {
             String TAG_SELLING_PRICE ="selling_price";
             String TAG_SCHOOL = "school";
             String TAG_SELECTED_SCHOOL = "selected_school";
-
             String TAG_BOOK_IMAGE = "book_image";
             String TAG_STATE = "state";
 
@@ -238,9 +238,9 @@ public class SellListFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
 
-                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME), item.getString(TAG_AUTHOR),
+                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_ISBN), item.getString(TAG_BOOK_NAME), item.getString(TAG_AUTHOR),
                                 item.getString(TAG_PUBLISHER), item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE),
-                                false, item.getString(TAG_SCHOOL), item.getString(TAG_SELECTED_SCHOOL), item.getString(TAG_BOOK_IMAGE));
+                                false, item.getString(TAG_SCHOOL),item.getString(TAG_SELECTED_SCHOOL), item.getString(TAG_BOOK_IMAGE));
                         sellList.add(bookInformation);
                         Log.i(TAG, sellList.get(i).getBookName());
 

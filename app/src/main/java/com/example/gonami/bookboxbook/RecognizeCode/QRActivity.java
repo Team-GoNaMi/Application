@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,6 +60,7 @@ public class QRActivity extends AppCompatActivity {
         tv_bb_num = findViewById(R.id.tv_bb_num);
         tv_date = findViewById(R.id.tv_date);
 
+        Log.i(TAG,"insertData:" + insertData);
         bit_qr = generateQRCode(insertData);
         img_qr.setImageBitmap(bit_qr);
 
@@ -65,9 +68,7 @@ public class QRActivity extends AppCompatActivity {
         GetBookBoxData task = new GetBookBoxData();
         task.execute("https://" + IP_ADDRESS + "/get-reserve-bb.php", register_id);
 
-        tv_bb_location.setText(bb_location);
-        tv_bb_num.setText(bb_num);
-        tv_date.setText(bb_date);
+
     }
 
     public static Bitmap generateQRCode(String contents) {
@@ -179,6 +180,8 @@ public class QRActivity extends AppCompatActivity {
             String TAG_DATE = "date";
             String[] temp;
             try {
+
+
                 JSONObject jsonObject = new JSONObject(userJsonString);
 
                 temp = jsonObject.getString(TAG_BOX_ID).split("_");
@@ -187,6 +190,9 @@ public class QRActivity extends AppCompatActivity {
 
                 bb_date = jsonObject.getString(TAG_DATE);
 
+                tv_bb_location.setText(bb_location);
+                tv_bb_num.setText(bb_num);
+                tv_date.setText(bb_date);
 
             } catch (JSONException e) {
                 Log.i(TAG, "showResult : ", e);

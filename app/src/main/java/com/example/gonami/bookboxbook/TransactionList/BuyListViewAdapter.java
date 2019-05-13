@@ -100,7 +100,10 @@ public class BuyListViewAdapter extends BaseAdapter {
            case 5:
                 btnBookState.setText("거래완료");
                 btnBookState.setClickable(false);
+                break;
             case 6:
+                btnBookState.setText("거래완료");
+                btnBookState.setClickable(false);
                 break;
 
             case 7:

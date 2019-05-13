@@ -101,7 +101,10 @@ public class SellListViewAdapter extends BaseAdapter {
             case 3:
                 btnBookState.setText("책을 가져가는중");
                 btnBookState.setClickable(false);
+                break;
             case 4:
+                btnBookState.setText("책을 가져가는중");
+                btnBookState.setClickable(false);
                 break;
                 //입금전
             case 5:

@@ -36,6 +36,7 @@
         <activity android:name=".BookMarket.BuyActivity"/>
         <activity android:name=".TransactionProcess.RateActivity"/>
         <activity android:name=".InicisTransaction.TransactionActivity"/>
+        <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
 
 
         <provider

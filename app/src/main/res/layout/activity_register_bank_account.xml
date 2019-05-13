@@ -50,7 +50,8 @@
                     android:id="@+id/ed_bank_info"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="(ex. 국민, 신한)" />
+                    android:hint="(ex. 국민, 신한)"
+                    android:inputType="text"/>
             </LinearLayout>
 
 
@@ -102,7 +103,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:hint="예금주 이름을 입력하여 주세요" />
+                android:hint="예금주 이름을 입력하여 주세요"
+                android:inputType="text"/>
         </LinearLayout>
 
 

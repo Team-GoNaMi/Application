@@ -182,7 +182,7 @@ public class BookMarkFragment extends Fragment {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
 
-                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), item.getString(TAG_BOOK_NAME),
+                        BookInformation bookInformation = new BookInformation(item.getString(TAG_REGISTER_ID), "", item.getString(TAG_BOOK_NAME),
                                 item.getString(TAG_AUTHOR), item.getString(TAG_PUBLISHER),
                                 item.getString(TAG_ORIGINAL_PRICE), item.getString(TAG_SELLING_PRICE), item.getBoolean(TAG_BOOKMARK),
                                 item.getString(TAG_SCHOOL), "", item.getString(TAG_BOOK_IMAGE));

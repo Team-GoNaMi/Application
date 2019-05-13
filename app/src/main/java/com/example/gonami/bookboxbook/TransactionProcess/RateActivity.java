@@ -26,8 +26,9 @@ public class RateActivity extends AppCompatActivity {
 
     private Button btn_rate;
     private RatingBar ratingBar;
-    private float rate;
+    private float rate = 3;
     private String register_id;
+    private String seller_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,11 @@ public class RateActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this.getIntent());
         register_id = intent.getExtras().getString("register_id");
+        String[] temp;
+
+
+        temp = register_id.split("-");
+        seller_id = temp[1];
     }
     @Override
     protected void onResume() {
@@ -52,7 +58,7 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RateActivity.InsertRateData task = new RateActivity.InsertRateData();
-                task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate), register_id);
+                task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate), register_id, seller_id);
 
                 finish();
             }
@@ -70,7 +76,7 @@ public class RateActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String serverURL = (String)strings[0];
-            String postParameters = "rate=" + strings[1] + "&register_id=" + strings[2];
+            String postParameters = "rate=" + strings[1] + "&book_register_id=" + strings[2] + "&seller_id=" + strings[3];
             Log.i(TAG, "postParameters"+postParameters);
 
             try {
