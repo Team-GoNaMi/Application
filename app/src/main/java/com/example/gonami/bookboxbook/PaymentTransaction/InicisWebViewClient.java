@@ -1,10 +1,9 @@
-package com.example.gonami.bookboxbook.InicisTransaction;
+package com.example.gonami.bookboxbook.PaymentTransaction;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 

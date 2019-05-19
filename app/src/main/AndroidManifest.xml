@@ -35,9 +35,22 @@
         <activity android:name=".RecognizeCode.QRActivity"/>
         <activity android:name=".BookMarket.BuyActivity"/>
         <activity android:name=".TransactionProcess.RateActivity"/>
-        <activity android:name=".InicisTransaction.TransactionActivity"/>
+        <activity android:name=".PaymentTransaction.TransactionActivity"/>
         <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
 
+        <service
+            android:name=".FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -49,6 +62,7 @@
                 android:resource="@xml/filepath" />
         </provider>
 
+        <receiver android:name=".FirebaseInstanceIDService" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook.InicisTransaction;
+package com.example.gonami.bookboxbook.PaymentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
