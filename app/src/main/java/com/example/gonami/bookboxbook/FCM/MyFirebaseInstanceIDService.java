@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook;
+package com.example.gonami.bookboxbook.FCM;
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
