@@ -101,10 +101,10 @@ public class BookInformation implements Serializable {
         String schools = school_list.substring(1, school_list.length()-1);
         Log.i("School", schools + " - " + schools.length());
 
-//        String book_img_list = book_photo.toString();
-//        Log.i("Image", book_img_list);
-//        String book_images = book_img_list.substring(1, book_img_list.length()-1);
-//        Log.i("Image", book_images + " - " + book_images.length());
+        String book_img_list = book_photo.toString();
+        Log.i("Image", book_img_list);
+        String book_images = book_img_list.substring(1, book_img_list.length()-1);
+        Log.i("Image", book_images + " - " + book_images.length());
 
         String concat = "";
         concat += "isbn=" + isbn;
