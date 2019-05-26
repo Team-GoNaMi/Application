@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
@@ -149,6 +150,7 @@ public class SellListViewAdapter extends BaseAdapter {
                         //선택한 학교, 북박스 번호,
                         Intent.putExtra("register_id", bookInfo.getRegister_id());
                         Intent.putExtra("ISBN", bookInfo.getISBN());
+                        Intent.putExtra("role", true);
                         parentContext.startActivity(Intent);
                         break;
                     //계좌번호

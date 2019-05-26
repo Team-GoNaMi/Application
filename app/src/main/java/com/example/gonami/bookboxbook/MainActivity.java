@@ -15,12 +15,17 @@ import android.widget.Toast;
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
+import com.example.gonami.bookboxbook.FCM.MyFirebaseInstanceIDService;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import static android.support.design.widget.BottomNavigationView.*;
 
 public class MainActivity extends AppCompatActivity  {
+
+    private String TAG = "MainActivity";
 
     private SearchFragment searchFragment;
     private BookMarkFragment bookMarkFragment;
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity  {
     public FragmentManager fragmentManager;
 
     private long backKeyPressedTime;    // 앱 종료 위한 백 버튼 누른 시간
+
+    private String token;
 
     private OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
 
@@ -95,6 +102,8 @@ public class MainActivity extends AppCompatActivity  {
         //추가한 라인
 //        FirebaseMessaging.getInstance().subscribeToTopic("news");
 //        FirebaseInstanceId.getInstance().getToken();
+        token = FirebaseInstanceId.getInstance().getToken();
+        Log.i(TAG, "!!!!!!!!!!1" + token);
 
 
         setContentView(R.layout.activity_main);
