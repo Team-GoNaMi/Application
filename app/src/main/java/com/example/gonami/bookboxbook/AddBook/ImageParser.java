@@ -46,7 +46,7 @@ public class ImageParser {
             OkHttpClient client = new OkHttpClient();
             Response response = client.newCall(request).execute();
             String res = response.body().string();
-            Log.e(TAG, "success: " + res);
+            Log.e(TAG, "json result: " + res);
             return new JSONObject(res);
 
         } catch (UnknownHostException | UnsupportedEncodingException e) {

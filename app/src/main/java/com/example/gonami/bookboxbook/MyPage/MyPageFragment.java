@@ -74,6 +74,7 @@ public class MyPageFragment extends Fragment {
 
         menu.add("알림 설정");
         menu.add("개인정보 수정");
+        menu.add("비밀번호 변경");
         menu.add("로그아웃");
         menu.add("회원탈퇴");
 

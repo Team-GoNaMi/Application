@@ -37,6 +37,8 @@
         <activity android:name=".TransactionProcess.RateActivity"/>
         <activity android:name=".PaymentTransaction.TransactionActivity"/>
         <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
+        <activity android:name=".MyPage.ChangePersonalInfoActivity"/>
+        <activity android:name=".MyPage.ChangePasswordActivity"/>
 
         <service
             android:name=".FirebaseMessagingService">
@@ -62,7 +64,6 @@
                 android:resource="@xml/filepath" />
         </provider>
 
-        <receiver android:name=".FirebaseInstanceIDService" />
     </application>
 
 </manifest>

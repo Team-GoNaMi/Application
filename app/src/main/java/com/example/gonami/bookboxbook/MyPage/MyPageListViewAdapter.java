@@ -83,21 +83,29 @@ public class MyPageListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
-                if (position == 1){         // 회원 수정
-                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
-                    Bundle bundle = new Bundle();
+                if (position == 1){         // 회원수정
+//                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
+//                    Bundle bundle = new Bundle();
 //                    bundle.putString("BookRegisterID", bookInfo.getRegister_id());
 //                    changePersonalInfoFragment = ChangePersonalInfoFragment.newInstance(bundle);
 
-                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+//                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+//
+//                    fragmentManager.beginTransaction()
+//                            .replace(R.id.frame_layout, changePersonalInfoFragment)
+//                            .commit();
+//
+//                    MainActivity.activeFragment = changePersonalInfoFragment;
 
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.frame_layout, changePersonalInfoFragment)
-                            .commit();
+                    Intent intent = new Intent(context, ChangePersonalInfoActivity.class);
+                    context.startActivity(intent);
 
-                    MainActivity.activeFragment = changePersonalInfoFragment;
-
-                }else if (position == 2) {      // 로그 아웃
+                }
+                else if (position == 2) {
+                    Intent intent = new Intent(context, ChangePasswordActivity.class);
+                    context.startActivity(intent);
+                }
+                else if (position == 3) {      // 로그아웃
                     DialogInterface.OnClickListener logoutListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -118,7 +126,8 @@ public class MyPageListViewAdapter extends BaseAdapter {
                             .setPositiveButton("취소", cancelListener)
                             .show();
 
-                }else if(position==3){          // 회원 탈퇴
+                }
+                else if(position==4){          // 회원 탈퇴
                     final String member_id = SaveSharedPreference.getUserID(context);
                     DialogInterface.OnClickListener dropListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -146,8 +155,6 @@ public class MyPageListViewAdapter extends BaseAdapter {
                             .show();
                 }
 
-                SaveSharedPreference.logout(context);
-
             }
         });
 
@@ -159,10 +166,6 @@ public class MyPageListViewAdapter extends BaseAdapter {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.i(TAG, "POST response1  - " + result);
-
-//            SaveSharedPreference.logout();
-//            Intent intent = new Intent(context, LoginActivity.class);
-//            context.startActivity(intent);
         }
 
         @Override

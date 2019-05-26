@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 /////////////////////
                 //  확인
                 GetMemberData task = new GetMemberData();
-                task.execute("https://" + IP_ADDRESS + "/get-user-info.php", id, pw);
+                task.execute("https://" + IP_ADDRESS + "/get-login-info.php", id, pw);
 
             }
         });
