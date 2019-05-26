@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,9 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 /////////////////////
+                String token = FirebaseInstanceId.getInstance().getToken();
+
                 //  확인
                 GetMemberData task = new GetMemberData();
-                task.execute("https://" + IP_ADDRESS + "/get-user-info.php", id, pw);
+                task.execute("https://" + IP_ADDRESS + "/get-login-info.php", id, pw, token);
 
             }
         });
@@ -147,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-////////////////
+    ////////////////
     private class GetMemberData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -180,15 +183,16 @@ public class LoginActivity extends AppCompatActivity {
                 showResult();
             }
         }
-/////////////////
+        /////////////////
         @Override
         protected String doInBackground(String... strings) {
 
             String serverURL = strings[0];
             String id = strings[1];
             String pw = strings[2];
-            String postParameters = "id=" + id + "& password=" + pw;
-            Log.i(TAG, "id : " + id + " pw : " + pw);
+            String token = strings[3];
+            String postParameters = "id=" + id + "& password=" + pw + "& token=" + token;
+            Log.i(TAG, postParameters);
 //////////////////
             try {
                 URL url = new URL(serverURL);
@@ -239,7 +243,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         }
-///////////////////
+        ///////////////////
         private void showResult() {
             String TAG_SUCCESS="success";
             String TAG_ID="id";

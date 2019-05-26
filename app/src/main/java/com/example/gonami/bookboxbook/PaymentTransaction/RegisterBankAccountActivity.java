@@ -1,4 +1,4 @@
-package com.example.gonami.bookboxbook.TransactionProcess;
+package com.example.gonami.bookboxbook.PaymentTransaction;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.R;
@@ -24,6 +25,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterBankAccountActivity extends AppCompatActivity {
 
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
@@ -34,6 +39,8 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
     private EditText edBankAccountOwner;
     private Button btnBankResComplete;
 
+
+    private TextView test;
     //DB
     private String bankInfo;
     private String bankAccountNum;
@@ -52,47 +59,56 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         edBankAccountOwner = findViewById(R.id.ed_bank_account_owner);
         btnBankResComplete = findViewById(R.id.btn_bank_res_complete);
 
-        Intent intent = new Intent(this.getIntent());
-        book_register_id = intent.getExtras().getString("register_id");
+        test = findViewById(R.id.test);
+
+//        Intent intent = new Intent(this.getIntent());
+//        book_register_id = intent.getExtras().getString("register_id");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        btnBankResComplete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (edBankInfo.getText().length() == 0) {
+//                    Toast.makeText(RegisterBankAccountActivity.this, "은행을 입력하세요!", Toast.LENGTH_SHORT).show();
+//                    edBankInfo.requestFocus();
+//                    return;
+//                }
+//
+//                if (edBankAccountNum.getText().length() == 0) {
+//                    Toast.makeText(RegisterBankAccountActivity.this, "계좌번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+//                    edBankAccountNum.requestFocus();
+//                    return;
+//                }
+//
+//                if (edBankAccountOwner.getText().length() == 0) {
+//                    Toast.makeText(RegisterBankAccountActivity.this, "예금주명을 입력하세요.", Toast.LENGTH_SHORT).show();
+//                    edBankAccountOwner.requestFocus();
+//                    return;
+//                }
+//
+//                bankInfo = edBankInfo.getText().toString();
+//                bankAccountNum = edBankAccountNum.getText().toString();
+//                bankAccountOwner = edBankAccountOwner.getText().toString();
+////TODO 예금주 일치?
+//                RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
+//                task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
+//
+//                finish();
+//            }
+//        });
         btnBankResComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edBankInfo.getText().length() == 0) {
-                    Toast.makeText(RegisterBankAccountActivity.this, "은행을 입력하세요!", Toast.LENGTH_SHORT).show();
-                    edBankInfo.requestFocus();
-                    return;
-                }
 
-                if (edBankAccountNum.getText().length() == 0) {
-                    Toast.makeText(RegisterBankAccountActivity.this, "계좌번호를 입력하세요!", Toast.LENGTH_SHORT).show();
-                    edBankAccountNum.requestFocus();
-                    return;
-                }
-
-                if (edBankAccountOwner.getText().length() == 0) {
-                    Toast.makeText(RegisterBankAccountActivity.this, "예금주명을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    edBankAccountOwner.requestFocus();
-                    return;
-                }
-
-                bankInfo = edBankInfo.getText().toString();
-                bankAccountNum = edBankAccountNum.getText().toString();
-                bankAccountOwner = edBankAccountOwner.getText().toString();
-//TODO 예금주 일치?
-                RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
-                task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
-
-                finish();
+                transferDeposit2();
             }
         });
     }
 
-    private void transferDeposit(){
+    private void transferDeposit2(){
 
         // 입금이체(계좌번호) 파라미터 형태
         /*
@@ -113,31 +129,77 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         }
         */
 
-        String token = Constants.TOKEN_PREFIX + etToken.getText().toString();
-
+//        String token = getToken();
+        String token = "5a965cd7-0ec3-4312-a7aa-dc8da4838e18";
         Map params = new LinkedHashMap<>();
-        params.put("wd_pass_phrase", etWdPassPhrase.getText().toString());
-        params.put("wd_print_content", etWdPrintContent.getText().toString());
-        params.put("tran_dtime", etTranDtime.getText().toString());
+        params.put("wd_pass_phrase", "0100000001");
+        params.put("wd_print_content","출금인자 01");
+        params.put("tran_dtime", "20170710141024");
         params.put("req_cnt", "1"); // 구현 시간 문제상 일단 한 건만 보내기로 함
 
         List<Map> innerMapList = new ArrayList<>();
         Map innerMap = new LinkedHashMap<>();
         innerMap.put("tran_no", "1");
-//        innerMap.put("bank_code_std", etBankCodeStd.getText().toString());
-        innerMap.put("account_num", edBankAccountNum.getText().toString());
-        innerMap.put("account_holder_name", edBankAccountOwner.getText().toString());
-//        innerMap.put("print_content", etPrintContent.getText().toString());
-//        innerMap.put("tran_amt", etTranAmt.getText().toString()); 거래금액
+        innerMap.put("bank_code_std", "079");
+        innerMap.put("account_num", "112233");
+        innerMap.put("account_holder_name", "홍길동");
+        innerMap.put("print_content", "입금계좌인자01");
+        innerMap.put("tran_amt", "1700");
+        innerMap.put("cms_no", "123456789123");
         innerMapList.add(innerMap);
         params.put("req_list", innerMapList);
 
-        callAsync(RetrofitCustomAdapter.getInstance().transferDeposit2(token, params), getActivity()); // rest client 호출
+        Call<Map> call = RetrofitCustomAdapter.getInstance().transferDeposit2(token, params);
+        // retrofit 비동기 호출 (동기호출시 NetworkOnMainThreadException 발생)
+        call.enqueue(new Callback<Map>() {
+            @Override
+            public void onResponse(Call<Map> call, Response<Map> response) {
 
-        saveInputValues();
+                // API 호출 결과 출력
+                test.setText(response.body().toString());
+
+            }
+            @Override
+            public void onFailure(Call<Map> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+        });
+
+
     }
+    /**
+     * 토큰 발급
+     */
+    private void getToken(){
 
+//        String type = this.getArguments().getString("invokerType");
+//        String redirectUriKey = (StringUtil.isNotBlank(type) && "APP".equals(type)) ? "APP_CALLBACK_URL" : "WEB_CALLBACK_URL";
 
+        Map params = new LinkedHashMap<>();
+//        params.put("code", authcode);
+        params.put("client_id", "l7xx9093aa52f0974ec1b0e4133472c61d7f");
+        params.put("client_secret", "738cbba9ef90481fa3356665821c4898");
+//        params.put("redirect_uri", StringUtil.getPropStringForEnv(redirectUriKey));
+        params.put("grant_type", "authorization_code");
+
+        Call<Map> call = RetrofitCustomAdapter.getInstance().token(params);
+        // retrofit 비동기 호출 (동기호출시 NetworkOnMainThreadException 발생)
+        call.enqueue(new Callback<Map>() {
+            @Override
+            public void onResponse(Call<Map> call, Response<Map> response) {
+
+                // API 호출 결과 출력
+                test.setText(response.body().toString());
+
+            }
+            @Override
+            public void onFailure(Call<Map> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+        });
+    }
     private class InsertAccountData extends AsyncTask<String, Void, String> {
 
 

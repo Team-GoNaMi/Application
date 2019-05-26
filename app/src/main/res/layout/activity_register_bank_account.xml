@@ -112,6 +112,12 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <Button
         android:id="@+id/btn_bank_res_complete"
         style="@style/Widget.AppCompat.Button.Colored"

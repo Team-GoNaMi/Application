@@ -17,11 +17,11 @@ import android.widget.Toast;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.PaymentTransaction.RegisterBankAccountActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.BookBoxBookActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
-import com.example.gonami.bookboxbook.TransactionProcess.RegisterBankAccountActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,7 +110,7 @@ public class SellListFragment extends Fragment {
         btn_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), RateActivity.class);
+                Intent Intent = new Intent(getActivity(), RegisterBankAccountActivity.class);
                 getActivity().startActivity(Intent);
             }
         });

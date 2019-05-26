@@ -22,7 +22,7 @@ import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.BookBoxBookActivity;
-import com.example.gonami.bookboxbook.TransactionProcess.RegisterBankAccountActivity;
+import com.example.gonami.bookboxbook.PaymentTransaction.RegisterBankAccountActivity;
 
 import java.util.ArrayList;
 

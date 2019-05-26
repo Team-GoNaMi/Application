@@ -37,7 +37,7 @@
         <activity android:name=".BookMarket.BuyActivity"/>
         <activity android:name=".TransactionProcess.RateActivity"/>
         <activity android:name=".PaymentTransaction.TransactionActivity"/>
-        <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
+        <activity android:name=".PaymentTransaction.RegisterBankAccountActivity"/>
 
         <service
             android:name=".FirebaseMessagingService">
