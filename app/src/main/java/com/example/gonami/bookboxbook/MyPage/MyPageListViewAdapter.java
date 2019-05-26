@@ -1,11 +1,11 @@
 package com.example.gonami.bookboxbook.MyPage;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -17,16 +17,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
+
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
-import com.example.gonami.bookboxbook.IntroActivity;
 import com.example.gonami.bookboxbook.Login.LoginActivity;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class MyPageListViewAdapter extends BaseAdapter {
+
+    private static String IP_ADDRESS = "bookboxbook.duckdns.org";
+    private static String TAG = "MyPageAdapter";
 
     private ArrayList<String> menu = new ArrayList<String>();
 
@@ -73,21 +83,29 @@ public class MyPageListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
-                if (position == 1){
-                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
-                    Bundle bundle = new Bundle();
+                if (position == 1){         // 회원수정
+//                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
+//                    Bundle bundle = new Bundle();
 //                    bundle.putString("BookRegisterID", bookInfo.getRegister_id());
 //                    changePersonalInfoFragment = ChangePersonalInfoFragment.newInstance(bundle);
 
-                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+//                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
+//
+//                    fragmentManager.beginTransaction()
+//                            .replace(R.id.frame_layout, changePersonalInfoFragment)
+//                            .commit();
+//
+//                    MainActivity.activeFragment = changePersonalInfoFragment;
 
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.frame_layout, changePersonalInfoFragment)
-                            .commit();
+                    Intent intent = new Intent(context, ChangePersonalInfoActivity.class);
+                    context.startActivity(intent);
 
-                    MainActivity.activeFragment = changePersonalInfoFragment;
-
-                }else if (position == 2) {
+                }
+                else if (position == 2) {
+                    Intent intent = new Intent(context, ChangePasswordActivity.class);
+                    context.startActivity(intent);
+                }
+                else if (position == 3) {      // 로그아웃
                     DialogInterface.OnClickListener logoutListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -108,12 +126,20 @@ public class MyPageListViewAdapter extends BaseAdapter {
                             .setPositiveButton("취소", cancelListener)
                             .show();
 
-                }else if(position==3){
+                }
+                else if(position==4){          // 회원 탈퇴
+                    final String member_id = SaveSharedPreference.getUserID(context);
                     DialogInterface.OnClickListener dropListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            DeleteMember task = new DeleteMember();
+                            Log.i(TAG, "id:" + member_id);
+                            Log.i(TAG, ">>>>" + SaveSharedPreference.getUserName(context));
+                            task.execute("https://" + IP_ADDRESS + "/delete-member.php", member_id);
 
-                            //TODO db에서 회원제거
+                            SaveSharedPreference.logout(context);
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            context.startActivity(intent);
                         }
                     };
                     DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
@@ -129,11 +155,74 @@ public class MyPageListViewAdapter extends BaseAdapter {
                             .show();
                 }
 
-                SaveSharedPreference.logout(context);
-
             }
         });
 
         return convertView;
+    }
+    private class DeleteMember extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.i(TAG, "POST response1  - " + result);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String serverURL = (String)strings[0];
+            String postParameters = "member_id=" + strings[1];
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.i(TAG, "POST response code2 - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                    Log.i(TAG, "OKAY");
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                    Log.i(TAG, String.valueOf(responseStatusCode));
+
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                Log.i(TAG, "////"+sb.toString());
+                return sb.toString();
+
+            } catch (Exception e) {
+                Log.i(TAG, "DeleteData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "MyFirebaseIIDService";
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
@@ -37,7 +38,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         //request
         Request request = new Request.Builder()
-                .url("https://"+IP_ADDRESS+"/fcm/insert-token.php")
+                .url("https://"+IP_ADDRESS+"/insert-token.php")
                 .post(body)
                 .build();
 

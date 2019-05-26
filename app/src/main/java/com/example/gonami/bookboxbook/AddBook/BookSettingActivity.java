@@ -194,14 +194,14 @@ public class BookSettingActivity extends AppCompatActivity{
                 if(empty2 == false){
                     school.add(text_school2.getText().toString());
                 }
-/*
+
                 Log.d("Photo", "Photo Upload Task Start");
                 String ImageUploadURL = "https://" + IP_ADDRESS + "/insert-photo.php";
                 SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
                 String idx = pref.getString("idx", "");
                 ImageUploadTask imageUploadTask = new ImageUploadTask();
                 imageUploadTask.execute(ImageUploadURL, mCurrentPhotoPath, idx);
-*/
+
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                         underline, writing, cover, damage_page, memo);
@@ -389,6 +389,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 storageDir          /* directory */
         );
         mCurrentPhotoPath = imageFile.getAbsolutePath();
+
         return imageFile;
 
     }
@@ -399,6 +400,7 @@ public class BookSettingActivity extends AppCompatActivity{
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         sendBroadcast(mediaScanIntent);
+        Log.i(TAG, "%%%%%%%%%%%%%%%%%%%" +String.valueOf(f.length()));
         Toast.makeText(this,"사진이 저장되었습니다",Toast.LENGTH_SHORT).show();
 
     }

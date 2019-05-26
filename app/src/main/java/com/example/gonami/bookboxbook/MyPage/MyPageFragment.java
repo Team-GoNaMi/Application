@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.example.gonami.bookboxbook.R;
 import java.util.ArrayList;
 
 public class MyPageFragment extends Fragment {
+
+    private String TAG = "MyPage";
 
     private View thisView = null;
 
@@ -64,10 +67,14 @@ public class MyPageFragment extends Fragment {
         tv_user_name.setText(SaveSharedPreference.getUserName(getContext()));
         tv_user_id.setText(SaveSharedPreference.getUserID(getContext()));
 
+        Log.i(TAG, ">>>>" + SaveSharedPreference.getUserName(getContext()));
+        Log.i(TAG, ">>>>" + SaveSharedPreference.getUserID(getContext()));
+
         menu = new ArrayList<String>();
 
         menu.add("알림 설정");
         menu.add("개인정보 수정");
+        menu.add("비밀번호 변경");
         menu.add("로그아웃");
         menu.add("회원탈퇴");
 

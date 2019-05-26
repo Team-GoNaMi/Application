@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //추가한 라인
+//        FirebaseMessaging.getInstance().subscribeToTopic("news");
+//        FirebaseInstanceId.getInstance().getToken();
+
+
         setContentView(R.layout.activity_main);
 
         Intent userInfoIntent = new Intent(this.getIntent());
@@ -109,9 +114,7 @@ public class MainActivity extends AppCompatActivity  {
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fragmentManager = getSupportFragmentManager();
-        //추가한 라인
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
-        FirebaseInstanceId.getInstance().getToken();
+
         setFragmentManager();
 
     }
