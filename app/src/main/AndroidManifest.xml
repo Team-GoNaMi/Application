@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.percission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.camera2" />
@@ -61,8 +62,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepath" />
         </provider>
-
-        <receiver android:name=".FirebaseInstanceIDService" />
     </application>
 
 </manifest>

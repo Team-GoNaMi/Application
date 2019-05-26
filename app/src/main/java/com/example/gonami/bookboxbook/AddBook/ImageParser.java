@@ -23,13 +23,13 @@ public class ImageParser {
     public static JSONObject uploadImage(String imageUploadUrl, String sourceImageFiles, String idx) {
 
         String[] imageFiles = sourceImageFiles.split(",");
+        final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
 
         try {
             File sourceFile = new File(imageFiles[0]);
             Log.i(TAG, imageUploadUrl);
             Log.i(TAG, "File...::::" + sourceFile + " : " + sourceFile.exists());
             String filename = imageFiles[0].substring(imageFiles[0].lastIndexOf("/")+1);
-            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/*");
 
             // OKHTTP3
             RequestBody requestBody = new MultipartBody.Builder()

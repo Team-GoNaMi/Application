@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.PaymentTransaction.TransactionActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -75,10 +76,10 @@ public class BuyActivity extends AppCompatActivity {
                     InsertBuyerInfo task = new InsertBuyerInfo();
                     task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID-1]);
 
-//                    Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
-//                    //회원 아이디 넘겨야할까?
-//                    // Intent.putExtra("registBook", registBook);
-//                    BuyActivity.this.startActivity(Intent);
+                    Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
+                    //회원 아이디 넘겨야할까?
+                    // Intent.putExtra("registBook", registBook);
+                    BuyActivity.this.startActivity(Intent);
                     finish();
                 }
                 else {

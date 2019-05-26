@@ -19,6 +19,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RegisterBankAccountActivity extends AppCompatActivity {
 
@@ -35,6 +39,9 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
     private String bankAccountNum;
     private String bankAccountOwner;
     private String book_register_id;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,53 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void transferDeposit(){
+
+        // 입금이체(계좌번호) 파라미터 형태
+        /*
+        {
+            "wd_pass_phrase": "1111",
+            "wd_print_content": "출금인자 01",
+            "tran_dtime": "20170710141024",
+            "req_cnt": "1",
+            "req_list": [{
+                "tran_no": 1,
+                "bank_code_std": "097",
+                "account_num": "112233",
+                "account_holder_name": "김말똥",
+                "print_content": "입금계좌인자01",
+                "tran_amt": "1700"
+                }
+            ]
+        }
+        */
+
+        String token = Constants.TOKEN_PREFIX + etToken.getText().toString();
+
+        Map params = new LinkedHashMap<>();
+        params.put("wd_pass_phrase", etWdPassPhrase.getText().toString());
+        params.put("wd_print_content", etWdPrintContent.getText().toString());
+        params.put("tran_dtime", etTranDtime.getText().toString());
+        params.put("req_cnt", "1"); // 구현 시간 문제상 일단 한 건만 보내기로 함
+
+        List<Map> innerMapList = new ArrayList<>();
+        Map innerMap = new LinkedHashMap<>();
+        innerMap.put("tran_no", "1");
+//        innerMap.put("bank_code_std", etBankCodeStd.getText().toString());
+        innerMap.put("account_num", edBankAccountNum.getText().toString());
+        innerMap.put("account_holder_name", edBankAccountOwner.getText().toString());
+//        innerMap.put("print_content", etPrintContent.getText().toString());
+//        innerMap.put("tran_amt", etTranAmt.getText().toString()); 거래금액
+        innerMapList.add(innerMap);
+        params.put("req_list", innerMapList);
+
+        callAsync(RetrofitCustomAdapter.getInstance().transferDeposit2(token, params), getActivity()); // rest client 호출
+
+        saveInputValues();
+    }
+
+
     private class InsertAccountData extends AsyncTask<String, Void, String> {
 
 
