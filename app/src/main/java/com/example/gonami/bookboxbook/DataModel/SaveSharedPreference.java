@@ -26,6 +26,15 @@ public class SaveSharedPreference {
         editor.commit();
     }
 
+    public static void updatePW(Context context, String userPW) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.remove(PREF_USER_PW);
+        editor.commit();
+        editor.putString(PREF_USER_PW, userPW);
+        editor.commit();
+
+    }
+
     // 저장된 정보 가져오기
     public static Boolean getAutoLogin(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_AUTO_LOGIN, false);
