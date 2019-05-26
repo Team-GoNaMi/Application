@@ -31,14 +31,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.google.firebase:firebase-messaging:17.4.0'
-    implementation 'com.google.firebase:firebase-inappmessaging:17.1.0'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:17.1.0'
-
-//    implementation 'com.google.firebase:firebase-messaging:18.0.0'
-//    implementation 'com.google.firebase:firebase-inappmessaging-display:17.1.1'
-
+    
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
