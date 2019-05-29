@@ -193,6 +193,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     Intent Intent = new Intent(getActivity(), BuyActivity.class);
                     Intent.putExtra("book_regist_id", book_register_id);
                     Intent.putExtra("schools", tvLocation.getText());
+                    Intent.putExtra("book_name",  tvBookName.getText());
+                    Intent.putExtra("book_price",  tvPrice.getText());
 
                     getActivity().startActivity(Intent);
                 }
