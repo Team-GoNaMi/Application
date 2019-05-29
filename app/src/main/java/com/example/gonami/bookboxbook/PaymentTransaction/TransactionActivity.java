@@ -56,13 +56,17 @@ public class TransactionActivity extends AppCompatActivity {
         String book_price = intent.getExtras().getString("book_price");
 
         Uri intentData = intent.getData();
-        String buyer_id = SaveSharedPreference.getUserID(this);
+        String phone_num = SaveSharedPreference.getUserPN(this);
+
+        String postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
 
         if ( intentData == null ) {
-            PaymentInfo task = new PaymentInfo();
-            task.execute("https://" + IP_ADDRESS + "/payment.php", register_id, book_name, book_price,"phonenumber");
+//            PaymentInfo task = new PaymentInfo();
+//            task.execute("https://" + IP_ADDRESS + "/payment.php", register_id, book_name, book_price,phone_num);
 
-            webViewTransaction.loadUrl("https://"+IP_ADDRESS +"/payment.php");
+//            webViewTransaction.loadUrl("https://"+IP_ADDRESS +"/payment.php");
+            webViewTransaction.postUrl("https://"+IP_ADDRESS +"/payment.php",postData.getBytes());
+
         } else {
             //isp 인증 후 복귀했을 때 결제 후속조치
             String url = intentData.toString();
