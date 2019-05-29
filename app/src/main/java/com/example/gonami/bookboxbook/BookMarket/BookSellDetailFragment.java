@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMark.SendBookMarkData;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
@@ -30,6 +32,7 @@ import com.example.gonami.bookboxbook.TransactionList.BuyListFragment;
 import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,8 +57,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private boolean checked;
     private String seller_id;
 
-    private LinearLayout linearLayout_img;
-
     private TextView tvBookName;
     private TextView tvAuthor;
     private TextView tvPublisher;
@@ -66,6 +67,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
     private ImageButton ibBookmark;
     private Button btnBuy;
+
 
     //highlight해야될것들
 
@@ -86,6 +88,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tv_book_state_damage2_o;
     private TextView tv_book_state_damage2_x;
 
+    private LinearLayout linearLayout_img;
     private TextView memo;
     private TextView rating;
 
@@ -391,6 +394,17 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     memo.setText(jsonObject.getString(TAG_MEMO));
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
+
+                    //이미지
+                    JSONArray images = jsonObject.getJSONArray(TAG_BOOK_IMAGE);
+                    for(int i =0; i< images.length();i++){
+                        ImageView bookImage = new ImageView(getContext());
+                        linearLayout_img.addView(bookImage);
+                        Glide.with(getContext()).load(images.getString(i)).into(bookImage);
+                    }
+
+
+
 
                     // 북마크
                     checked = jsonObject.getBoolean(TAG_BOOK_MARK);

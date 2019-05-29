@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -18,6 +21,10 @@ public class TransactionActivity extends AppCompatActivity {
     private WebView webViewTransaction;
     private WebSettings webSettings;
     private static final String APP_SCHEME = "iamporttest://";
+    private static String TAG = "Transaction";
+
+    private final Handler handler = new Handler();
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class TransactionActivity extends AppCompatActivity {
         webViewTransaction.setWebViewClient(new InicisWebViewClient(this));
         webSettings = webViewTransaction.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webViewTransaction.addJavascriptInterface(new AndroidBridge(), "android");
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
@@ -47,6 +55,7 @@ public class TransactionActivity extends AppCompatActivity {
             if ( url.startsWith(APP_SCHEME) ) {
                 String redirectURL = url.substring(APP_SCHEME.length()+3);
                 webViewTransaction.loadUrl(redirectURL);
+                Log.i(TAG,"1: "+redirectURL);
             }
         }
 
@@ -58,7 +67,31 @@ public class TransactionActivity extends AppCompatActivity {
         if ( url.startsWith(APP_SCHEME) ) {
             String redirectURL = url.substring(APP_SCHEME.length()+3);
             webViewTransaction.loadUrl(redirectURL);
+            Log.i(TAG,"2: "+redirectURL);
         }
     }
+    private class AndroidBridge {
+        @JavascriptInterface
+        public void testMove(final String arg) { // must be final
+
+            handler.post(new Runnable() {
+
+                @Override
+
+                public void run() {
+
+                    // 원하는 동작
+
+
+                    webViewTransaction.loadUrl(arg);
+
+                }
+
+            });
+
+        }
+
+    }
+
 
 }

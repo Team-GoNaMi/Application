@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.R;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,9 +165,11 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                String token = FirebaseInstanceId.getInstance().getToken();
+
                 // 디비에 넣기
                 InsertMemberData task = new InsertMemberData();
-                task.execute("https://" + IP_ADDRESS + "/insert-user.php", id, pw, name, phonenum, school);
+                task.execute("https://" + IP_ADDRESS + "/insert-user.php", id, pw, name, phonenum, school, token);
 
 
                 Intent intent = new Intent();
@@ -209,9 +212,10 @@ public class SignUpActivity extends AppCompatActivity {
             String name = strings[3];
             String phonenum = strings[4];
             String school = strings[5];
+            String token = strings[6];
 
             String serverURL = strings[0];
-            String postParameters = "id=" + id + "& password=" + pw + "& name=" + name +"& phonenum=" + phonenum +"&school=" + school;
+            String postParameters = "id=" + id + "& password=" + pw + "& name=" + name +"& phonenum=" + phonenum +"&school=" + school + "&token=" + token;
 
 
             try {
