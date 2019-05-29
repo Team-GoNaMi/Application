@@ -89,6 +89,7 @@ public class BookSettingActivity extends AppCompatActivity{
     private static final int FROM_ALBUM = 1;
     private Uri albumURI, photoURI;
     private String mCurrentPhotoPath;
+    private ArrayList<String> photoPath;
     private EditText ed_memo;
     private EditText ed_price;
 
@@ -159,6 +160,7 @@ public class BookSettingActivity extends AppCompatActivity{
         bookImage = new ArrayList<String>();
         school = new ArrayList<String>();
 
+        photoPath = new ArrayList<String>();
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
         Log.i("get","getregistBook"+ registBook.getFirstBookImage().toString());
@@ -194,13 +196,19 @@ public class BookSettingActivity extends AppCompatActivity{
                 if(empty2 == false){
                     school.add(text_school2.getText().toString());
                 }
-
+                // 사진 서버에 올리기
                 Log.d("Photo", "Photo Upload Task Start");
                 String ImageUploadURL = "https://" + IP_ADDRESS + "/insert-photo.php";
-                SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-                String idx = pref.getString("idx", "");
-                ImageUploadTask imageUploadTask = new ImageUploadTask();
-                imageUploadTask.execute(ImageUploadURL, mCurrentPhotoPath, idx);
+
+                for (int i = 0; i < photoPath.size(); i++) {
+                    ImageUploadTask imageUploadTask = new ImageUploadTask();
+                    imageUploadTask.execute(ImageUploadURL, photoPath.get(i), register_id, String.valueOf(i));
+                }
+
+                for (int i = 0; i < photoPath.size(); i++) {
+                    bookImage.add("https://" + IP_ADDRESS + "/photos/" + register_id + "/" + i + ".jpg");
+                    Log.i(TAG, "@@@" + "https://" + IP_ADDRESS + "/photos/" + register_id + "/" + i + ".jpg");
+                }
 
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
@@ -211,28 +219,8 @@ public class BookSettingActivity extends AppCompatActivity{
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
                 task.execute("https://" + IP_ADDRESS + "/insert-book.php", registBook.toString());
-//
+
                 Log.i(TAG, "Added book in db");
-
-                /**
-                 * TODO
-                 * 책 추가가 끝나고 입력한 정보를 보여주는 상세 페이지 창을 BookSellDetailFragment로 하면
-                 * MainActivity에서 받는 Back Listener 때문에 안됨!
-                 * 따라서 판매자의 상세 정보 창을 보여주고 싶다면, 새로운 Fragment 또는 Activity를 생성해야한다.
-                 * 밑의 주석처리한 코드는 잘못된 코드임! 참고 사항으로 남겨둔 것이므로 지우지 말 것
-                 */
-
-//                String book_register_id = register_id;
-//                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", book_register_id);
-//                BookSellDetailFragment bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-//
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//                fragmentManager.beginTransaction()
-//                               .replace(R.id.frame_layout, bookSellDetailFragment)
-//                               .commit();
-//                finish();
 
             }
         });
@@ -389,7 +377,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 storageDir          /* directory */
         );
         mCurrentPhotoPath = imageFile.getAbsolutePath();
-
+        photoPath.add(mCurrentPhotoPath);
         return imageFile;
 
     }
@@ -445,9 +433,10 @@ public class BookSettingActivity extends AppCompatActivity{
                             cursor.moveToFirst();
 
                             mCurrentPhotoPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+                            photoPath.add(mCurrentPhotoPath);
                             cursor.close();
                         }
-                        bookImage.add(data.getData().toString());
+//                        bookImage.add(data.getData().toString());
                         imageView.setImageURI(data.getData());
                         layout.addView(imageView);
                     }catch (Exception e){
@@ -464,7 +453,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 try{
                     galleryAddPic();
                     Log.i(TAG, ">>>>>> uri : "+photoURI.toString());
-                    bookImage.add(photoURI.toString());
+//                    bookImage.add(photoURI.toString());
                     imageView.setImageURI(photoURI);
                     layout.addView(imageView);
 
@@ -475,8 +464,6 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
-
-
 
     private void check_box_value(){
         //underline
@@ -550,23 +537,16 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
+
     private  class ImageUploadTask extends AsyncTask<String, Integer, Boolean> {
         ProgressDialog progressDialog; // API 26에서 deprecated
-
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progressDialog = new ProgressDialog(BookSettingActivity.this);
-//            progressDialog.setMessage("이미지 업로드중....");
-//            progressDialog.show();
-//        }
 
         @Override
         protected Boolean doInBackground(String... params) {
 
             try {
-                JSONObject jsonObject = ImageParser.uploadImage(params[0],params[1], params[2]);
-                if (jsonObject != null){
+                JSONObject jsonObject = ImageParser.uploadImage(params[0],params[1], params[2], params[3]);
+                if (jsonObject != null) {
                     return jsonObject.getString("result").equals("success");
                 }
             } catch (JSONException e) {
@@ -587,19 +567,9 @@ public class BookSettingActivity extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(), "파일 업로드 실패", Toast.LENGTH_LONG).show();
             }
 
-//            // 임시 파일 삭제 (카메라로 사진 촬영한 이미지)
-//            if(mImageCaptureUri != null){
-//                File file = new File(mImageCaptureUri.getPath());
-//                if(file.exists()) {
-//                    file.delete();
-//                }
-//                mImageCaptureUri = null;
-//            }
-//
-//            imagePath = "";
-
         }
     }
+
     private class InsertBookData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -678,19 +648,6 @@ public class BookSettingActivity extends AppCompatActivity{
             }
         }
     }
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            Bundle bun = msg.getData();
-            String schoolResult = bun.getString("DATA");
-
-            String[] splitResult = schoolResult.split("\\n");
-            //splitResult[2] = image
-//            ed_name.setText(splitResult[1]);
-//            ed_isbn.setText(splitResult[2]);
-            Log.i("result","ggg"+splitResult.toString());
-        }
-    };
 
     public String getSchool(String school) {
         String key = "bcad9a7ff9219a1bb57dbf6353f2e262";

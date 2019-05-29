@@ -160,6 +160,8 @@ public class ChangePersonalInfoActivity extends AppCompatActivity {
             super.onPostExecute(result);
             Log.i(TAG, "POST response1  - " + result);
 
+            SaveSharedPreference.updatePN(getBaseContext(), ed_user_phone_num.getText().toString());
+
             Toast.makeText(getBaseContext(), "회원 수정 완료", Toast.LENGTH_SHORT).show();
         }
 
