@@ -205,6 +205,11 @@ public class BookSettingActivity extends AppCompatActivity{
                     imageUploadTask.execute(ImageUploadURL, photoPath.get(i), register_id, String.valueOf(i));
                 }
 
+                for (int i = 0; i < photoPath.size(); i++) {
+                    bookImage.add("https://" + IP_ADDRESS + "/photos/" + register_id + "/" + i + ".jpg");
+                    Log.i(TAG, "@@@" + "https://" + IP_ADDRESS + "/photos/" + register_id + "/" + i + ".jpg");
+                }
+
                 // 책 정보 입력
                 registBook.setBookInformation(register_id, seller_id, school, selling_price, bookImage,
                         underline, writing, cover, damage_page, memo);
@@ -214,28 +219,8 @@ public class BookSettingActivity extends AppCompatActivity{
                 // 디비에 넣기
                 InsertBookData task = new InsertBookData();
                 task.execute("https://" + IP_ADDRESS + "/insert-book.php", registBook.toString());
-//
+
                 Log.i(TAG, "Added book in db");
-
-                /**
-                 * TODO
-                 * 책 추가가 끝나고 입력한 정보를 보여주는 상세 페이지 창을 BookSellDetailFragment로 하면
-                 * MainActivity에서 받는 Back Listener 때문에 안됨!
-                 * 따라서 판매자의 상세 정보 창을 보여주고 싶다면, 새로운 Fragment 또는 Activity를 생성해야한다.
-                 * 밑의 주석처리한 코드는 잘못된 코드임! 참고 사항으로 남겨둔 것이므로 지우지 말 것
-                 */
-
-//                String book_register_id = register_id;
-//                Bundle bundle = new Bundle();
-//                bundle.putString("BookRegisterID", book_register_id);
-//                BookSellDetailFragment bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
-//
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//                fragmentManager.beginTransaction()
-//                               .replace(R.id.frame_layout, bookSellDetailFragment)
-//                               .commit();
-//                finish();
 
             }
         });
@@ -451,7 +436,7 @@ public class BookSettingActivity extends AppCompatActivity{
                             photoPath.add(mCurrentPhotoPath);
                             cursor.close();
                         }
-                        bookImage.add(data.getData().toString());
+//                        bookImage.add(data.getData().toString());
                         imageView.setImageURI(data.getData());
                         layout.addView(imageView);
                     }catch (Exception e){
@@ -468,7 +453,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 try{
                     galleryAddPic();
                     Log.i(TAG, ">>>>>> uri : "+photoURI.toString());
-                    bookImage.add(photoURI.toString());
+//                    bookImage.add(photoURI.toString());
                     imageView.setImageURI(photoURI);
                     layout.addView(imageView);
 
@@ -561,8 +546,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
             try {
                 JSONObject jsonObject = ImageParser.uploadImage(params[0],params[1], params[2], params[3]);
-                if (jsonObject != null){
-                    bookImage.add(params[0] + "/photos/" + params[2] + "/" + params[3] + ".jpg");
+                if (jsonObject != null) {
                     return jsonObject.getString("result").equals("success");
                 }
             } catch (JSONException e) {
