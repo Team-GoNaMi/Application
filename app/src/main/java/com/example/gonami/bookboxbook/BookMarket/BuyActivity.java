@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.PaymentTransaction.TransactionActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -37,7 +38,8 @@ public class BuyActivity extends AppCompatActivity {
     private String register_id;
     private String schools;
     private String[] school_list;
-
+    String book_name;
+    String book_price;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class BuyActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         register_id = intent.getExtras().getString("book_regist_id");
+        book_name = intent.getExtras().getString("book_name");
+        book_price = intent.getExtras().getString("book_price");
         schools = intent.getExtras().getString("schools");
         school_list = schools.split(",");
 
@@ -75,10 +79,12 @@ public class BuyActivity extends AppCompatActivity {
                     InsertBuyerInfo task = new InsertBuyerInfo();
                     task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID-1]);
 
-//                    Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
-//                    //회원 아이디 넘겨야할까?
-//                    // Intent.putExtra("registBook", registBook);
-//                    BuyActivity.this.startActivity(Intent);
+                    Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
+                    //회원 아이디 넘겨야할까?
+                    Intent.putExtra("register_id", register_id);
+                    Intent.putExtra("book_name", book_name);
+                    Intent.putExtra("book_price", book_price);
+                    BuyActivity.this.startActivity(Intent);
                     finish();
                 }
                 else {
