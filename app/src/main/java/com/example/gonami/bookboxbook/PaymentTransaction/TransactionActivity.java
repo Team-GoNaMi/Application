@@ -71,11 +71,13 @@ public class TransactionActivity extends AppCompatActivity {
 //            task.execute("https://" + IP_ADDRESS + "/payment.php", register_id, book_name, book_price,phone_num);
 
 //            webViewTransaction.loadUrl("https://"+IP_ADDRESS +"/payment.php");
-            webViewTransaction.postUrl("https://"+IP_ADDRESS +"/payment.php",postData.getBytes());
+            Log.i(TAG,"start~~~~~");
+            webViewTransaction.postUrl("https://"+IP_ADDRESS +"/payment_js.php",postData.getBytes());
 
         } else {
             //isp 인증 후 복귀했을 때 결제 후속조치
             String url = intentData.toString();
+            Log.i(TAG,"ggg:"+ url);
             if ( url.startsWith(APP_SCHEME) ) {
                 String redirectURL = url.substring(APP_SCHEME.length()+3);
                 webViewTransaction.loadUrl(redirectURL);
@@ -95,6 +97,7 @@ public class TransactionActivity extends AppCompatActivity {
         }
     }
     private class AndroidBridge {
+
         @JavascriptInterface
         public void testMove(final String arg) { // must be final
 
@@ -106,13 +109,14 @@ public class TransactionActivity extends AppCompatActivity {
 
                     // 원하는 동작
 
-                    webViewTransaction.loadUrl("javascript:IMP.request_pay("+postData+"')");
+                    //webViewTransaction.loadUrl("javascript:IMP.request_pay("+postData+"')");
 
                 }
 
             });
 
         }
+
 
     }
     private class PaymentInfo extends AsyncTask<String, Void, String> {

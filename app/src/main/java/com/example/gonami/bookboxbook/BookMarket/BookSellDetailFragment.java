@@ -405,18 +405,21 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     //이미지
 
                     String image_url = jsonObject.getString(TAG_BOOK_IMAGE);
-                    Log.i(TAG, "my: "+image_url);
-                    String[] split_image = image_url.split(",");
-                    Log.i(TAG, "my: "+split_image[0]);
-                    Log.i(TAG, "my: "+split_image[1]);
-                    ImageView bookImage;
-                    for(int i = 0; i<split_image.length;i++){
-                        bookImage = new ImageView(getContext());
+                    if(image_url != "false"){
+                        Log.i(TAG, "my: "+image_url);
+                        String[] split_image = image_url.split(",");
+                        Log.i(TAG, "my: "+split_image[0]);
+                        Log.i(TAG, "my: "+split_image[1]);
+                        ImageView bookImage;
+                        for(int i = 0; i<split_image.length;i++){
+                            bookImage = new ImageView(getContext());
 //                        bookImage.setLayoutParams(lp);
 //                        bookImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        linearLayout_img.addView(bookImage);
-                        Glide.with(getContext()).load(split_image[i]).into(bookImage);
+                            linearLayout_img.addView(bookImage);
+                            Glide.with(getContext()).load(split_image[i]).into(bookImage);
+                        }
                     }
+
 
 
 
