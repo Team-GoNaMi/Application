@@ -34,10 +34,9 @@ public class TransactionActivity extends AppCompatActivity {
     private WebView webViewTransaction;
     private WebSettings webSettings;
     private static final String APP_SCHEME = "iamporttest://";
-    private static String TAG = "Transaction";
 
     private final Handler handler = new Handler();
-
+    private String postData;
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class TransactionActivity extends AppCompatActivity {
         Uri intentData = intent.getData();
         String phone_num = SaveSharedPreference.getUserPN(this);
 
-        String postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
+        postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
 
         if ( intentData == null ) {
 //            PaymentInfo task = new PaymentInfo();
@@ -95,7 +94,6 @@ public class TransactionActivity extends AppCompatActivity {
             Log.i(TAG,"2: "+redirectURL);
         }
     }
-<<<<<<< HEAD
     private class AndroidBridge {
         @JavascriptInterface
         public void testMove(final String arg) { // must be final
@@ -108,8 +106,7 @@ public class TransactionActivity extends AppCompatActivity {
 
                     // 원하는 동작
 
-
-                    webViewTransaction.loadUrl(arg);
+                    webViewTransaction.loadUrl("javascript:IMP.request_pay("+postData+"')");
 
                 }
 
@@ -118,7 +115,6 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
     }
-=======
     private class PaymentInfo extends AsyncTask<String, Void, String> {
 
 
@@ -141,7 +137,6 @@ public class TransactionActivity extends AppCompatActivity {
 
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
->>>>>>> 31004e0c55d40b6c677112876be185e922bed81d
 
 
                 httpURLConnection.setReadTimeout(5000);

@@ -81,13 +81,10 @@ public class BuyActivity extends AppCompatActivity {
 
                     Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
                     //회원 아이디 넘겨야할까?
-<<<<<<< HEAD
                     // Intent.putExtra("registBook", registBook);
-=======
                     Intent.putExtra("register_id", register_id);
                     Intent.putExtra("book_name", book_name);
                     Intent.putExtra("book_price", book_price);
->>>>>>> 31004e0c55d40b6c677112876be185e922bed81d
                     BuyActivity.this.startActivity(Intent);
                     finish();
                 }
