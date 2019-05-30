@@ -36,7 +36,7 @@ public class TransactionActivity extends AppCompatActivity {
     private static final String APP_SCHEME = "iamporttest://";
 
     private final Handler handler = new Handler();
-
+    private String postData;
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class TransactionActivity extends AppCompatActivity {
         Uri intentData = intent.getData();
         String phone_num = SaveSharedPreference.getUserPN(this);
 
-        String postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
+        postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
 
         if ( intentData == null ) {
 //            PaymentInfo task = new PaymentInfo();
@@ -106,8 +106,7 @@ public class TransactionActivity extends AppCompatActivity {
 
                     // 원하는 동작
 
-
-                    webViewTransaction.loadUrl(arg);
+                    webViewTransaction.loadUrl("javascript:IMP.request_pay("+postData+"')");
 
                 }
 

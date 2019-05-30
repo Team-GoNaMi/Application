@@ -112,6 +112,23 @@ public class BookInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String origin_price = ed_price.getText().toString();
 
+//                //TODO ISBN 예외처리..
+//                if(isBarcord == false){
+//
+//                    new Thread() {
+//                        public void run() {
+//                            naverResult = getNaverSearch(ed_isbn.getText().toString());
+//
+//                            Bundle bun = new Bundle();
+//                            bun.putString("DATA", naverResult);
+//
+//                            Message msg = handler.obtainMessage();
+//                            msg.setData(bun);
+//                            handler.sendMessage(msg);
+//                        }
+//                    }.start();
+//                }
+
                 //TODO 가격이 달러면..?
                 if (origin_price.contains(".")) {
                     String[] temp = origin_price.split("\\.");
@@ -153,22 +170,7 @@ public class BookInfoActivity extends AppCompatActivity {
                     return;
                 }
 
-                //TODO ISBN 예외처리..
-                if(isBarcord == false){
 
-                    new Thread() {
-                        public void run() {
-                            naverResult = getNaverSearch(ed_isbn.getText().toString());
-
-                            Bundle bun = new Bundle();
-                            bun.putString("DATA", naverResult);
-
-                            Message msg = handler.obtainMessage();
-                            msg.setData(bun);
-                            handler.sendMessage(msg);
-                        }
-                    }.start();
-                }
 
                 registBook = new BookInformation(ed_isbn.getText().toString(),ed_name.getText().toString(),
                         ed_author.getText().toString(), ed_publisher.getText().toString(),

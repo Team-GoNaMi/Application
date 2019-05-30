@@ -48,6 +48,8 @@ import java.util.ArrayList;
 public class BookSellDetailFragment extends Fragment implements MainActivity.OnBackPressedListener  {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "BookSellDetail";
+    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
+
     private View thisView = null;
 
     private String book_register_id;
@@ -377,7 +379,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             String TAG_SELLER_ID = "seller_id";
 
             String TAG_SCHOOL = "school";
-            String TAG_BOOK_IMAGE = "book_images";
+            String TAG_BOOK_IMAGE = "book_photo";
 
             //String TAG_RATING = "";
 
@@ -401,11 +403,19 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
 
                     //이미지
-                    JSONArray images = jsonObject.getJSONArray(TAG_BOOK_IMAGE);
-                    for(int i =0; i< images.length();i++){
-                        ImageView bookImage = new ImageView(getContext());
+
+                    String image_url = jsonObject.getString(TAG_BOOK_IMAGE);
+                    Log.i(TAG, "my: "+image_url);
+                    String[] split_image = image_url.split(",");
+                    Log.i(TAG, "my: "+split_image[0]);
+                    Log.i(TAG, "my: "+split_image[1]);
+                    ImageView bookImage;
+                    for(int i = 0; i<split_image.length;i++){
+                        bookImage = new ImageView(getContext());
+//                        bookImage.setLayoutParams(lp);
+//                        bookImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         linearLayout_img.addView(bookImage);
-                        Glide.with(getContext()).load(images.getString(i)).into(bookImage);
+                        Glide.with(getContext()).load(split_image[i]).into(bookImage);
                     }
 
 

@@ -431,7 +431,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
                         if(cursor != null){
                             cursor.moveToFirst();
-
+///////***********************absolute value 추가해야된다..
                             mCurrentPhotoPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
                             photoPath.add(mCurrentPhotoPath);
                             cursor.close();
