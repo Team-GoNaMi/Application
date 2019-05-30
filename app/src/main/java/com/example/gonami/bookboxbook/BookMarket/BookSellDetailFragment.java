@@ -121,6 +121,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             Log.i(TAG, from_fragment);
         }
 
+        Log.i(TAG, "gg: "+ SaveSharedPreference.getUserID(getContext()));
         return thisView;
     }
 
@@ -192,6 +193,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (!seller_id.equals(SaveSharedPreference.getUserID(getContext()))) {
                     Intent Intent = new Intent(getActivity(), BuyActivity.class);
                     Intent.putExtra("book_regist_id", book_register_id);

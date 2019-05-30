@@ -34,7 +34,6 @@ public class TransactionActivity extends AppCompatActivity {
     private WebView webViewTransaction;
     private WebSettings webSettings;
     private static final String APP_SCHEME = "iamporttest://";
-    private static String TAG = "Transaction";
 
     private final Handler handler = new Handler();
 
@@ -95,7 +94,6 @@ public class TransactionActivity extends AppCompatActivity {
             Log.i(TAG,"2: "+redirectURL);
         }
     }
-<<<<<<< HEAD
     private class AndroidBridge {
         @JavascriptInterface
         public void testMove(final String arg) { // must be final
@@ -118,7 +116,6 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
     }
-=======
     private class PaymentInfo extends AsyncTask<String, Void, String> {
 
 
@@ -141,7 +138,6 @@ public class TransactionActivity extends AppCompatActivity {
 
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
->>>>>>> 31004e0c55d40b6c677112876be185e922bed81d
 
 
                 httpURLConnection.setReadTimeout(5000);
