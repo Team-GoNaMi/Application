@@ -69,6 +69,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tvPrice;
     private TextView tvLocation;
 
+
     private ImageButton ibBookmark;
     private Button btnBuy;
 
@@ -94,7 +95,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
     private LinearLayout linearLayout_img;
     private TextView memo;
-    private TextView rating;
+    private TextView tvRating;
 
     public BookSellDetailFragment() {
 
@@ -162,7 +163,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
         linearLayout_img = thisView.findViewById(R.id.linearLayout_img);
         memo = thisView.findViewById(R.id.tv_book_state_memo);
-        rating = thisView.findViewById(R.id.tv_rating);
+        tvRating = thisView.findViewById(R.id.tv_rating);
 
         ibBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +198,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (!seller_id.equals(SaveSharedPreference.getUserID(getContext()))) {
                     Intent Intent = new Intent(getActivity(), BuyActivity.class);
@@ -383,6 +383,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             String TAG_SCHOOL = "school";
             String TAG_BOOK_IMAGE = "book_photo";
 
+            String TAG_RATE = "rate";
+
             //String TAG_RATING = "";
 
             boolean success;
@@ -403,6 +405,11 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     memo.setText(jsonObject.getString(TAG_MEMO));
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
+                    String rating = jsonObject.getString(TAG_RATE);
+                    if (rating == "null")
+                        tvRating.setText("아직 별점이 존재하지 않습니다.");
+                    else
+                        tvRating.setText(jsonObject.getString(TAG_RATE));
 
                     //이미지
 
@@ -427,10 +434,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                         tv_no_image.setText("이미지가 없습니다.");
                         linearLayout_img.addView(tv_no_image);
                     }
-
-
-
-
 
                     // 북마크
                     checked = jsonObject.getBoolean(TAG_BOOK_MARK);
