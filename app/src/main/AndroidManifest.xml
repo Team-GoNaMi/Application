@@ -40,6 +40,7 @@
         <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
         <activity android:name=".MyPage.ChangePersonalInfoActivity"/>
         <activity android:name=".MyPage.ChangePasswordActivity"/>
+        <activity android:name=".TransactionProcess.DepositActivity"/>
 
         <service
             android:name=".FirebaseMessagingService">
