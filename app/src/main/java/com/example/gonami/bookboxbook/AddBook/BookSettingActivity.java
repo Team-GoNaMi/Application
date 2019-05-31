@@ -201,6 +201,7 @@ public class BookSettingActivity extends AppCompatActivity{
                 String ImageUploadURL = "https://" + IP_ADDRESS + "/insert-photo.php";
 
                 for (int i = 0; i < photoPath.size(); i++) {
+                    Log.i(TAG,"hhhhhhhhhhhhh:"+photoPath.get(i));
                     ImageUploadTask imageUploadTask = new ImageUploadTask();
                     imageUploadTask.execute(ImageUploadURL, photoPath.get(i), register_id, String.valueOf(i));
                 }
@@ -329,6 +330,8 @@ public class BookSettingActivity extends AppCompatActivity{
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
         intent.setType("image/*");
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
         startActivityForResult(intent, FROM_ALBUM);
 
     }
@@ -427,12 +430,13 @@ public class BookSettingActivity extends AppCompatActivity{
                 if(data.getData()!=null){
                     try{
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = getContentResolver().query(data.getData(), filePathColumn,null,null, null);
+                        Cursor cursor = getContentResolver().query(Uri.parse(data.getData().toString()),
+                                filePathColumn,null,null, null);
 
                         if(cursor != null){
                             cursor.moveToFirst();
 ///////***********************absolute value 추가해야된다..
-                            mCurrentPhotoPath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
+                            mCurrentPhotoPath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
                             photoPath.add(mCurrentPhotoPath);
                             cursor.close();
                         }
