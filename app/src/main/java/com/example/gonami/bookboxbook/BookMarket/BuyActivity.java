@@ -81,6 +81,7 @@ public class BuyActivity extends AppCompatActivity {
 
                     Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
                     //회원 아이디 넘겨야할까?
+                    // Intent.putExtra("registBook", registBook);
                     Intent.putExtra("register_id", register_id);
                     Intent.putExtra("book_name", book_name);
                     Intent.putExtra("book_price", book_price);

@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
 import com.example.gonami.bookboxbook.BookMark.SendBookMarkData;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
@@ -30,6 +32,7 @@ import com.example.gonami.bookboxbook.TransactionList.BuyListFragment;
 import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
 import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +48,10 @@ import java.util.ArrayList;
 public class BookSellDetailFragment extends Fragment implements MainActivity.OnBackPressedListener  {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "BookSellDetail";
+
+    private static final int IMAGE_HIGHT = 500;
+    private static final int IMAGE_WIDTH = 500;
+
     private View thisView = null;
 
     private String book_register_id;
@@ -53,8 +60,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private ArrayList<String> bookImage;
     private boolean checked;
     private String seller_id;
-
-    private LinearLayout linearLayout_img;
 
     private TextView tvBookName;
     private TextView tvAuthor;
@@ -66,6 +71,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
     private ImageButton ibBookmark;
     private Button btnBuy;
+
 
     //highlight해야될것들
 
@@ -86,6 +92,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
     private TextView tv_book_state_damage2_o;
     private TextView tv_book_state_damage2_x;
 
+    private LinearLayout linearLayout_img;
     private TextView memo;
     private TextView rating;
 
@@ -118,6 +125,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             Log.i(TAG, from_fragment);
         }
 
+        Log.i(TAG, "gg: "+ SaveSharedPreference.getUserID(getContext()));
         return thisView;
     }
 
@@ -189,6 +197,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (!seller_id.equals(SaveSharedPreference.getUserID(getContext()))) {
                     Intent Intent = new Intent(getActivity(), BuyActivity.class);
                     Intent.putExtra("book_regist_id", book_register_id);
@@ -371,7 +381,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             String TAG_SELLER_ID = "seller_id";
 
             String TAG_SCHOOL = "school";
-            String TAG_BOOK_IMAGE = "book_images";
+            String TAG_BOOK_IMAGE = "book_photo";
 
             //String TAG_RATING = "";
 
@@ -393,6 +403,29 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     memo.setText(jsonObject.getString(TAG_MEMO));
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
+
+                    //이미지
+
+                    String image_url = jsonObject.getString(TAG_BOOK_IMAGE);
+                    if(image_url != "false"){
+                        Log.i(TAG, "my: "+image_url);
+                        String[] split_image = image_url.split(",");
+                        Log.i(TAG, "my: "+split_image[0]);
+
+                        ImageView bookImage;
+                        for(int i = 0; i<split_image.length;i++){
+                            bookImage = new ImageView(getContext());
+//                        bookImage.setLayoutParams(lp);
+//                        bookImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            linearLayout_img.addView(bookImage);
+                            Glide.with(getContext()).load(split_image[i]).override(IMAGE_WIDTH,IMAGE_HIGHT).into(bookImage);
+
+                        }
+                    }
+
+
+
+
 
                     // 북마크
                     checked = jsonObject.getBoolean(TAG_BOOK_MARK);
