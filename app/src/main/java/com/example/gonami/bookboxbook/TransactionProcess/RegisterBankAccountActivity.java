@@ -80,6 +80,13 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
                 RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
                 task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
 
+                Intent Intent = new Intent(RegisterBankAccountActivity.this, DepositActivity.class);
+                //회원 아이디 넘겨야할까?
+                // Intent.putExtra("registBook", registBook);
+                Intent.putExtra("owner", bankAccountOwner);
+                Intent.putExtra("bank", bankInfo);
+                Intent.putExtra("account_num", bankAccountNum);
+                RegisterBankAccountActivity.this.startActivity(Intent);
                 finish();
             }
         });
