@@ -149,6 +149,7 @@ public class SellListViewAdapter extends BaseAdapter {
                         //선택한 학교, 북박스 번호,
                         Intent.putExtra("register_id", bookInfo.getRegister_id());
                         Intent.putExtra("ISBN", bookInfo.getISBN());
+                        Intent.putExtra("role", true);
                         parentContext.startActivity(Intent);
                         break;
                     //계좌번호

@@ -410,7 +410,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     if(image_url != "false"){
                         Log.i(TAG, "my: "+image_url);
                         String[] split_image = image_url.split(",");
-                        Log.i(TAG, "my: "+split_image[0]);
+                        Log.i(TAG, "my: "+split_image);
 
                         ImageView bookImage;
                         for(int i = 0; i<split_image.length;i++){
@@ -421,6 +421,11 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                             Glide.with(getContext()).load(split_image[i]).override(IMAGE_WIDTH,IMAGE_HIGHT).into(bookImage);
 
                         }
+                    }
+                    else  {
+                        TextView tv_no_image = new TextView(getContext());
+                        tv_no_image.setText("이미지가 없습니다.");
+                        linearLayout_img.addView(tv_no_image);
                     }
 
 

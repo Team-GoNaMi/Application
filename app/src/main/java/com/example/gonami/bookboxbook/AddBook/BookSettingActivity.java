@@ -173,7 +173,10 @@ public class BookSettingActivity extends AppCompatActivity{
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeDialog();
+                if (photoPath.size() < 4)
+                    makeDialog();
+                else
+                    Toast.makeText(getBaseContext(), "이미지는 최대 3개까지 업로드 가능합니다.",Toast.LENGTH_SHORT).show();
             }
         });
         btn_regist.setOnClickListener(new View.OnClickListener() {
@@ -543,7 +546,6 @@ public class BookSettingActivity extends AppCompatActivity{
     }
 
     private  class ImageUploadTask extends AsyncTask<String, Integer, Boolean> {
-        ProgressDialog progressDialog; // API 26에서 deprecated
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -562,37 +564,27 @@ public class BookSettingActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-//            if (progressDialog != null)
-//                progressDialog.dismiss();
 
-            if (aBoolean){
-                Toast.makeText(getApplicationContext(), "파일 업로드 성공", Toast.LENGTH_LONG).show();
-            }  else{
-                Toast.makeText(getApplicationContext(), "파일 업로드 실패", Toast.LENGTH_LONG).show();
+            if (aBoolean) {
+                Log.i(TAG, "이미지 파일 업로드 성공");
             }
-
+            else {
+                Log.i(TAG, "이미지 파일 업로드 실패");
+            }
         }
     }
 
     private class InsertBookData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            progressDialog = ProgressDialog.show(BookSettingActivity.this,
-                    "Please Wait", null, true, true);
-        }
 
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            progressDialog.dismiss();
             Log.i(TAG, "POST response1  - " + result);
+            if (result.length() == 0) {
+                Toast.makeText(getBaseContext(), "책 등록 완료", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override

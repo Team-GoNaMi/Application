@@ -128,6 +128,7 @@ public class BuyListViewAdapter extends BaseAdapter {
 
                         intent.putExtra("register_id", bookInfo.getRegister_id());
                         intent.putExtra("ISBN", bookInfo.getISBN());
+                        intent.putExtra("role", false);
                         parentContext.startActivity(intent);
                         break;
                     //구매확정해주세요 //팝업창이면 될듯 //평가로 넘어갑니당

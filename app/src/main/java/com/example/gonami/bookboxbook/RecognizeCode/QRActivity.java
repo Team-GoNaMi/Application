@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -46,16 +47,28 @@ public class QRActivity extends AppCompatActivity {
     private Bitmap bit_qr;
     private String register_id;
     private String isbn;
+    private Boolean role;
+    private String member_id;
     private String insertData;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
         img_qr = findViewById(R.id.img_qr);
+
         Intent intent = new Intent(this.getIntent());
         register_id = intent.getExtras().getString("register_id");
         isbn = intent.getExtras().getString("ISBN");
         insertData = String.format("%s$$$%s", isbn, register_id);
+        role = intent.getExtras().getBoolean("role");
+        member_id = SaveSharedPreference.getUserID(getBaseContext());
+
+        if (role) {     // seller
+            insertData = String.format("%s$$$%s$$$%s", isbn, register_id, member_id);
+        }
+        else {          // buyer
+            insertData = String.format("%s$$$%s", register_id, member_id);
+        }
         tv_bb_location = findViewById(R.id.tv_where);
         tv_bb_num = findViewById(R.id.tv_bb_num);
         tv_date = findViewById(R.id.tv_date);
