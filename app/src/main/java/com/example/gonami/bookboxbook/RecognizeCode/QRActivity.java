@@ -59,7 +59,6 @@ public class QRActivity extends AppCompatActivity {
         Intent intent = new Intent(this.getIntent());
         register_id = intent.getExtras().getString("register_id");
         isbn = intent.getExtras().getString("ISBN");
-        insertData = String.format("%s$$$%s", isbn, register_id);
         role = intent.getExtras().getBoolean("role");
         member_id = SaveSharedPreference.getUserID(getBaseContext());
 

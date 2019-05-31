@@ -173,7 +173,7 @@ public class BookSettingActivity extends AppCompatActivity{
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (photoPath.size() < 4)
+                if (photoPath.size() < 3)
                     makeDialog();
                 else
                     Toast.makeText(getBaseContext(), "이미지는 최대 3개까지 업로드 가능합니다.",Toast.LENGTH_SHORT).show();

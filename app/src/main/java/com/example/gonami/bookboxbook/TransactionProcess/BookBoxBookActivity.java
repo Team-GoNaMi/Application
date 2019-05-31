@@ -130,7 +130,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 bb_id = String.format("%s-%s", bb_location, bb_num);
 
                 BookBoxBookActivity.InsertBookBoxData task = new BookBoxBookActivity.InsertBookBoxData();
-                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, stringDate,book_register_id);
+                task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, stringDate, book_register_id);
 
                 finish();
             }
