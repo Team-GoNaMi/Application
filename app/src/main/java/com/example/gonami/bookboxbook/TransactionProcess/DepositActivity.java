@@ -45,7 +45,7 @@ public class DepositActivity extends AppCompatActivity {
         String owner = intent.getExtras().getString("owner");
         String bank = intent.getExtras().getString("bank");
         String account_num = intent.getExtras().getString("account_num");
-
+//주문번호도 넣어야됨..//은행코드
         Uri intentData = intent.getData();
         String phone_num = SaveSharedPreference.getUserPN(this);
 
@@ -58,7 +58,7 @@ public class DepositActivity extends AppCompatActivity {
 
 //            webViewTransaction.loadUrl("https://"+IP_ADDRESS +"/payment.php");
             Log.i(TAG,"start~~~~~");
-            webViewDeposit.postUrl("https://"+IP_ADDRESS +"/payment_js.php",postData.getBytes());
+            webViewDeposit.postUrl("https://"+IP_ADDRESS +"/to_seller.php",postData.getBytes());
 
         } else {
             //isp 인증 후 복귀했을 때 결제 후속조치

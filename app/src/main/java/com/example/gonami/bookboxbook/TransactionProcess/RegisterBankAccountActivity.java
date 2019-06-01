@@ -45,8 +45,8 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         edBankAccountOwner = findViewById(R.id.ed_bank_account_owner);
         btnBankResComplete = findViewById(R.id.btn_bank_res_complete);
 
-        Intent intent = new Intent(this.getIntent());
-        book_register_id = intent.getExtras().getString("register_id");
+      //0  Intent intent = new Intent(this.getIntent());
+       // book_register_id = intent.getExtras().getString("register_id");
     }
 
     @Override
