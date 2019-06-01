@@ -51,8 +51,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             Map<String, String> data = remoteMessage.getData();
+            String title = data.get("title");
             String message = data.get("message");
-            sendNotification(message);
+            sendNotification(title, message);
 
             if (true) {
             } else {
@@ -62,7 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
         }
 
     }
@@ -72,7 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String title, String messageBody) {
 
         Intent intent = new Intent(this, MainActivity.class);     // TODO
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -84,7 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.mipmap.logo_image)
-                        .setContentTitle("BookBoxBook")
+                        .setContentTitle(title)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
