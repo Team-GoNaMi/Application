@@ -187,8 +187,6 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-<<<<<<< HEAD
-=======
                 if (school.length() < 2 || school.length() > 10) {
                     Toast.makeText(SignUpActivity.this, "학교를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserSchool.requestFocus();
@@ -201,7 +199,6 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
->>>>>>> 15ce0e02100146a4f2e9b5cfe1c0a66f5b1bd552
                 String token = FirebaseInstanceId.getInstance().getToken();
 
                 // 디비에 넣기
