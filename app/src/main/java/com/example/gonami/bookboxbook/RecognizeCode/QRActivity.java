@@ -71,6 +71,7 @@ public class QRActivity extends AppCompatActivity {
         else {          // buyer
             insertData = String.format("%s$$$%s", register_id, member_id);
         }
+
         tv_bb_location = findViewById(R.id.tv_where);
         tv_bb_num = findViewById(R.id.tv_bb_num);
         tv_date = findViewById(R.id.tv_date);

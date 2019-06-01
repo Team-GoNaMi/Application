@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;

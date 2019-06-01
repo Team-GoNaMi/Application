@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "616840333432",
-    "firebase_url": "https://bookboxbook-e62cf.firebaseio.com",
-    "project_id": "bookboxbook-e62cf",
-    "storage_bucket": "bookboxbook-e62cf.appspot.com"
+    "project_number": "1083050681696",
+    "firebase_url": "https://gonami-6414c.firebaseio.com",
+    "project_id": "gonami-6414c",
+    "storage_bucket": "gonami-6414c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:616840333432:android:349ff27cc8b63f23",
+        "mobilesdk_app_id": "1:1083050681696:android:349ff27cc8b63f23",
         "android_client_info": {
           "package_name": "com.example.gonami.bookboxbook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "616840333432-i21a4talsvn4o2pfrivnaqu7ck6j4h1b.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.gonami.bookboxbook",
-            "certificate_hash": "272452bd57e01a8b40edb4e0281ef22c59a35cc6"
-          }
-        },
-        {
-          "client_id": "616840333432-o96jtdhcjs9gi0587fbciu30mivlpdaf.apps.googleusercontent.com",
+          "client_id": "1083050681696-7qna65vincu6l09v0inj6fjgame7cl9k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVOkBR4zA2uzMDlcOtSYvPRW52pFf669w"
+          "current_key": "AIzaSyCEp9kjkUp7dugRIN9NzQhvs9huZI5wVV8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "616840333432-o96jtdhcjs9gi0587fbciu30mivlpdaf.apps.googleusercontent.com",
+              "client_id": "1083050681696-7qna65vincu6l09v0inj6fjgame7cl9k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
