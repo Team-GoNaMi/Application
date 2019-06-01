@@ -28,6 +28,7 @@ import com.example.gonami.bookboxbook.TransactionProcess.RegisterBankAccountActi
 import java.util.ArrayList;
 
 public class SellListViewAdapter extends BaseAdapter {
+    private String TAG = "SellListViewAdapter";
 
     private ArrayList<BookInformation> bookList;
     private ArrayList<BookTradeInformation> tradeList;
@@ -141,6 +142,7 @@ public class SellListViewAdapter extends BaseAdapter {
                         Intent = new Intent(parentContext, BookBoxBookActivity.class);
                         Intent.putExtra("school", bookInfo.getSelected_school());
                         Intent.putExtra("register_id", bookInfo.getRegister_id());
+                        Log.i(TAG, bookInfo.getSelected_school() + " --- " + bookInfo.getRegister_id());
                         parentContext.startActivity(Intent);
                         break;
                     //예약정보(책넣어주세요)

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.percission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.camera2" />
     <uses-feature android:name="android.hardware.camera"/>
@@ -40,6 +41,7 @@
         <activity android:name=".TransactionProcess.RegisterBankAccountActivity"/>
         <activity android:name=".MyPage.ChangePersonalInfoActivity"/>
         <activity android:name=".MyPage.ChangePasswordActivity"/>
+        <activity android:name=".TransactionProcess.DepositActivity"/>
 
         <!--Firebase-->
         <service
@@ -61,6 +63,8 @@
             android:value="@string/default_notification_channel_id" />
 
 
+
     </application>
+
 
 </manifest>

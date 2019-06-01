@@ -20,7 +20,7 @@ public class ImageParser {
 
     private static String TAG = "ImageParser";
 
-    public static JSONObject uploadImage(String imageUploadUrl, String sourceImageFiles, String idx) {
+    public static JSONObject uploadImage(String imageUploadUrl, String sourceImageFiles, String register_id, String idx) {
 
         String[] imageFiles = sourceImageFiles.split(",");
 
@@ -35,7 +35,8 @@ public class ImageParser {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("uploaded_file", filename, RequestBody.create(MEDIA_TYPE_PNG, sourceFile))
-                    .addFormDataPart("idx", "0")
+                    .addFormDataPart("register_id", register_id)
+                    .addFormDataPart("idx", idx)
                     .build();
 
             Request request = new Request.Builder()

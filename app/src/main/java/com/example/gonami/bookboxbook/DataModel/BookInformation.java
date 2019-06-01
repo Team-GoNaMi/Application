@@ -82,7 +82,7 @@ public class BookInformation implements Serializable {
         this.school = school;
         this.selling_price = selling_price;
 
-        for(int i = 0; i<book_image.size()-1;i++){
+        for(int i = 0; i<book_image.size();i++){
             this.book_photo.add(book_image.get(i));
         }
 
@@ -101,10 +101,16 @@ public class BookInformation implements Serializable {
         String schools = school_list.substring(1, school_list.length()-1);
         Log.i("School", schools + " - " + schools.length());
 
-//        String book_img_list = book_photo.toString();
-//        Log.i("Image", book_img_list);
-//        String book_images = book_img_list.substring(1, book_img_list.length()-1);
-//        Log.i("Image", book_images + " - " + book_images.length());
+        String book_images = "";
+        String book_img_list = book_photo.toString();
+        Log.i("Image", book_img_list);
+        if (book_photo.size() == 0) {
+            book_images = "!!";
+        }
+        else {
+            book_images = book_img_list.substring(1, book_img_list.length() - 1);
+        }
+        Log.i("Image", book_images + " - " + book_images.length());
 
         String concat = "";
         concat += "isbn=" + isbn;
@@ -119,7 +125,7 @@ public class BookInformation implements Serializable {
         concat += "&seller_id=" + seller_id;
 
         concat += "&selling_price=" + selling_price;
-//        concat += "&book_photo=" + book_images; // TODO change form
+        concat += "&book_photo=" + book_images; // TODO change form
         concat += "&underline=" + underline;
         concat += "&writing=" + writing;
         concat += "&cover=" + cover;

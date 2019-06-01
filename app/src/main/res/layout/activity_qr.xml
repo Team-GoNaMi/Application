@@ -58,7 +58,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="번 박스에서 찾아가 주세요!"
+            android:text="번 박스입니다!"
             android:textSize="15sp"
             android:layout_marginLeft="5dp"
             android:textColor="@android:color/black" />

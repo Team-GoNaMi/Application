@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-////////////////
+    ////////////////
     private class GetMemberData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
                 showResult();
             }
         }
-/////////////////
+        /////////////////
         @Override
         protected String doInBackground(String... strings) {
 
@@ -243,12 +243,13 @@ public class LoginActivity extends AppCompatActivity {
             }
             return null;
         }
-///////////////////
+        ///////////////////
         private void showResult() {
-            String TAG_SUCCESS="success";
-            String TAG_ID="id";
-            String TAG_PW="pw";
-            String TAG_NAME="name";
+            String TAG_SUCCESS = "success";
+            String TAG_ID = "id";
+            String TAG_PW = "pw";
+            String TAG_NAME = "name";
+            String TAG_PN = "phonenum";
 
             boolean success;
 
@@ -261,10 +262,11 @@ public class LoginActivity extends AppCompatActivity {
                     String user_id = jsonObject.getString(TAG_ID);
                     String user_pw = jsonObject.getString(TAG_PW);
                     String user_name = jsonObject.getString(TAG_NAME);
+                    String user_pn = jsonObject.getString(TAG_PN);
                     Log.i(TAG, "trueeeeeeeeee");
                     Log.i(TAG, "Login checked");
 
-                    SaveSharedPreference.setUserID(LoginActivity.this, cbAutoLogin.isChecked(), user_id, user_pw, user_name);
+                    SaveSharedPreference.setUserID(LoginActivity.this, cbAutoLogin.isChecked(), user_id, user_pw, user_name, user_pn);
 
                     Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(signinIntent);

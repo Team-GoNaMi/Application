@@ -96,7 +96,7 @@ public class SellListFragment extends Fragment {
         btn_bookbb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), BookBoxBookActivity.class);
+                Intent Intent = new Intent(getActivity(), RegisterBankAccountActivity.class);
                 getActivity().startActivity(Intent);
             }
         });

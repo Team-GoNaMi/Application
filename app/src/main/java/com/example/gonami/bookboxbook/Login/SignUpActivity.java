@@ -79,13 +79,13 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String id = edUserID.getText().toString();
-                if (id.length() != 0) {
+                if (4 <= id.length() && id.length() <= 10) {
                     //  아이디 중복 확인
                     CheckDupID task = new CheckDupID();
                     task.execute("https://" + IP_ADDRESS + "/check-dup-id.php", id);
                 }
                 else {
-                    Toast.makeText(SignUpActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "아이디를 다시 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -116,15 +116,15 @@ public class SignUpActivity extends AppCompatActivity {
                 String school = edUserSchool.getText().toString();
 
 
-
+                // 아이디
                 if (id.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "ID를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserID.requestFocus();
                     return;
                 }
 
-                if (id.length() > 10) {
-                    Toast.makeText(SignUpActivity.this, "ID를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
+                if (id.length() < 4 || id.length() > 10) {
+                    Toast.makeText(SignUpActivity.this, "ID를 다시 입력해 주세요", Toast.LENGTH_SHORT).show();
                     edUserID.requestFocus();
                     return;
                 }
@@ -135,36 +135,73 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                // 비밀번호
                 if (pw.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPW.requestFocus();
                     return;
                 }
 
+                if (pw.length() < 4 || pw.length() > 10) {
+                    Toast.makeText(SignUpActivity.this, "비밀번호를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserPW.requestFocus();
+                    return;
+                }
+
                 if (pwCheck.length() == 0 || !pw.equals(pwCheck)) {
-                    Toast.makeText(SignUpActivity.this, "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "비밀번호를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPWCheck.requestFocus();
                     return;
                 }
 
+                // 이름
                 if (name.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "이름을 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserName.requestFocus();
                     return;
                 }
 
-                if (phonenum.length() == 0) {   // TODO 11자리가 아니면이라고 고쳐야 함
+                if (name.length() < 2  || name.length() > 10) {
+                    Toast.makeText(SignUpActivity.this, "이름을 다시 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserName.requestFocus();
+                    return;
+                }
+
+                // 전화번호
+                if (phonenum.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "전화번호를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserPN.requestFocus();
                     return;
                 }
 
+                if (phonenum.length() != 11) {
+                    Toast.makeText(SignUpActivity.this, "전화번호를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserPN.requestFocus();
+                    return;
+                }
+
+                // 학교
                 if (school.length() == 0) {
                     Toast.makeText(SignUpActivity.this, "학교를 입력하세요!", Toast.LENGTH_SHORT).show();
                     edUserSchool.requestFocus();
                     return;
                 }
 
+<<<<<<< HEAD
+=======
+                if (school.length() < 2 || school.length() > 10) {
+                    Toast.makeText(SignUpActivity.this, "학교를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserSchool.requestFocus();
+                    return;
+                }
+
+                if (!school.contains("대")) {
+                    Toast.makeText(SignUpActivity.this, "학교를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    edUserSchool.requestFocus();
+                    return;
+                }
+
+>>>>>>> 15ce0e02100146a4f2e9b5cfe1c0a66f5b1bd552
                 String token = FirebaseInstanceId.getInstance().getToken();
 
                 // 디비에 넣기

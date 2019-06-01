@@ -1,70 +1,56 @@
-package com.example.gonami.bookboxbook.PaymentTransaction;
+package com.example.gonami.bookboxbook.TransactionProcess;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.CookieManager;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.PaymentTransaction.InicisWebViewClient;
 import com.example.gonami.bookboxbook.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-public class TransactionActivity extends AppCompatActivity {
-
+public class DepositActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
-    private static String TAG = "TransactionActivity";
+    private static String TAG = "DepositActivity";
 
-    private WebView webViewTransaction;
-    private WebSettings webSettings;
     private static final String APP_SCHEME = "iamporttest://";
 
-    private final Handler handler = new Handler();
+    private WebView webViewDeposit;
+    private WebSettings webSettings;
     private String postData;
-    @SuppressLint("NewApi")
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction);
-
-        webViewTransaction = findViewById(R.id.webview_transaction);
-        webViewTransaction.setWebViewClient(new InicisWebViewClient(this));
-        webSettings = webViewTransaction.getSettings();
+        setContentView(R.layout.activity_deposit);
+        webViewDeposit = findViewById(R.id.webview_deposit);
+        webViewDeposit.setWebViewClient(new InicisWebViewClient(this));
+        webSettings = webViewDeposit.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webViewTransaction.addJavascriptInterface(new AndroidBridge(), "android");
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
-            cookieManager.setAcceptThirdPartyCookies(webViewTransaction, true);
+            cookieManager.setAcceptThirdPartyCookies(webViewDeposit, true);
         }
 
         Intent intent = getIntent();
-        String register_id = intent.getExtras().getString("register_id");
-        String book_name = intent.getExtras().getString("book_name");
-        String book_price = intent.getExtras().getString("book_price");
-
+        String owner = intent.getExtras().getString("owner");
+        String bank = intent.getExtras().getString("bank");
+        String account_num = intent.getExtras().getString("account_num");
+//주문번호도 넣어야됨..//은행코드
         Uri intentData = intent.getData();
         String phone_num = SaveSharedPreference.getUserPN(this);
 
-        postData = "register_id=" + register_id + "&book_name=" + book_name + "&book_price=" + book_price + "&phone_num=" + phone_num;
+        postData = "owner=" + owner + "&bank=" + bank +
+                "&account_num=" + account_num;
 
         if ( intentData == null ) {
 //            PaymentInfo task = new PaymentInfo();
@@ -72,7 +58,7 @@ public class TransactionActivity extends AppCompatActivity {
 
 //            webViewTransaction.loadUrl("https://"+IP_ADDRESS +"/payment.php");
             Log.i(TAG,"start~~~~~");
-            webViewTransaction.postUrl("https://"+IP_ADDRESS +"/payment_js.php",postData.getBytes());
+            webViewDeposit.postUrl("https://"+IP_ADDRESS +"/to_seller.php",postData.getBytes());
 
         } else {
             //isp 인증 후 복귀했을 때 결제 후속조치
@@ -80,44 +66,20 @@ public class TransactionActivity extends AppCompatActivity {
             Log.i(TAG,"ggg:"+ url);
             if ( url.startsWith(APP_SCHEME) ) {
                 String redirectURL = url.substring(APP_SCHEME.length()+3);
-                webViewTransaction.loadUrl(redirectURL);
+                webViewDeposit.loadUrl(redirectURL);
                 Log.i(TAG,"1: "+redirectURL);
             }
         }
-
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
         String url = intent.toString();
         if ( url.startsWith(APP_SCHEME) ) {
             String redirectURL = url.substring(APP_SCHEME.length()+3);
-            webViewTransaction.loadUrl(redirectURL);
+            webViewDeposit.loadUrl(redirectURL);
             Log.i(TAG,"2: "+redirectURL);
         }
     }
-    private class AndroidBridge {
-
-        @JavascriptInterface
-        public void testMove(final String arg) { // must be final
-
-            handler.post(new Runnable() {
-
-                @Override
-
-                public void run() {
-
-                    // 원하는 동작
-
-                    //webViewTransaction.loadUrl("javascript:IMP.request_pay("+postData+"')");
-
-                }
-
-            });
-
-        }
-
-
-    }
-
 }
