@@ -123,7 +123,13 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         if (getArguments() != null) {
             book_register_id = getArguments().getString("BookRegisterID");
             from_fragment = getArguments().getString("from");
-            Log.i(TAG, from_fragment);
+            if (from_fragment == null) {
+                from_fragment = "Search";
+            }
+            else {
+                Log.i(TAG, book_register_id);
+                Log.i(TAG, from_fragment);  // Error 자주 남
+            }
         }
 
         Log.i(TAG, "gg: "+ SaveSharedPreference.getUserID(getContext()));
@@ -406,24 +412,30 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
                     String rating = jsonObject.getString(TAG_RATE);
-                    if (rating == "null")
+                    if (rating.equals("null")) {
+                        Log.i(TAG, "rating : " + rating);
                         tvRating.setText("아직 별점이 존재하지 않습니다.");
-                    else
-                        tvRating.setText(jsonObject.getString(TAG_RATE));
+                    }
+                    else {
+                        tvRating.setText(rating);
+                        Log.i(TAG, "rating2 : " + rating + " - " + rating.length());
+                    }
 
                     //이미지
 
                     String image_url = jsonObject.getString(TAG_BOOK_IMAGE);
-                    if(image_url != "false"){
+                    if(!image_url.equals("false")){
                         Log.i(TAG, "my: "+image_url);
                         String[] split_image = image_url.split(",");
-                        Log.i(TAG, "my: "+split_image);
+                        for (int i =0; i < split_image.length; i++)
+                            Log.i(TAG, "my: "+split_image[i]);
 
                         ImageView bookImage;
-                        for(int i = 0; i<split_image.length;i++){
+                        for(int i = 0; i < split_image.length; i++){
                             bookImage = new ImageView(getContext());
 //                        bookImage.setLayoutParams(lp);
 //                        bookImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            bookImage.setPadding(50, 20, 50, 20);
                             linearLayout_img.addView(bookImage);
                             Glide.with(getContext()).load(split_image[i]).override(IMAGE_WIDTH,IMAGE_HIGHT).into(bookImage);
 
@@ -432,6 +444,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     else  {
                         TextView tv_no_image = new TextView(getContext());
                         tv_no_image.setText("이미지가 없습니다.");
+                        tv_no_image.setPadding(30, 10, 0, 0);
                         linearLayout_img.addView(tv_no_image);
                     }
 

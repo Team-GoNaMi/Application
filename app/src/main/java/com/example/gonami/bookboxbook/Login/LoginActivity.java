@@ -266,6 +266,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i(TAG, "trueeeeeeeeee");
                     Log.i(TAG, "Login checked");
 
+                    user_id = user_id.trim();
+
                     SaveSharedPreference.setUserID(LoginActivity.this, cbAutoLogin.isChecked(), user_id, user_pw, user_name, user_pn);
 
                     Intent signinIntent = new Intent(LoginActivity.this, MainActivity.class);

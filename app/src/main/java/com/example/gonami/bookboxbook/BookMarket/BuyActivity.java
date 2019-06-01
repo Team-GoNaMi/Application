@@ -51,10 +51,13 @@ public class BuyActivity extends AppCompatActivity {
         book_name = intent.getExtras().getString("book_name");
         book_price = intent.getExtras().getString("book_price");
         schools = intent.getExtras().getString("schools");
+
+        school_list = null;
         school_list = schools.split(",");
+        Log.i(TAG, schools);
+        Log.i(TAG, String.valueOf(school_list.length));
 
 //        linearLayout= findViewById(R.id.linearLayout);
-        radioGroup = findViewById(R.id.radioGroup);
         btn_goto_payment= findViewById(R.id.btn_goto_payment);
 
     }
@@ -62,6 +65,8 @@ public class BuyActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        radioGroup = new RadioGroup(this);
+        radioGroup = findViewById(R.id.radioGroup);
 
         addRadioButtons(school_list.length);
 
@@ -72,7 +77,7 @@ public class BuyActivity extends AppCompatActivity {
 
                 int radioButtonID = radioGroup.getCheckedRadioButtonId();
                 if (radioButtonID != -1) {
-                    Log.i(TAG, String.valueOf(radioButtonID - 1));
+                    Log.i(TAG, String.valueOf(radioButtonID));
 
                     // 디비에 넣기
                     String buyer_id = SaveSharedPreference.getUserID(BuyActivity.this);
@@ -96,6 +101,7 @@ public class BuyActivity extends AppCompatActivity {
     }
 
     private void addRadioButtons(int num) {
+        Log.i(TAG, String.valueOf(radioGroup.getChildCount()));
         radioGroup.removeAllViews();
         for (int row = 0; row < num; row++ ) {
             RadioButton radioButton = new RadioButton(this);
@@ -104,6 +110,7 @@ public class BuyActivity extends AppCompatActivity {
 
             radioGroup.addView(radioButton);
         }
+        Log.i(TAG, String.valueOf(radioGroup.getChildCount()));
     }
 
     private class InsertBuyerInfo extends AsyncTask<String, Void, String> {

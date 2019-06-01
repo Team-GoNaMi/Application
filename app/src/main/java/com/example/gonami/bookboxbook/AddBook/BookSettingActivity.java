@@ -205,6 +205,7 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 for (int i = 0; i < photoPath.size(); i++) {
                     Log.i(TAG,"hhhhhhhhhhhhh:"+photoPath.get(i));
+                    Log.i(TAG,"hh:"+register_id);
                     ImageUploadTask imageUploadTask = new ImageUploadTask();
                     imageUploadTask.execute(ImageUploadURL, photoPath.get(i), register_id, String.valueOf(i));
                 }

@@ -78,11 +78,11 @@ public class BookInfoActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             Bundle bun = msg.getData();
+            naverResult = null;
             naverResult = bun.getString("DATA");
 
             String[] splitResult = naverResult.split("\\n");
-
-            bookImage = splitResult[2];
+            Log.i("BookInfo", String.valueOf(splitResult.length));
 
             ed_name.setText(splitResult[1]);
             ed_isbn.setText(splitResult[7]);
@@ -90,6 +90,9 @@ public class BookInfoActivity extends AppCompatActivity {
             ed_publisher.setText(splitResult[5]);
             ed_price.setText(splitResult[4]);
             ed_publish_date.setText(splitResult[6]);
+
+            // error 자주 남
+            bookImage = splitResult[2];
         }
     };
     @Override
