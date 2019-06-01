@@ -192,7 +192,7 @@ public class MyPageFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(userJsonString);
                 rate = jsonObject.getString(TAG_RATE);
                 Log.i(TAG,rate + "rate입니다");
-                if (rate != null) {
+                if (!rate.equals("null")) {
                     tv_rate.setText(String.valueOf(rate));
                 }
                 else {

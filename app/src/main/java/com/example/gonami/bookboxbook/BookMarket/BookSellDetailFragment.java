@@ -221,10 +221,13 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         });
 
 
+        String[] seller_id = book_register_id.split("-");
+        Log.i(TAG, seller_id[1]);
+
         //DB
         String user_id = SaveSharedPreference.getUserID(getContext());
         GetRegistBookData task = new GetRegistBookData();
-        task.execute("https://" + IP_ADDRESS + "/get-book-info.php", book_register_id, user_id);
+        task.execute("https://" + IP_ADDRESS + "/get-book-info.php", book_register_id, user_id, seller_id[1]);
 
     }
 
@@ -312,7 +315,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             String serverURL = strings[0];
             String book_register_id = strings[1];
             String user_id = strings[2];
-            String postParameters = "register_id=" + book_register_id + "& user_id=" + user_id;
+            String seller_id = strings[3];
+            String postParameters = "register_id=" + book_register_id + "& user_id=" + user_id + "& seller_id=" + seller_id;
             Log.i(TAG, "postParameters : " + postParameters);
 
             try {
@@ -412,13 +416,13 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
                     String rating = jsonObject.getString(TAG_RATE);
-                    if (rating.equals("null")) {
-                        Log.i(TAG, "rating : " + rating);
-                        tvRating.setText("아직 별점이 존재하지 않습니다.");
+
+                    Log.i(TAG,rating + "rate입니다");
+                    if (!rating.equals("null")) {
+                        tvRating.setText(String.valueOf(rating));
                     }
                     else {
-                        tvRating.setText(rating);
-                        Log.i(TAG, "rating2 : " + rating + " - " + rating.length());
+                        tvRating.setText("별점이 아직 없습니다.");
                     }
 
                     //이미지
