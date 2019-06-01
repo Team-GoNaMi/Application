@@ -82,6 +82,7 @@ public class BuyActivity extends AppCompatActivity {
                     // 디비에 넣기
                     String buyer_id = SaveSharedPreference.getUserID(BuyActivity.this);
                     InsertBuyerInfo task = new InsertBuyerInfo();
+                    Log.i(TAG,"gggggggggggggggggg" + school_list[radioButtonID-1]);
                     task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID-1]);
 
                     Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
