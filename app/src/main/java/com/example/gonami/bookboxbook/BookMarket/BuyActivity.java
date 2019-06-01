@@ -58,7 +58,7 @@ public class BuyActivity extends AppCompatActivity {
         Log.i(TAG, String.valueOf(school_list.length));
 
 //        linearLayout= findViewById(R.id.linearLayout);
-        btn_goto_payment= findViewById(R.id.btn_goto_payment);
+        btn_goto_payment= findViewById(R.id.btn_ok);
 
     }
 
@@ -82,8 +82,9 @@ public class BuyActivity extends AppCompatActivity {
                     // 디비에 넣기
                     String buyer_id = SaveSharedPreference.getUserID(BuyActivity.this);
                     InsertBuyerInfo task = new InsertBuyerInfo();
-                    Log.i(TAG,"gggggggggggggggggg" + school_list[radioButtonID-1]);
-                    task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID-1]);
+                    Log.i(TAG,"gggggggggggggggggg" + school_list[radioButtonID]);
+
+                    task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID]);
 
                     Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
                     //회원 아이디 넘겨야할까?
@@ -106,7 +107,7 @@ public class BuyActivity extends AppCompatActivity {
         radioGroup.removeAllViews();
         for (int row = 0; row < num; row++ ) {
             RadioButton radioButton = new RadioButton(this);
-            radioButton.setId(View.generateViewId());
+            radioButton.setId(row);
             radioButton.setText(school_list[row]);
 
             radioGroup.addView(radioButton);

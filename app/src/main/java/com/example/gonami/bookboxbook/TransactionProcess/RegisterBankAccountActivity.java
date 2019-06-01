@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -45,8 +46,8 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
         edBankAccountOwner = findViewById(R.id.ed_bank_account_owner);
         btnBankResComplete = findViewById(R.id.btn_bank_res_complete);
 
-      //0  Intent intent = new Intent(this.getIntent());
-       // book_register_id = intent.getExtras().getString("register_id");
+        Intent intent = new Intent(this.getIntent());
+        book_register_id = intent.getExtras().getString("register_id");
     }
 
     @Override
@@ -76,17 +77,18 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
                 bankInfo = edBankInfo.getText().toString();
                 bankAccountNum = edBankAccountNum.getText().toString();
                 bankAccountOwner = edBankAccountOwner.getText().toString();
-//TODO 예금주 일치?
+
+                //TODO 예금주 일치?
                 RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
                 task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
 
-                Intent Intent = new Intent(RegisterBankAccountActivity.this, DepositActivity.class);
-                //회원 아이디 넘겨야할까?
-                // Intent.putExtra("registBook", registBook);
-                Intent.putExtra("owner", bankAccountOwner);
-                Intent.putExtra("bank", bankInfo);
-                Intent.putExtra("account_num", bankAccountNum);
-                RegisterBankAccountActivity.this.startActivity(Intent);
+//                Intent Intent = new Intent(RegisterBankAccountActivity.this, DepositActivity.class);
+//                //회원 아이디 넘겨야할까?
+//                // Intent.putExtra("registBook", registBook);
+//                Intent.putExtra("owner", bankAccountOwner);
+//                Intent.putExtra("bank", bankInfo);
+//                Intent.putExtra("account_num", bankAccountNum);
+//                RegisterBankAccountActivity.this.startActivity(Intent);
                 finish();
             }
         });

@@ -68,12 +68,25 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
     private void settingPicker(){
         datePicker.setMinDate(new Date().getTime());
-        if(datePicker.getMonth()+1<10){
-            stringDate = String.valueOf(datePicker.getYear()) + "-0" + String.valueOf(datePicker.getMonth()+1) + "-" + String.valueOf(datePicker.getDayOfMonth());
+        if(datePicker.getMonth()<9){
+            if(datePicker.getDayOfMonth()<10){
+                stringDate = String.valueOf(datePicker.getYear()) + "-0" + String.valueOf(datePicker.getMonth()+1) + "-0" + String.valueOf(datePicker.getDayOfMonth());
+            }
+            else{
+                stringDate = String.valueOf(datePicker.getYear()) + "-0" + String.valueOf(datePicker.getMonth()+1) + "-" + String.valueOf(datePicker.getDayOfMonth());
+            }
         }
         else{
-            stringDate = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()+1) + "-" + String.valueOf(datePicker.getDayOfMonth());
+            if(datePicker.getDayOfMonth()<10){
+                stringDate = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()+1) + "-0" + String.valueOf(datePicker.getDayOfMonth());
+            }
+            else{
+                stringDate = String.valueOf(datePicker.getYear()) + "-" + String.valueOf(datePicker.getMonth()+1) + "-" + String.valueOf(datePicker.getDayOfMonth());
+            }
         }
+
+
+
 
     }
     @Override
@@ -108,13 +121,25 @@ public class BookBoxBookActivity extends AppCompatActivity {
                                     }
                                 });
                                 //확인 누르면 저장한다.
-                                if(monthOfYear+1 <10){
-                                    stringDate = year + "-0" + (monthOfYear+1) + "-" + dayOfMonth;
-                                }
-                                else{
-                                    stringDate = year + "-0" + (monthOfYear+1) + "-" + dayOfMonth;
+                                if(monthOfYear<9){
+                                    if(dayOfMonth <10){
+                                        stringDate = year + "-0" + (monthOfYear+1) + "-0" + dayOfMonth;
+                                    }
+                                    else{
+                                        stringDate = year + "-0" + (monthOfYear+1) + "-" + dayOfMonth;
+                                    }
 
                                 }
+                                else{
+                                    if(dayOfMonth <10){
+                                        stringDate = year + "-" + (monthOfYear+1) + "-0" + dayOfMonth;
+                                    }
+                                    else{
+                                        stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                                    }
+                                }
+
+
                             }
 
                         });
@@ -142,12 +167,25 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
                     @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        if(monthOfYear+1 <10){
-                            stringDate = year + "-0" + (monthOfYear+1) + "-" + dayOfMonth;
+                        if(monthOfYear<9){
+                            if(dayOfMonth <10){
+                                stringDate = year + "-0" + (monthOfYear+1) + "-0" + dayOfMonth;
+                            }
+                            else{
+                                stringDate = year + "-0" + (monthOfYear+1) + "-" + dayOfMonth;
+                            }
+
                         }
                         else{
-                            stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                            if(dayOfMonth <10){
+                                stringDate = year + "-" + (monthOfYear+1) + "-0" + dayOfMonth;
+                            }
+                            else{
+                                stringDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                            }
                         }
+
+                        Log.i(TAG, stringDate+"third!!!");
 
             }
 

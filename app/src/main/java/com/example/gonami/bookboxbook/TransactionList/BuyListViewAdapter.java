@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -20,17 +21,28 @@ import com.bumptech.glide.Glide;
 import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
 import com.example.gonami.bookboxbook.DataModel.BookTradeInformation;
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.RecognizeCode.QRActivity;
 import com.example.gonami.bookboxbook.TransactionProcess.RateActivity;
+import com.example.gonami.bookboxbook.TransactionProcess.ReportActivity;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class BuyListViewAdapter extends BaseAdapter {
 
     private ArrayList<BookInformation> bookList;
     private ArrayList<BookTradeInformation> tradeList;
+
+    private static String IP_ADDRESS = "bookboxbook.duckdns.org";
+    private static String TAG = "BuyListViewAdapter";
 
     public BuyListViewAdapter(ArrayList<BookInformation> buyList, ArrayList<BookTradeInformation> tradeList) {
         this.bookList = buyList;
@@ -44,6 +56,7 @@ public class BuyListViewAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Context parentContext = parent.getContext();
@@ -92,7 +105,7 @@ public class BuyListViewAdapter extends BaseAdapter {
                 btnBookState.setClickable(true);
                 break;
             case 4:
-                btnBookState.setText("구매 확정 해 주세요");
+                btnBookState.setText("구매 확정해 주세요");
                 btnBookState.setClickable(true);
                 break;
 
@@ -135,11 +148,13 @@ public class BuyListViewAdapter extends BaseAdapter {
                     case 4:
                         AlertDialog.Builder buyComplite = new AlertDialog.Builder(parentContext);
 
-                        buyComplite.setTitle("구매를 확정하시겠습니까?(10분)").setCancelable(
-                                false).setNegativeButton("아니요",
+                        buyComplite.setTitle("구매를 확정하시겠습니까?(10분) 아닐경우 신고하기로 넘어갑니다.").setCancelable(
+                                false).setNegativeButton("신고하기",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        //경고창한번더? 신고하기해주세요
+                                        Intent intent = new Intent(parentContext, ReportActivity.class);
+                                        intent.putExtra("register_id", bookInfo.getRegister_id());
+                                        parentContext.startActivity(intent);
                                     }
                                 }).setPositiveButton("네",
                                 new DialogInterface.OnClickListener() {
@@ -181,4 +196,5 @@ public class BuyListViewAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 }

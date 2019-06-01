@@ -235,7 +235,7 @@ public class SignUpActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            progressDialog.dismiss();
+               progressDialog.dismiss();
             Log.i(TAG, "POST response1  - " + result);
         }
 

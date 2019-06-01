@@ -62,8 +62,11 @@ public class QRActivity extends AppCompatActivity {
         role = intent.getExtras().getBoolean("role");
         member_id = SaveSharedPreference.getUserID(getBaseContext());
 
+        String[] isbn_split = isbn.split(" ");
+        Log.i("BookInfo", isbn_split[1]+"gggg");
+
         if (role) {     // seller
-            insertData = String.format("%s$$$%s$$$%s", isbn, register_id, member_id);
+            insertData = String.format("%s$$$%s$$$%s", isbn_split[1], register_id, member_id);
         }
         else {          // buyer
             insertData = String.format("%s$$$%s", register_id, member_id);

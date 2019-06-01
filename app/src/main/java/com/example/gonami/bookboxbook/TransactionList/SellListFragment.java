@@ -48,10 +48,6 @@ public class SellListFragment extends Fragment {
     private ArrayList<BookInformation> sellList;
     private ArrayList<BookTradeInformation> tradeList;
 
-    private Button btn_bookbb;
-    private Button btn_qr;
-    private Button btn_rate;
-
 
     public SellListFragment() {
 
@@ -84,37 +80,6 @@ public class SellListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ////////////////////////////////////////////////////////////////////////////
-        // For test buttons
-        btn_bookbb = thisView.findViewById(R.id.btn_bookbb);
-        btn_qr = thisView.findViewById(R.id.btn_qr);
-        btn_rate = thisView.findViewById(R.id.btn_rate);
-
-//        btn_state = thisView.findViewById(R.id.btn_state);
-
-//        btn_state.setText("북박스예약");
-        btn_bookbb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), RegisterBankAccountActivity.class);
-                getActivity().startActivity(Intent);
-            }
-        });
-        btn_qr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), QRActivity.class);
-                getActivity().startActivity(Intent);
-            }
-        });
-        btn_rate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Intent = new Intent(getActivity(), RateActivity.class);
-                getActivity().startActivity(Intent);
-            }
-        });
-        ////////////////////////////////////////////////////////////////////////////////
 
         // 사용자(판매자) 아이디 받아오기
         String seller_id = SaveSharedPreference.getUserID(getContext());

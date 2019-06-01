@@ -7,31 +7,6 @@
     android:layout_marginBottom="56dp">
 
 
-    <Button
-        android:id="@+id/btn_bookbb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="북박스예약" />
-
-    <Button
-        android:id="@+id/btn_qr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="큐알코드" />
-
-    <Button
-        android:id="@+id/btn_rate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="평가" />
-
-
-    <Button
-        android:id="@+id/btn_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="상태" />
-
     <ListView
         android:id="@+id/lv_sell_list"
         android:layout_width="match_parent"

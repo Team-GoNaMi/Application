@@ -40,6 +40,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimary"
             android:text="중복 확인"
             android:textSize="12sp" />
 
