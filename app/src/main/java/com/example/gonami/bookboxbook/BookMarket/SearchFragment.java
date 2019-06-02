@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -44,6 +47,7 @@ public class SearchFragment extends Fragment {
 
     private ListView bookListView;
     private BookSearchListViewAdapter bookSearchListViewAdapter;
+    private LinearLayout linearLayout;
 
     private ArrayList<BookInformation> bookList;
 
@@ -101,6 +105,9 @@ public class SearchFragment extends Fragment {
 
         bookSearchListViewAdapter = new BookSearchListViewAdapter(bookList);
         bookListView.setAdapter(bookSearchListViewAdapter);
+
+        linearLayout = thisView.findViewById(R.id.linear_layout);
+        linearLayout.setVisibility(View.INVISIBLE);
 
         etSearchBook.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -252,7 +259,16 @@ public class SearchFragment extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "책 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                    linearLayout.setVisibility(View.VISIBLE);
+
+                    Log.i(TAG, "검색 목록 없음");
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    TextView no_list = new TextView(getContext());
+                    no_list.setText("찾으시는 책이 없습니다.");
+                    no_list.setGravity(Gravity.CENTER);
+                    no_list.setLayoutParams(lp);
+
+                    linearLayout.addView(no_list);
                 }
 
                 // 어뎁터 생성
