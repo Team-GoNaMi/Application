@@ -57,13 +57,14 @@
                     <TextView
                         android:id="@+id/what_is_ur_name"
                         android:layout_width="70dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:text="이름" />
 
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:text="내 이름이당" />
@@ -80,13 +81,14 @@
                     <TextView
                         android:id="@+id/what_is_ur_id"
                         android:layout_width="70dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:text="ID" />
 
                     <TextView
                         android:id="@+id/user_id"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
                         android:text="내 ID당" />
@@ -103,21 +105,22 @@
                     <TextView
                         android:id="@+id/book_state_writings"
                         android:layout_width="70dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:text="내 별점" />
 
-                    <ImageView
+                    <LinearLayout
+                        android:id="@+id/ll_rating"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_star_black_24dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_rate"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        android:layout_height="match_parent"
+                        android:textSize="17sp" />
                 </LinearLayout>
 
 
