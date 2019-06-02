@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:textColorLink="@color/colorPrimary"
-        android:textColorHighlight="@color/colorPrimary"/>
+        android:textColorHighlight="@color/colorPrimary"
+        android:checked="true"/>
 
 
 </LinearLayout>
