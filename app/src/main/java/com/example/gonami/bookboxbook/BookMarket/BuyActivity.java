@@ -80,16 +80,12 @@ public class BuyActivity extends AppCompatActivity {
                     Log.i(TAG, String.valueOf(radioButtonID));
 
                     // 디비에 넣기
-                    String buyer_id = SaveSharedPreference.getUserID(BuyActivity.this);
-                    InsertBuyerInfo task = new InsertBuyerInfo();
-                    Log.i(TAG,"gggggggggggggggggg" + school_list[radioButtonID]);
-
-                    task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school_list[radioButtonID]);
 
                     Intent Intent = new Intent(BuyActivity.this, TransactionActivity.class);
                     //회원 아이디 넘겨야할까?
                     // Intent.putExtra("registBook", registBook);
                     Intent.putExtra("register_id", register_id);
+                    Intent.putExtra("school",school_list[radioButtonID]);
                     Intent.putExtra("book_name", book_name);
                     Intent.putExtra("book_price", book_price);
                     BuyActivity.this.startActivity(Intent);
@@ -115,71 +111,5 @@ public class BuyActivity extends AppCompatActivity {
         Log.i(TAG, String.valueOf(radioGroup.getChildCount()));
     }
 
-    private class InsertBuyerInfo extends AsyncTask<String, Void, String> {
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.i(TAG, "POST response1  - " + result);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String serverURL = (String) strings[0];
-            String register_id = (String) strings[1];
-            String buyer_id = strings[2];
-            String school = strings[3];
-            String postParameters = "register_id=" + register_id + "& buyer_id=" + buyer_id + "& school=" + school;
-
-            try {
-
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.connect();
-
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.i(TAG, "POST response code2 - " + responseStatusCode);
-
-                InputStream inputStream;
-                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                    Log.i(TAG, "OKAY");
-                } else {
-                    inputStream = httpURLConnection.getErrorStream();
-                    Log.i(TAG, String.valueOf(responseStatusCode));
-
-                }
-
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
-                }
-                bufferedReader.close();
-                Log.i(TAG, "////" + sb.toString());
-                return sb.toString();
-
-            } catch (Exception e) {
-                Log.i(TAG, "InsertData: Error ", e);
-                return new String("Error: " + e.getMessage());
-            }
-        }
-    }
 }

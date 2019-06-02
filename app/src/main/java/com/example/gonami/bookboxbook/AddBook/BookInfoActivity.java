@@ -84,15 +84,22 @@ public class BookInfoActivity extends AppCompatActivity {
             String[] splitResult = naverResult.split("\\n");
             Log.i("BookInfo", String.valueOf(splitResult.length));
 
-            ed_name.setText(splitResult[1]);
-            ed_isbn.setText(splitResult[7]);
-            ed_author.setText(splitResult[3]);
-            ed_publisher.setText(splitResult[5]);
-            ed_price.setText(splitResult[4]);
-            ed_publish_date.setText(splitResult[6]);
+            if(splitResult.length != 1 || splitResult.length != 0){
+                ed_name.setText(splitResult[1]);
+                ed_isbn.setText(splitResult[7]);
+                ed_author.setText(splitResult[3]);
+                ed_publisher.setText(splitResult[5]);
+                ed_price.setText(splitResult[4]);
+                ed_publish_date.setText(splitResult[6]);
 
-            // error 자주 남
-            bookImage = splitResult[2];
+                // error 자주 남
+                bookImage = splitResult[2];
+            }
+            else{
+                Toast.makeText(BookInfoActivity.this, "찾으시는 책이 없네요. 직접 입력해주세요!", Toast.LENGTH_SHORT).show();
+
+            }
+
         }
     };
     @Override
