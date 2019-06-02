@@ -14,6 +14,7 @@ public class SaveSharedPreference {
     static final String PREF_USER_PW = "userPW";
     static final String PREF_NAME = "name";
     static final String PREF_PN = "phonenum";
+    static final String PREF_PUSH_ALERT = "push_alert";
 
 
     static SharedPreferences getSharedPreferences(Context context) {
@@ -48,10 +49,21 @@ public class SaveSharedPreference {
         editor.commit();
     }
 
+    public static void setPushAlert(Context context, Boolean checked) {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putBoolean(PREF_PUSH_ALERT, checked);
+        editor.commit();
+    }
+
     // 저장된 정보 가져오기
     public static Boolean getAutoLogin(Context context) {
         Log.i(TAG, "Auto login");
         return getSharedPreferences(context).getBoolean(PREF_AUTO_LOGIN, false);
+    }
+
+    public static Boolean getPushAlert(Context context) {
+        Log.i(TAG, "Push Alert");
+        return getSharedPreferences(context).getBoolean(PREF_PUSH_ALERT, true);
     }
 
     public static String getUserID(Context context) {

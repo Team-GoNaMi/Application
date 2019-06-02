@@ -27,6 +27,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -42,9 +43,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-//        if(MainActivity.pushFlag==false){
-//            return;
-//        }
+        if (!SaveSharedPreference.getPushAlert(getBaseContext()))
+            return;
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 

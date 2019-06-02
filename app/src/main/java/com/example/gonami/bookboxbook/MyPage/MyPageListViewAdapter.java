@@ -38,6 +38,8 @@ public class MyPageListViewAdapter extends BaseAdapter {
     private static String IP_ADDRESS = "bookboxbook.duckdns.org";
     private static String TAG = "MyPageAdapter";
 
+    private ToggleButton toggleButton;
+
     private ArrayList<String> menu = new ArrayList<String>();
 
     public MyPageListViewAdapter(ArrayList<String> menu) {
@@ -71,7 +73,7 @@ public class MyPageListViewAdapter extends BaseAdapter {
 
             if(position == 0){
                 convertView = inflater.inflate(R.layout.alarm_button, parent, false);
-                ToggleButton toggleButton = convertView.findViewById(R.id.toggleButton);
+                toggleButton = convertView.findViewById(R.id.toggleButton);
             }
         }
         if (position != 0) {
@@ -79,24 +81,18 @@ public class MyPageListViewAdapter extends BaseAdapter {
             tvMenuName.setText(menu.get(position));
         }
 
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveSharedPreference.setPushAlert(context, toggleButton.isChecked());
+            }
+        });
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, menu.get(position), Toast.LENGTH_SHORT).show();
                 if (position == 1){         // 회원수정
-//                    ChangePersonalInfoFragment changePersonalInfoFragment = new ChangePersonalInfoFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("BookRegisterID", bookInfo.getRegister_id());
-//                    changePersonalInfoFragment = ChangePersonalInfoFragment.newInstance(bundle);
-
-//                    FragmentManager fragmentManager = ((MainActivity)context).getSupportFragmentManager();
-//
-//                    fragmentManager.beginTransaction()
-//                            .replace(R.id.frame_layout, changePersonalInfoFragment)
-//                            .commit();
-//
-//                    MainActivity.activeFragment = changePersonalInfoFragment;
-
                     Intent intent = new Intent(context, ChangePersonalInfoActivity.class);
                     context.startActivity(intent);
 
