@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, searchFragment, "Search")
-                            .detach(searchFragment)
-                            .attach(searchFragment)
                             .commit();
                     activeFragment = searchFragment;
                     return true;
@@ -69,8 +67,6 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, bookMarkFragment, "BookMark")
-                            .detach(bookMarkFragment)
-                            .detach(bookMarkFragment)
                             .commit();
                     activeFragment = bookMarkFragment;
                     return true;
@@ -78,8 +74,6 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, addFragment, "Add")
-                            .detach(addFragment)
-                            .attach(addFragment)
                             .commit();
                     activeFragment = addFragment;
                     return true;
@@ -87,8 +81,6 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, transactionListFragment, "TransactionList")
-                            .detach(transactionListFragment)
-                            .attach(transactionListFragment)
                             .commit();
                     activeFragment = transactionListFragment;
                     return true;
@@ -96,8 +88,6 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, myPageFragment, "MyPage")
-                            .detach(myPageFragment)
-                            .attach(myPageFragment)
                             .commit();
                     activeFragment = myPageFragment;
                     return true;
