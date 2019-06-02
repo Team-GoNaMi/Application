@@ -16,6 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 
+import com.example.gonami.bookboxbook.BookMarket.BuyActivity;
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
 import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
@@ -39,6 +40,9 @@ public class TransactionActivity extends AppCompatActivity {
     private WebSettings webSettings;
     private static final String APP_SCHEME = "iamporttest://";
 
+    private String register_id;
+    private String buyer_id;
+    private String school;
     private final Handler handler = new Handler();
     private String postData;
     @SuppressLint("NewApi")
@@ -61,10 +65,11 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        String register_id = intent.getExtras().getString("register_id");
+        register_id = intent.getExtras().getString("register_id");
         String book_name = intent.getExtras().getString("book_name");
         String book_price = intent.getExtras().getString("book_price");
-
+        buyer_id = SaveSharedPreference.getUserID(TransactionActivity.this);
+        school = intent.getExtras().getString("school");
         Uri intentData = intent.getData();
         String phone_num = SaveSharedPreference.getUserPN(this);
 
@@ -109,10 +114,14 @@ public class TransactionActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(TransactionActivity.this, BuyListViewAdapter.class);
-        //intent.putExtra("from", "TransactionList");
+        Intent intent = new Intent(TransactionActivity.this, MainActivity.class);
+        intent.putExtra("from", "TransactionList");
         TransactionActivity.this.startActivity(intent);
 
+        InsertBuyerInfo task = new InsertBuyerInfo();
+        task.execute("https://" + IP_ADDRESS + "/insert-buyer.php", register_id, buyer_id, school);
+
+        finish();
 
     }
 
@@ -138,6 +147,73 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
 
+    }
+    private class InsertBuyerInfo extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.i(TAG, "POST response1  - " + result);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String serverURL = (String) strings[0];
+            String register_id = (String) strings[1];
+            String buyer_id = strings[2];
+            String school = strings[3];
+            String postParameters = "register_id=" + register_id + "& buyer_id=" + buyer_id + "& school=" + school;
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.i(TAG, "POST response code2 - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                    Log.i(TAG, "OKAY");
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                    Log.i(TAG, String.valueOf(responseStatusCode));
+
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                Log.i(TAG, "////" + sb.toString());
+                return sb.toString();
+
+            } catch (Exception e) {
+                Log.i(TAG, "InsertData: Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+        }
     }
 
 }

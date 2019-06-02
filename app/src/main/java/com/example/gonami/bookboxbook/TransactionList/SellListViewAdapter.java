@@ -110,7 +110,7 @@ public class SellListViewAdapter extends BaseAdapter {
                 break;
                 //입금전
             case 5:
-                btnBookState.setText("계좌번호를 입력하세요");
+                btnBookState.setText("계좌번호 입력해 주세요");
                 btnBookState.setClickable(true);
                 break;
 
