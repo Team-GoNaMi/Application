@@ -13,8 +13,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -484,7 +482,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -496,31 +495,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="13dp">
 
-                    <ImageView
-                        android:id="@+id/iv_rating_star"
+                    <LinearLayout
+                        android:id="@+id/ll_rating"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/ic_star_black_24dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_rating"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center_vertical"
-                        android:text="별점"
-                        android:textColor="@android:color/black" />
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="7dp"
+                        android:text="별점" />
 
                 </LinearLayout>
-
-                <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!---->
-                <!--</android.support.v7.widget.RecyclerView>-->
 
 
             </LinearLayout>

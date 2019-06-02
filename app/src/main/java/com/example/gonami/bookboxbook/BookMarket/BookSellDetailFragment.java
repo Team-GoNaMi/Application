@@ -95,6 +95,8 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
     private LinearLayout linearLayout_img;
     private TextView memo;
+
+    private LinearLayout linearLayout;
     private TextView tvRating;
 
     public BookSellDetailFragment() {
@@ -125,6 +127,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
             from_fragment = getArguments().getString("from");
             if (from_fragment == null) {
                 from_fragment = "Search";
+                Log.i(TAG, from_fragment);
             }
             else {
                 Log.i(TAG, book_register_id);
@@ -170,6 +173,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         linearLayout_img = thisView.findViewById(R.id.linearLayout_img);
         memo = thisView.findViewById(R.id.tv_book_state_memo);
         tvRating = thisView.findViewById(R.id.tv_rating);
+        linearLayout = view.findViewById(R.id.ll_rating);
 
         ibBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,8 +389,6 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
             String TAG_RATE = "rate";
 
-            //String TAG_RATING = "";
-
             boolean success;
 
             try {
@@ -405,11 +407,35 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
                     memo.setText(jsonObject.getString(TAG_MEMO));
 
                     tvLocation.setText(jsonObject.getString(TAG_SCHOOL));
-                    String rating = jsonObject.getString(TAG_RATE);
+                    String rate = jsonObject.getString(TAG_RATE);
 
-                    Log.i(TAG,rating + "rate입니다");
-                    if (!rating.equals("null")) {
-                        tvRating.setText(rating);
+                    Log.i(TAG,rate + "rate입니다");
+                    if (!rate.equals("null")) {
+                        linearLayout.removeAllViews();
+                        Log.i(TAG,rate + "rate입니다");
+                        tvRating.setText("  (" + rate + ")");
+
+                        float ratef = Float.valueOf(rate);
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                        for (int i = 0; i < 5; i++) {
+                            ImageView iv = new ImageView(getContext());
+                            iv.setLayoutParams(lp);
+                            iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            float remains = ratef - i;
+
+                            if (remains < 0.5) {
+                                iv.setImageResource(R.drawable.ic_star_border_24dp);
+                            }
+                            else if ((0.5 <= remains) && (remains < 1)) {
+                                iv.setImageResource(R.drawable.ic_star_half_24dp);
+                            }
+                            else {      // 1보다 큰 경우
+                                iv.setImageResource(R.drawable.ic_star_full_24dp);
+                            }
+                            linearLayout.addView(iv);
+
+                        }
                     }
                     else {
                         tvRating.setText("별점이 아직 없습니다.");

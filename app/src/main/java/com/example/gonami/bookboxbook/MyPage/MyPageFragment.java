@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +48,8 @@ public class MyPageFragment extends Fragment {
 
     private TextView tv_user_name;
     private TextView tv_user_id;
+
+    private LinearLayout linearLayout;
     private TextView tv_rate;
     public MyPageFragment() {
 
@@ -78,6 +82,8 @@ public class MyPageFragment extends Fragment {
 
         tv_user_name = view.findViewById(R.id.user_name);
         tv_user_id = view.findViewById(R.id.user_id);
+
+        linearLayout = view.findViewById(R.id.ll_rating);
         tv_rate = view.findViewById(R.id.tv_rate);
 
         tv_user_name.setText(SaveSharedPreference.getUserName(getContext()));
@@ -193,9 +199,35 @@ public class MyPageFragment extends Fragment {
                 Boolean success = jsonObject.getBoolean(TAG_SUCCESS);
 
                 if (success) {
+                    linearLayout.removeAllViews();
                     String rate = jsonObject.getString(TAG_RATE);
                     Log.i(TAG,rate + "rate입니다");
-                    tv_rate.setText(rate);
+                    tv_rate.setText("  (" + rate + ")");
+
+                    float ratef = Float.valueOf(rate);
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    for (int i = 0; i < 5; i++) {
+                        ImageView iv = new ImageView(getContext());
+                        iv.setLayoutParams(lp);
+                        iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        float remains = ratef - i;
+
+                       if (remains < 0.5) {
+                            iv.setImageResource(R.drawable.ic_star_border_24dp);
+                        }
+                        else if ((0.5 <= remains) && (remains < 1)) {
+                            iv.setImageResource(R.drawable.ic_star_half_24dp);
+                        }
+                        else {      // 1보다 큰 경우
+                            iv.setImageResource(R.drawable.ic_star_full_24dp);
+                        }
+                        linearLayout.addView(iv);
+
+                    }
+
+
+
                 }
                 else {
                     tv_rate.setText("별점이 아직 없습니다.");

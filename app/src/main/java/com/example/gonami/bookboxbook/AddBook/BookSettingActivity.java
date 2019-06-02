@@ -24,6 +24,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -249,8 +250,10 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle1.setImageResource(R.drawable.ic_delete);
                         btn_cancle1.setBackgroundColor(Color.WHITE);
                         btn_cancle1.setLayoutParams(lp);
+                        btn_cancle1.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                         text_school1.setText(school_element);
+                        text_school1.setGravity(Gravity.CENTER);
 
                         linear_element1 = new LinearLayout(BookSettingActivity.this);
                         linear_element1.addView(text_school1);
@@ -275,8 +278,10 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle2.setImageResource(R.drawable.ic_delete);
                         btn_cancle2.setBackgroundColor(Color.WHITE);
                         btn_cancle2.setLayoutParams(lp);
+                        btn_cancle2.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                         text_school2.setText(school_element);
+                        text_school2.setGravity(Gravity.CENTER);
 
                         linear_element2 = new LinearLayout(BookSettingActivity.this);
                         linear_element2.addView(text_school2);

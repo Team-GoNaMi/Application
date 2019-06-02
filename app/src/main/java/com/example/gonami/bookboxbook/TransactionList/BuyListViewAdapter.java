@@ -179,6 +179,7 @@ public class BuyListViewAdapter extends BaseAdapter {
                 BookSellDetailFragment bookSellDetailFragment;
                 Bundle bundle = new Bundle();
                 bundle.putString("BookRegisterID", bookInfo.getRegister_id());
+                bundle.putString("from", "Buy");
                 bookSellDetailFragment = BookSellDetailFragment.newInstance(bundle);
 
                 Log.i("buyList", bookInfo.getRegister_id());
