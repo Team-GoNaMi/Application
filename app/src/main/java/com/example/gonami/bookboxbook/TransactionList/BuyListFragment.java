@@ -39,9 +39,9 @@ public class BuyListFragment extends Fragment {
 
     private View thisView = null;
 
-    private LinearLayout linearLayout;
     private ListView buyListView;
     private BuyListViewAdapter buyListAdapter;
+    private LinearLayout linearLayout;
 
     private ArrayList<BookInformation> buyList;
     private ArrayList<BookTradeInformation> tradeList;

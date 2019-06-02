@@ -6,10 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -37,6 +40,8 @@ public class BookMarkFragment extends Fragment {
 
     private ListView bookmarkListView;
     private BookMarkListViewAdapter bookmarkListAdapter;
+    private LinearLayout linearLayout;
+
     private ArrayList<BookInformation> bookmarkList;
 
     public BookMarkFragment() {
@@ -80,6 +85,9 @@ public class BookMarkFragment extends Fragment {
         bookmarkListView = thisView.findViewById(R.id.lv_bookmark);
         bookmarkListAdapter = new BookMarkListViewAdapter(bookmarkList);
         bookmarkListView.setAdapter(bookmarkListAdapter);
+
+        linearLayout = thisView.findViewById(R.id.linear_layout);
+        linearLayout.setVisibility(View.INVISIBLE);
     }
 
     private class GetBookMarkData extends AsyncTask<String, Void, String> {
@@ -191,7 +199,16 @@ public class BookMarkFragment extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "북마크 한 책이 없습니다.", Toast.LENGTH_SHORT).show();
+                    linearLayout.setVisibility(View.VISIBLE);
+
+                    Log.i(TAG, "북마크 목록 없음");
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    TextView no_list = new TextView(getContext());
+                    no_list.setText("북마크한 책이 없습니다.");
+                    no_list.setGravity(Gravity.CENTER);
+                    no_list.setLayoutParams(lp);
+
+                    linearLayout.addView(no_list);
                 }
 
                 // 어뎁터 생성

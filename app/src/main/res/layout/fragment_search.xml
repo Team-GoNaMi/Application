@@ -49,10 +49,17 @@
 
     </FrameLayout>
 
-
     <ListView
         android:id="@+id/lv_book_market"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="wrap_content"></ListView>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 </LinearLayout>
