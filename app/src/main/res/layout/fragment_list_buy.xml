@@ -7,14 +7,20 @@
     android:layout_marginBottom="56dp">
 
 
-
-
-
     <ListView
         android:id="@+id/lv_buy_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     </ListView>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
 
 </LinearLayout>

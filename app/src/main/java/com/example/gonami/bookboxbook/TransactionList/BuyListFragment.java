@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.BookInformation;
@@ -37,10 +39,10 @@ public class BuyListFragment extends Fragment {
 
     private View thisView = null;
 
+    private LinearLayout linearLayout;
     private ListView buyListView;
     private BuyListViewAdapter buyListAdapter;
 
-//    private ArrayList<String> buyList;
     private ArrayList<BookInformation> buyList;
     private ArrayList<BookTradeInformation> tradeList;
 
@@ -86,9 +88,10 @@ public class BuyListFragment extends Fragment {
         buyListAdapter = new BuyListViewAdapter(buyList, tradeList);
         buyListView.setAdapter(buyListAdapter);
 
-        if (tradeList.size()==0) {
-            Toast.makeText(getContext(), "구매한 책이 없습니다.", Toast.LENGTH_SHORT).show();
-        }
+        Log.i(TAG, ">>>" + tradeList.size());
+
+        linearLayout = thisView.findViewById(R.id.linear_layout);
+        linearLayout.setVisibility(View.INVISIBLE);
     }
 
     private class GetBuyBookData extends AsyncTask<String, Void, String> {
@@ -206,9 +209,20 @@ public class BuyListFragment extends Fragment {
                         Log.i(TAG, tradeList.get(i).getBookRegister_id() + tradeList.get(i).getStatus());
                     }
                 }
-//                else {
-//                    Toast.makeText(getContext(), "구매한 책이 없습니다.", Toast.LENGTH_SHORT).show();
-//                }
+                else {
+                    if (buyList.size()==0) {
+                        linearLayout.setVisibility(View.VISIBLE);
+
+                        Log.i(TAG, "구매 목록 없음");
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        TextView no_list = new TextView(getContext());
+                        no_list.setText("구매한 책이 없습니다.");
+                        no_list.setGravity(Gravity.CENTER);
+                        no_list.setLayoutParams(lp);
+
+                        linearLayout.addView(no_list);
+                    }
+                }
 
                 // 어뎁터 생성
                 buyListAdapter = new BuyListViewAdapter(buyList, tradeList);

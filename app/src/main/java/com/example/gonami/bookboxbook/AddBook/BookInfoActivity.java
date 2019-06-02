@@ -189,6 +189,7 @@ public class BookInfoActivity extends AppCompatActivity {
         });
 
     }
+
     public String getNaverSearch(String ISBN) {
         String clientID = "wNNgAlcczg7mtaePzFES";
         String clientSecret = "IsJqKOgX1y";
