@@ -31,14 +31,16 @@
 
         <EditText
             android:id="@+id/ed_user_id"
-            android:layout_width="280dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:inputType="textPersonName"/>
 
         <Button
             android:id="@+id/btn_dup_check"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="33dp"
+            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:text="중복 확인"
             android:background="@color/colorPrimary"
