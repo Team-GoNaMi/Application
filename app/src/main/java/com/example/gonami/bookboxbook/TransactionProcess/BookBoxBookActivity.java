@@ -162,8 +162,7 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, stringDate, book_register_id);
 
                 // 새로고침
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                TransactionListFragment fragment = TransactionListFragment.newInstance();
+                // TODO 이부분을 추가하면 됨
                 Intent intent = new Intent(BookBoxBookActivity.this, MainActivity.class);
                 intent.putExtra("from", "TransactionList");
                 BookBoxBookActivity.this.startActivity(intent);

@@ -106,8 +106,6 @@ public class MainActivity extends AppCompatActivity  {
 
         setContentView(R.layout.activity_main);
 
-//        Intent userInfoIntent = new Intent(this.getIntent());
-//        String user_id = userInfoIntent.getStringExtra("id");
         Intent trintent = new Intent(this.getIntent());
         String fromFragment = "Search";
         if (this.getIntent().hasExtra("from"))
@@ -131,6 +129,7 @@ public class MainActivity extends AppCompatActivity  {
     private void setFragmentManager(String fragmentName) {
         Fragment fragment;
 
+        // tODO 이 부분 추가 else if 로 해서
         if (fragmentName.equals("TransactionList")) {
             fragment = TransactionListFragment.newInstance();
         }
