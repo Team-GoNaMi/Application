@@ -11,29 +11,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/list_border">
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="50dp"
             android:gravity="center_horizontal"
-            android:text="신고하기"
+            android:text="※ 신고하기 ※"
             android:textStyle="bold"
-            android:textColor="#FF0000"
+            android:textColor="@android:color/black"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="30dp"
+            android:textStyle="bold"
+            android:textSize="16.5sp"
+            android:gravity="center"
+            android:textColor="#c93c3c"
+            android:text="신고 후 그 사실이 허위로 밝혀질 경우,\n\n입금했던 돈을 돌려받지 못하거나 \n활동제한 등의 조치가 내려질 수 있습니다. \n\n그래도 신고하시겠습니까?" />
 
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:text="허위로 신고했음이 드러났을 경우 입금했던 돈을 돌려받지 못할 수도 있습니다. 신고하기로 넘어갈 경우 블라블라" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,14 +49,15 @@
 
         <Button
             android:id="@+id/btn_ok"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="30dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="구매확정하기" />
+            android:text="구매확정"
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/btn_report"
@@ -58,10 +65,9 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@android:color/white"
-            android:textSize="9dp"
-            android:text="신고하기" />
+            android:layout_marginTop="7dp"
+            android:background="@android:color/transparent"
+            android:text="신고" />
     </LinearLayout>
 
 </LinearLayout>

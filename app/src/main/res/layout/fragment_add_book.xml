@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:layout_marginBottom="56dp"
+    android:paddingBottom="113dp"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="10dp"
         android:inputType="textPersonName"
         android:gravity="center"
         android:background="@null"
@@ -19,23 +20,31 @@
         android:textSize="20sp"
         android:text="어떤 책을 판매하실 건가요?" />
 
-    <Button
-        android:id="@+id/btn_barcord"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="바코드 인식"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        />
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginHorizontal="23dp">
 
-    <Button
-        android:id="@+id/btn_manual"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="직접입력" />
+        <Button
+            android:id="@+id/btn_barcord"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/black"
+            android:text="바코드 인식"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/btn_manual"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:textColor="@android:color/black"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="직접입력" />
+
+    </LinearLayout>
 
 </LinearLayout>
