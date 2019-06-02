@@ -202,7 +202,7 @@ public class MyPageFragment extends Fragment {
                     linearLayout.removeAllViews();
                     String rate = jsonObject.getString(TAG_RATE);
                     Log.i(TAG,rate + "rate입니다");
-                    tv_rate.setText("  (" + rate + ")");
+//                    tv_rate.setText("  (" + rate + ")");
 
                     float ratef = Float.valueOf(rate);
                     ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -225,8 +225,6 @@ public class MyPageFragment extends Fragment {
                         linearLayout.addView(iv);
 
                     }
-
-
 
                 }
                 else {

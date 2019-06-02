@@ -253,7 +253,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle1.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                         text_school1.setText(school_element);
-                        text_school1.setGravity(Gravity.CENTER);
+//                        text_school1.setGravity(Gravity.CENTER);
 
                         linear_element1 = new LinearLayout(BookSettingActivity.this);
                         linear_element1.addView(text_school1);
@@ -281,7 +281,6 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle2.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
                         text_school2.setText(school_element);
-                        text_school2.setGravity(Gravity.CENTER);
 
                         linear_element2 = new LinearLayout(BookSettingActivity.this);
                         linear_element2.addView(text_school2);
