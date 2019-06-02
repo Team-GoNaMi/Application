@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="13dp"
             android:orientation="vertical"
             android:paddingVertical="13dp"
             android:paddingLeft="20dp">
@@ -55,15 +55,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <!--<RadioButton-->
-                <!--android:id="@+id/checkSchool1"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text="RadioButton" />-->
             </RadioGroup>
+
         </LinearLayout>
+
     </LinearLayout>
 
     <Button

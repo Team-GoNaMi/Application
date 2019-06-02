@@ -163,7 +163,7 @@ public class BookSettingActivity extends AppCompatActivity{
         photoPath = new ArrayList<String>();
 
         registBook = (BookInformation) this.getIntent().getSerializableExtra("registBook");
-        Log.i("get","getregistBook"+ registBook.getFirstBookImage().toString());
+        Log.i("get","getregistBook"+ registBook.getFirstBookImage());
 
     }
 
@@ -183,8 +183,7 @@ public class BookSettingActivity extends AppCompatActivity{
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
-                BookSettingActivity.this.startActivity(intent);
+
                 check_box_value();
                 selling_price = ed_price.getText().toString();
                 memo = ed_memo.getText().toString();
@@ -227,6 +226,9 @@ public class BookSettingActivity extends AppCompatActivity{
 
                 Log.i(TAG, "Added book in db");
 
+                Intent intent = new Intent(BookSettingActivity.this, MainActivity.class);
+                BookSettingActivity.this.startActivity(intent);
+
             }
         });
 
@@ -240,10 +242,11 @@ public class BookSettingActivity extends AppCompatActivity{
                     if(empty1 == true){
                         text_school1 = new TextView(BookSettingActivity.this);
                         btn_cancle1 = new ImageButton(BookSettingActivity.this);
+                        btn_cancle1.setPadding(20, 0, 0, 0);
 
                         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
 
-                        btn_cancle1.setImageResource(android.R.drawable.ic_delete);
+                        btn_cancle1.setImageResource(R.drawable.ic_delete);
                         btn_cancle1.setBackgroundColor(Color.WHITE);
                         btn_cancle1.setLayoutParams(lp);
 
@@ -265,10 +268,11 @@ public class BookSettingActivity extends AppCompatActivity{
                     else if(empty1 == false && empty2 == true){
                         text_school2 = new TextView(BookSettingActivity.this);
                         btn_cancle2 = new ImageButton(BookSettingActivity.this);
+                        btn_cancle2.setPadding(20, 0, 0, 0);
 
                         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
 
-                        btn_cancle2.setImageResource(android.R.drawable.ic_delete);
+                        btn_cancle2.setImageResource(R.drawable.ic_delete);
                         btn_cancle2.setBackgroundColor(Color.WHITE);
                         btn_cancle2.setLayoutParams(lp);
 
@@ -356,7 +360,8 @@ public class BookSettingActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
                 if(photoFile!=null){
-
+                    Log.i(TAG, "*****" + photoFile.toString());
+                    Log.i(TAG, "****" + getPackageName());
                     photoURI = FileProvider.getUriForFile(this,getPackageName(),photoFile);
                     intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(intent, FROM_CAMERA);
@@ -399,6 +404,7 @@ public class BookSettingActivity extends AppCompatActivity{
         Toast.makeText(this,"사진이 저장되었습니다",Toast.LENGTH_SHORT).show();
 
     }
+
     // Bitmap 을 저장하는 메소드
     private void saveCropImage(Bitmap bitmap, String filePath) {
         File copyFile = new File(filePath);
@@ -576,8 +582,6 @@ public class BookSettingActivity extends AppCompatActivity{
     }
 
     private class InsertBookData extends AsyncTask<String, Void, String> {
-
-
 
         @Override
         protected void onPostExecute(String result) {

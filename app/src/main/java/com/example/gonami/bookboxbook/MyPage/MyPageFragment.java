@@ -186,14 +186,16 @@ public class MyPageFragment extends Fragment {
 
         private void showResult() {
             String TAG_RATE = "rate";
-            String rate;
+            String TAG_SUCCESS = "success";
 
             try {
                 JSONObject jsonObject = new JSONObject(userJsonString);
-                rate = jsonObject.getString(TAG_RATE);
-                Log.i(TAG,rate + "rate입니다");
-                if (!rate.equals("null")) {
-                    tv_rate.setText(String.valueOf(rate));
+                Boolean success = jsonObject.getBoolean(TAG_SUCCESS);
+
+                if (success) {
+                    String rate = jsonObject.getString(TAG_RATE);
+                    Log.i(TAG,rate + "rate입니다");
+                    tv_rate.setText(rate);
                 }
                 else {
                     tv_rate.setText("별점이 아직 없습니다.");

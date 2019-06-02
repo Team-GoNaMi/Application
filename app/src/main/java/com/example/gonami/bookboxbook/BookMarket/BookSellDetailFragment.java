@@ -239,43 +239,33 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
         mainActivity.setonBackPressedListener(null);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Fragment fragment = SearchFragment.newInstance();
 
         switch (from_fragment) {
             case "Search":
-                SearchFragment searchFragment = SearchFragment.newInstance();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, searchFragment)
-                        .commit();
-
-                MainActivity.activeFragment = searchFragment;
+                fragment = SearchFragment.newInstance();
                 break;
+
             case "BookMark" :
-                BookMarkFragment bookMarkFragment = BookMarkFragment.newInstance();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, bookMarkFragment)
-                        .commit();
-
-                MainActivity.activeFragment = bookMarkFragment;
+                fragment = BookMarkFragment.newInstance();
                 break;
+
             case "Sell" :
-                TransactionListFragment transactionListFragment1 = TransactionListFragment.newInstance();
-                SellListFragment sellListFragment = SellListFragment.newInstance();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, sellListFragment)
-                        .commit();
-
-                MainActivity.activeFragment = transactionListFragment1;
+                fragment = TransactionListFragment.newInstance();
                 break;
-            case "Buy" :
-                TransactionListFragment transactionListFragment2 = TransactionListFragment.newInstance();
-                BuyListFragment buyListFragment = BuyListFragment.newInstance();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_layout, buyListFragment)
-                        .commit();
 
-                MainActivity.activeFragment = transactionListFragment2;
+            case "Buy" :
+                fragment = TransactionListFragment.newInstance();
                 break;
         }
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .detach(fragment)
+                .attach(fragment)
+                .commit();
+
+        MainActivity.activeFragment = fragment;
     }
 
     @Override
@@ -419,7 +409,7 @@ public class BookSellDetailFragment extends Fragment implements MainActivity.OnB
 
                     Log.i(TAG,rating + "rate입니다");
                     if (!rating.equals("null")) {
-                        tvRating.setText(String.valueOf(rating));
+                        tvRating.setText(rating);
                     }
                     else {
                         tvRating.setText("별점이 아직 없습니다.");

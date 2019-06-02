@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -81,9 +82,13 @@ public class BuyListFragment extends Fragment {
         GetBuyBookData task = new GetBuyBookData();
         task.execute("https://" + IP_ADDRESS + "/get-book-trade.php", buyer_id);
 
-        buyListView = (ListView)thisView.findViewById(R.id.lv_buy_list);
+        buyListView = thisView.findViewById(R.id.lv_buy_list);
         buyListAdapter = new BuyListViewAdapter(buyList, tradeList);
         buyListView.setAdapter(buyListAdapter);
+
+        if (tradeList.size()==0) {
+            Toast.makeText(getContext(), "구매한 책이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class GetBuyBookData extends AsyncTask<String, Void, String> {
@@ -201,9 +206,9 @@ public class BuyListFragment extends Fragment {
                         Log.i(TAG, tradeList.get(i).getBookRegister_id() + tradeList.get(i).getStatus());
                     }
                 }
-                else {
-                    Toast.makeText(getContext(), "구매한 책이 없습니다.", Toast.LENGTH_SHORT).show();
-                }
+//                else {
+//                    Toast.makeText(getContext(), "구매한 책이 없습니다.", Toast.LENGTH_SHORT).show();
+//                }
 
                 // 어뎁터 생성
                 buyListAdapter = new BuyListViewAdapter(buyList, tradeList);

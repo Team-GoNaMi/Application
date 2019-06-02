@@ -9,10 +9,9 @@
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="30"
-        android:src="@mipmap/logo_image"/>
+        android:src="@mipmap/logo_image_test"/>
 
     <TextView
         android:id="@+id/tv_logo"

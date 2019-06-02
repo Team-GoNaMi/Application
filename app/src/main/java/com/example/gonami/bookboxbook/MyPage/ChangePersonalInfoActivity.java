@@ -95,32 +95,19 @@ public class ChangePersonalInfoActivity extends AppCompatActivity {
 
                 String id = ed_user_id.getText().toString();
 
-//                String pw = ed_user_password.getText().toString();
-//                String pwCheck = ed_user_password_check.getText().toString();
                 String phonenum = ed_user_phone_num.getText().toString();
                 String school = ed_user_school.getText().toString();
 
-//                if (pw.length() == 0) {
-//                    Toast.makeText(ChangePersonalInfoActivity.this, "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
-//                    ed_user_password.requestFocus();
-//                    return;
-//                }
-//
-//                if (pwCheck.length() == 0 || !pw.equals(pwCheck)) {
-//                    Toast.makeText(ChangePersonalInfoActivity.this, "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
-//                    ed_user_password_check.requestFocus();
-//                    return;
-//                }
-//                if (!pw.equals(pwCheck)) {
-//                    Toast.makeText(ChangePersonalInfoActivity.this, "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
-//                    ed_user_password_check.requestFocus();
-//                    return;
-//                }
 
 
-
-                if (phonenum.length() == 0) {   // TODO 11자리가 아니면이라고 고쳐야 함
+                if (phonenum.length() == 0) {
                     Toast.makeText(ChangePersonalInfoActivity.this, "전화번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    ed_user_phone_num.requestFocus();
+                    return;
+                }
+
+                if (phonenum.length() != 11) {
+                    Toast.makeText(ChangePersonalInfoActivity.this, "전화번호를 다시 입력하세요!", Toast.LENGTH_SHORT).show();
                     ed_user_phone_num.requestFocus();
                     return;
                 }

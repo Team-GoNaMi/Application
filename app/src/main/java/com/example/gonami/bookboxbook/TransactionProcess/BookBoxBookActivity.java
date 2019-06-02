@@ -1,10 +1,12 @@
 package com.example.gonami.bookboxbook.TransactionProcess;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
+import com.example.gonami.bookboxbook.TransactionList.TransactionListFragment;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -156,6 +160,10 @@ public class BookBoxBookActivity extends AppCompatActivity {
 
                 BookBoxBookActivity.InsertBookBoxData task = new BookBoxBookActivity.InsertBookBoxData();
                 task.execute("https://" + IP_ADDRESS + "/reserve-bookbox.php", bb_location, stringDate, book_register_id);
+
+                // 새로고침
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                TransactionListFragment fragment = TransactionListFragment.newInstance();
 
                 finish();
             }

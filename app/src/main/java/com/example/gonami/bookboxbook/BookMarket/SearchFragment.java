@@ -117,7 +117,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //TODO 디비에서 검색한다
                 searchWord = etSearchBook.getText().toString();
                 GetRegisterBookData task = new GetRegisterBookData();
                 task.execute("https://" + IP_ADDRESS + "/get-book-search.php", searchWord, school);

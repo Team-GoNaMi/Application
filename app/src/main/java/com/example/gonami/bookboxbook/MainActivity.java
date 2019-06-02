@@ -1,5 +1,6 @@
 package com.example.gonami.bookboxbook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, searchFragment, "Search")
+                            .detach(searchFragment)
+                            .attach(searchFragment)
                             .commit();
                     activeFragment = searchFragment;
                     return true;
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, bookMarkFragment, "BookMark")
+                            .detach(bookMarkFragment)
+                            .detach(bookMarkFragment)
                             .commit();
                     activeFragment = bookMarkFragment;
                     return true;
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, addFragment, "Add")
+                            .detach(addFragment)
+                            .attach(addFragment)
                             .commit();
                     activeFragment = addFragment;
                     return true;
@@ -80,6 +87,8 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, transactionListFragment, "TransactionList")
+                            .detach(transactionListFragment)
+                            .attach(transactionListFragment)
                             .commit();
                     activeFragment = transactionListFragment;
                     return true;
@@ -87,6 +96,8 @@ public class MainActivity extends AppCompatActivity  {
                     fragmentManager.beginTransaction()
                             .addToBackStack(null)
                             .replace(R.id.frame_layout, myPageFragment, "MyPage")
+                            .detach(myPageFragment)
+                            .attach(myPageFragment)
                             .commit();
                     activeFragment = myPageFragment;
                     return true;
@@ -99,9 +110,6 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //추가한 라인
-//        FirebaseMessaging.getInstance().subscribeToTopic("news");
-//        FirebaseInstanceId.getInstance().getToken();
         token = FirebaseInstanceId.getInstance().getToken();
         Log.i(TAG, "!!!!!!!!!!1" + token);
 
@@ -133,6 +141,13 @@ public class MainActivity extends AppCompatActivity  {
                 .commit();
         fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         activeFragment = searchFragment;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
     }
 
     public interface OnBackPressedListener {
