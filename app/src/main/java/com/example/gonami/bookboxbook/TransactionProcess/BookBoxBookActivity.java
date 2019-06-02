@@ -164,6 +164,9 @@ public class BookBoxBookActivity extends AppCompatActivity {
                 // 새로고침
 //                FragmentManager fragmentManager = getSupportFragmentManager();
 //                TransactionListFragment fragment = TransactionListFragment.newInstance();
+                Intent intent = new Intent(BookBoxBookActivity.this, MainActivity.class);
+                intent.putExtra("from", "TransactionList");
+                BookBoxBookActivity.this.startActivity(intent);
 
                 finish();
             }

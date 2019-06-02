@@ -244,7 +244,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle1 = new ImageButton(BookSettingActivity.this);
                         btn_cancle1.setPadding(20, 0, 0, 0);
 
-                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(70, 50);
 
                         btn_cancle1.setImageResource(R.drawable.ic_delete);
                         btn_cancle1.setBackgroundColor(Color.WHITE);
@@ -270,7 +270,7 @@ public class BookSettingActivity extends AppCompatActivity{
                         btn_cancle2 = new ImageButton(BookSettingActivity.this);
                         btn_cancle2.setPadding(20, 0, 0, 0);
 
-                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(50, 50);
+                        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(70, 50);
 
                         btn_cancle2.setImageResource(R.drawable.ic_delete);
                         btn_cancle2.setBackgroundColor(Color.WHITE);

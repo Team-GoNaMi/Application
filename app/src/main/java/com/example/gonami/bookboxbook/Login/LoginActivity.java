@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 signupIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                LoginActivity.this.startActivityForResult(signupIntent, 1000);
+                startActivityForResult(signupIntent, 1000);
 //                LoginActivity.this.startActivity(signupIntent);
             }
         });

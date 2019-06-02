@@ -106,8 +106,12 @@ public class MainActivity extends AppCompatActivity  {
 
         setContentView(R.layout.activity_main);
 
-        Intent userInfoIntent = new Intent(this.getIntent());
-        String user_id = userInfoIntent.getStringExtra("id");
+//        Intent userInfoIntent = new Intent(this.getIntent());
+//        String user_id = userInfoIntent.getStringExtra("id");
+        Intent trintent = new Intent(this.getIntent());
+        String fromFragment = "Search";
+        if (this.getIntent().hasExtra("from"))
+            fromFragment = trintent.getStringExtra("from");
 
         searchFragment = SearchFragment.newInstance();
         bookMarkFragment = BookMarkFragment.newInstance();
@@ -120,17 +124,28 @@ public class MainActivity extends AppCompatActivity  {
 
         fragmentManager = getSupportFragmentManager();
 
-        setFragmentManager();
+        setFragmentManager(fromFragment);
 
     }
 
-    private void setFragmentManager() {
+    private void setFragmentManager(String fragmentName) {
+        Fragment fragment;
+
+        if (fragmentName.equals("TransactionList")) {
+            fragment = TransactionListFragment.newInstance();
+        }
+        else {
+            fragment = SearchFragment.newInstance();
+        }
+
         fragmentManager.beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.frame_layout, searchFragment, "Search")
+                .replace(R.id.frame_layout, fragment, fragmentName)
+                .detach(fragment)
+                .attach(fragment)
                 .commit();
         fragmentManager.beginTransaction().setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        activeFragment = searchFragment;
+        activeFragment = fragment;
     }
 
     @Override
