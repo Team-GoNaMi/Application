@@ -17,8 +17,10 @@ import android.webkit.WebView;
 
 
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 import com.example.gonami.bookboxbook.TransactionList.BuyListFragment;
+import com.example.gonami.bookboxbook.TransactionList.BuyListViewAdapter;
 import com.example.gonami.bookboxbook.TransactionList.SellListFragment;
 
 import java.io.BufferedReader;
@@ -102,6 +104,18 @@ public class TransactionActivity extends AppCompatActivity {
             Log.i(TAG,"2: "+redirectURL);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(TransactionActivity.this, BuyListViewAdapter.class);
+        //intent.putExtra("from", "TransactionList");
+        TransactionActivity.this.startActivity(intent);
+
+
+    }
+
     private class AndroidBridge {
 
         @JavascriptInterface

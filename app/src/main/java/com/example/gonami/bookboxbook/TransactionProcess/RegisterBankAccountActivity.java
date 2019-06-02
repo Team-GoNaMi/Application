@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.DataModel.SaveSharedPreference;
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -81,7 +82,9 @@ public class RegisterBankAccountActivity extends AppCompatActivity {
                 //TODO 예금주 일치?
                 RegisterBankAccountActivity.InsertAccountData task = new RegisterBankAccountActivity.InsertAccountData();
                 task.execute("https://" + IP_ADDRESS + "/insert-account.php", bankInfo, bankAccountNum, book_register_id);
-
+                Intent intent = new Intent(RegisterBankAccountActivity.this, MainActivity.class);
+                intent.putExtra("from", "TransactionList");
+                RegisterBankAccountActivity.this.startActivity(intent);
 //                Intent Intent = new Intent(RegisterBankAccountActivity.this, DepositActivity.class);
 //                //회원 아이디 넘겨야할까?
 //                // Intent.putExtra("registBook", registBook);

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.gonami.bookboxbook.AddBook.AddFragment;
 import com.example.gonami.bookboxbook.BookMark.BookMarkFragment;
+import com.example.gonami.bookboxbook.BookMarket.BookSellDetailFragment;
 import com.example.gonami.bookboxbook.BookMarket.SearchFragment;
 import com.example.gonami.bookboxbook.FCM.MyFirebaseInstanceIDService;
 import com.example.gonami.bookboxbook.MyPage.MyPageFragment;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity  {
     private AddFragment addFragment;
     private TransactionListFragment transactionListFragment;
     private MyPageFragment myPageFragment;
+    private BookSellDetailFragment bookSellDetailFragment;
 
     private BottomNavigationView bottomNavigationView;
     public static Fragment activeFragment;

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -58,6 +59,9 @@ public class ReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 InsertValue task = new InsertValue();
                 task.execute("https://" + IP_ADDRESS + "/insert-report.php", register_id);
+                Intent intent = new Intent(ReportActivity.this, MainActivity.class);
+                intent.putExtra("from", "TransactionList");
+                ReportActivity.this.startActivity(intent);
                 finish();
             }
         });

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
+import com.example.gonami.bookboxbook.MainActivity;
 import com.example.gonami.bookboxbook.R;
 
 import java.io.BufferedReader;
@@ -59,7 +60,9 @@ public class RateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RateActivity.InsertRateData task = new RateActivity.InsertRateData();
                 task.execute("https://" + IP_ADDRESS + "/insert-rate.php", String.valueOf(rate), register_id, seller_id);
-
+                Intent intent = new Intent(RateActivity.this, MainActivity.class);
+                intent.putExtra("from", "TransactionList");
+                RateActivity.this.startActivity(intent);
                 finish();
             }
         });
